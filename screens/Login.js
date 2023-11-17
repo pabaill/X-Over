@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { TextInput } from "react-native";
 import { View, Pressable, Text } from "react-native";
+import { StyleSheet } from "react-native-web";
 
 import {auth} from './../firebase';
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
@@ -37,3 +38,9 @@ export default function Login() {
       </View>
     );
   }
+
+// const styles = StyleSheet.create({
+//     baseText: {
+//         fontFamily: "Kanit"
+//     }
+// })
