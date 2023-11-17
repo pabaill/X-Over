@@ -33,11 +33,11 @@ export default function App() {
   }, [])
 
   return (
-    <View>
+    <NavigationContainer>
       {(user === null) ? (
       <Login />
       ) :
-        (<NavigationContainer>
+        (
           <Tab.Navigator>
             <Tab.Screen name="Home" component={Home} options={{
                 tabBarLabel: "Home",
@@ -68,8 +68,8 @@ export default function App() {
               }}
             />
           </Tab.Navigator>
-      </NavigationContainer>)}
-    </View>
+      )}
+    </NavigationContainer>
   );
 }
 
