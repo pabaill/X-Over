@@ -6,16 +6,16 @@ const styles = {
     flex: 4,
     marginHorizontal: "auto",
     width: 400,
-    backgroundColor: "red"
+    backgroundColor: "#fff"
   },
   row: {
     flexDirection: "row"
   },
   "1col": {
-    backgroundColor: "lightblue",
+    backgroundColor: "#264d73",
     borderColor: "#fff",
     borderWidth: 1,
-    flex: 1
+    flex: 2
   },
   "2col": {
     backgroundColor: "green",
@@ -27,7 +27,7 @@ const styles = {
     backgroundColor: "orange",
     borderColor: "#fff",
     borderWidth: 1,
-    flex: 3
+    flex: 2
   },
   "4col": {
     flex: 4
@@ -49,10 +49,10 @@ export default function Profile() {
   return (
     <View style={styles.app}>
       <Row>
-        <Col numRows={2}>
+        <Col numRows={1}>
           <Text>First column</Text>
         </Col>
-        <Col numRows={2}>
+        <Col numRows={1}>
           <Text>Second column</Text>
         </Col>
       </Row>
@@ -60,7 +60,7 @@ export default function Profile() {
         <Col numRows={1}>
           <Text>First column</Text>
         </Col>
-        <Col numRows={3}>
+        <Col numRows={1}>
           <Text>Second Column</Text>
         </Col>
       </Row>
