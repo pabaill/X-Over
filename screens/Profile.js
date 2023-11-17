@@ -12,7 +12,7 @@ const styles = {
     flexDirection: "row"
   },
   "1col": {
-    backgroundColor: "lightblut",
+    backgroundColor: "lightblue",
     borderColor: "#fff",
     borderWidth: 1,
     flex: 1
@@ -34,13 +34,13 @@ const styles = {
   }
 };
 
+// RN Code
 const Col = ({ numRows, children }) => {
   return (
-    <View style={styles['${numRows}col']}>{children}</View>
+    <View style={styles[`${numRows}col`]}>{children}</View>
   )
 }
 
-// RN Code
 const Row = ({ children }) => (
   <View style={styles.row}>{children}</View>
 )
@@ -50,15 +50,15 @@ export default function Profile() {
     <View style={styles.app}>
       <Row>
         <Col numRows={2}>
-          <Text>First Column</Text>
+          <Text>First column</Text>
         </Col>
         <Col numRows={2}>
-          <Text>Second Column</Text>
+          <Text>Second column</Text>
         </Col>
       </Row>
       <Row>
         <Col numRows={1}>
-          <Text>First Column</Text>
+          <Text>First column</Text>
         </Col>
         <Col numRows={3}>
           <Text>Second Column</Text>
