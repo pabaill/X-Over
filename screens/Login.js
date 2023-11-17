@@ -24,7 +24,7 @@ export default function Login() {
     };
 
     return (
-      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text>Welcome to X-Over</Text>
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <TextInput placeholder="Email" value={email} onChangeText={s => setEmail(s)} />
