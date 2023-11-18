@@ -10,6 +10,16 @@ import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from "fireba
 
 import theme from "./../assets/XOverTheme";
 
+const errorToReadable = {
+    "Firebase: Error (auth/email-already-in-use).": "Sorry, that email is already in use. Please log in using that email or create a new account with a different email.",
+    "Firebase: Password should be at least 6 characters (auth/weak-password).": "Passwords should be at least six characters.",
+    "Firebase: Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later. (auth/too-many-requests).": "For your security, access is temporarily disabled due to several failed login attmepts. Please reset your password or try again later.",
+    "Firebase: Error (auth/invalid-email).": "Sorry, that is not a correctly formatted email. Please try again.",
+    "Firebase: Error (auth/missing-password).": "Please enter your password, then press \"Log In\".",
+    "Firebase: Error (auth/invalid-login-credentials).": "Sorry, your password is incorrect. Please try again."
+}
+
+
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -18,14 +28,14 @@ export default function Login() {
         createUserWithEmailAndPassword(auth, email, password).then(userCredentials => {
             const user = userCredentials.user;
             console.log(user.email)
-        }).catch(err => alert(err.message));
+        }).catch(err => alert(errorToReadable[err.message]));
     };
 
     const handleLogIn = () => {
         signInWithEmailAndPassword(auth, email, password).then(userCredentials => {
             const user = userCredentials.user;
             console.log(user.email)
-        }).catch(err => alert(err.message));
+        }).catch(err => alert(errorToReadable[err.message]));
     };
 
     let [fontsLoaded] = useFonts({

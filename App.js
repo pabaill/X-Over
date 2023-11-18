@@ -40,7 +40,8 @@ export default function App() {
         (
           <Tab.Navigator 
           screenOptions={{
-            tabBarActiveTintColor: theme.base_orange, 
+            tabBarActiveTintColor: theme.base_orange,
+            tabBarInactiveTintColor: "#ffffff", 
             tabBarActiveBackgroundColor: theme.bg_blue, 
             tabBarInactiveBackgroundColor: theme.bg_blue,
             header: ({ navigation, route, options, layout }) => {
