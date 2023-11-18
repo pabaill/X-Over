@@ -3,8 +3,8 @@ import Home from './screens/Home';
 import Projects from './screens/Projects';
 import Friends from './screens/Friends';
 import Profile from './screens/Profile';
-import { StyleSheet } from 'react-native';
-import { View, Text } from 'react-native';
+import { StyleSheet, View, Image, Text } from 'react-native';
+import theme from './assets/XOverTheme';
 
 import { FontAwesome } from '@expo/vector-icons'; 
 import { NavigationContainer } from '@react-navigation/native';
@@ -38,7 +38,20 @@ export default function App() {
       <Login />
       ) :
         (
-          <Tab.Navigator>
+          <Tab.Navigator 
+          screenOptions={{
+            tabBarActiveTintColor: theme.base_orange, 
+            tabBarActiveBackgroundColor: theme.bg_blue, 
+            tabBarInactiveBackgroundColor: theme.bg_blue,
+            header: ({ navigation, route, options, layout }) => {
+              // const title = getHeaderTitle(options, route.name);
+            
+              return (<></>)
+            },
+            headerStyle: {
+              height: 80
+            }
+            }}>
             <Tab.Screen name="Home" component={Home} options={{
                 tabBarLabel: "Home",
                 tabBarIcon: ({ color, size }) => (
