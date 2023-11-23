@@ -16,6 +16,9 @@ import {auth} from './firebase';
 import { useEffect, useState } from 'react';
 import Login from './screens/Login';
 
+import { useFonts, Kanit_400Regular } from "@expo-google-fonts/kanit";
+
+
 export default function App() {
 
   const [user, setUser] = useState(null);
@@ -30,7 +33,17 @@ export default function App() {
       console.log(user)
       return unsubscribe;
     })
-  }, [])
+  }, []);
+
+  const [selectedIndex, changeIndex] = useState(0);
+
+  let [fontsLoaded] = useFonts({
+    Kanit_400Regular,
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <NavigationContainer>
@@ -50,31 +63,31 @@ export default function App() {
               return (<></>)
             },
             headerStyle: {
-              height: 80
+              height: 80,
             }
             }}>
-            <Tab.Screen name="Home" component={Home} options={{
+            <Tab.Screen name="Home" component={Home} tabBarLabelStyle={{fontFamily: "Kanit_400Regular"}} options={{
                 tabBarLabel: "Home",
                 tabBarIcon: ({ color, size }) => (
                   <FontAwesome name="home" color={color} size={size} />
                 ),
               }} 
             />
-            <Tab.Screen name="Projects" component={Projects} options={{
+            <Tab.Screen name="Projects" component={Projects} tabBarLabelStyle={{fontFamily: "Kanit_400Regular"}} options={{
                 tabBarLabel: "Projects",
                 tabBarIcon: ({ color, size }) => (
                   <FontAwesome name="search" color={color} size={size} />
                 ),
               }} 
             />
-            <Tab.Screen name="Friends" component={Friends} options={{
+            <Tab.Screen name="Friends" component={Friends} tabBarLabelStyle={{fontFamily: "Kanit_400Regular"}} options={{
                 tabBarLabel: "Friends",
                 tabBarIcon: ({ color, size }) => (
                   <FontAwesome name="users" color={color} size={size} />
                 ),
               }}
             />
-            <Tab.Screen name="Profile" component={Profile} options={{
+            <Tab.Screen name="Profile" component={Profile} tabBarLabelStyle={{fontFamily: "Kanit_400Regular"}} options={{
                 tabBarLabel: "Profile",
                 tabBarIcon: ({ color, size }) => (
                   <FontAwesome name="user" color={color} size={size} />
