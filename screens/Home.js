@@ -6,6 +6,8 @@ import { useState } from 'react';
 
 import { useFonts, Kanit_400Regular } from "@expo-google-fonts/kanit";
 
+import { BlurView } from 'expo-blur';
+
 
 export default function Home() {
 
@@ -20,16 +22,34 @@ export default function Home() {
   }
 
   return (
-    <SegmentedControl
-        style={{marginTop: 40, width: "80%", marginLeft: "10%", marginRight: "10%"}}
-        values={['Recent', 'Pinned']}
-        selectedIndex={selectedIndex}
-        backgroundColor={XOverTheme.bg_blue}
-        tintColor={XOverTheme.base_orange}
-        fontStyle={{fontFamily: "Kanit_400Regular"}}
-        onChange={(event) => {
-          changeIndex(event.nativeEvent.selectedSegmentIndex);
-        }}
-      />
+    <View>
+      <SegmentedControl
+          style={{marginTop: 40, width: "80%", marginLeft: "10%", marginRight: "10%"}}
+          values={['Recent', 'Pinned']}
+          selectedIndex={selectedIndex}
+          backgroundColor={XOverTheme.bg_blue}
+          tintColor={XOverTheme.base_orange}
+          fontStyle={{fontFamily: "Kanit_400Regular"}}
+          onChange={(event) => {
+            changeIndex(event.nativeEvent.selectedSegmentIndex);
+          }}
+        />
+        <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-around", marginTop: 20}}>
+        <BlurView intensity={1} tint='dark' style={[styles.blurred, styles.project_prev]}>
+          <Text style={{textAlign: "center"}}>Left</Text>
+        </BlurView>
+        <View style={[styles.blurred, styles.project_prev]}>
+          <Text style={{textAlign: "center"}}>Middle</Text>
+        </View>
+        <BlurView intensity={1} tint='dark' style={[styles.blurred, styles.project_prev]}>
+          <Text style={{textAlign: "center"}}>Right</Text>
+        </BlurView>
+        </View>
+      </View>
   );
 }
+
+const styles = StyleSheet.create({
+  project_prev: {textAlign: "center"},
+  blurred: {borderStyle: "solid", borderColor: "black", borderWidth: 5, flex: 1, height: 150}
+});
