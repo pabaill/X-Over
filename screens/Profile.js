@@ -11,25 +11,19 @@ const styles = {
   row: {
     flexDirection: "row"
   },
-  "1col": {
-    backgroundColor: "#264d73",
+  "1col": { 
+    backgroundColor: "#264d73", //blue color
     borderColor: "#fff",
     borderWidth: 1,
-    flex: 2
+    flex: 4
   },
   "2col": {
-    backgroundColor: "green",
+    backgroundColor: "#fff",
     borderColor: "#fff",
     borderWidth: 1,
-    flex: 2
+    flex: 1
   },
   "3col": {
-    backgroundColor: "orange",
-    borderColor: "#fff",
-    borderWidth: 1,
-    flex: 2
-  },
-  "4col": {
     flex: 4
   }
 };
@@ -67,5 +61,3 @@ export default function Profile() {
     </View>
   )
 }
-
-// <Text>Welcome to Profile</Text>
