@@ -8,7 +8,25 @@ import { useFonts, Kanit_400Regular, Kanit_700Bold } from "@expo-google-fonts/ka
 
 import { BlurView } from 'expo-blur';
 
+import Animated, {
+  Extrapolate,
+  interpolate,
+  useAnimatedStyle,
+  useSharedValue,
+} from "react-native-reanimated";
 import Carousel from 'react-native-reanimated-carousel';
+
+const PROJ_DATA = [
+  {name: "iPhone 25", updates: [{
+    name: "Bill", text: "Updated Meeting Notes for 11/11", link: "LINK_TO_MEETING_NOTES"
+  }]},
+  {name: "Google Pixel 12", updates: [{
+    name: "John", text: "Updated Meeting Notes for 11/11", link: "LINK_TO_MEETING_NOTES"
+  }]},
+  {name: "Microsoft Surface XL 14", updates: [{
+    name: "Alice", text: "Updated Meeting Notes for 11/11", link: "LINK_TO_MEETING_NOTES"
+  }]}
+]
 
 
 export default function Home() {
@@ -16,6 +34,8 @@ export default function Home() {
   const width = Dimensions.get('window').width;
 
   const [selectedIndex, changeIndex] = useState(0);
+  const [currProject, changeProject] = useState(PROJ_DATA[0])
+  const [progressValue, changeProgressValue] = useState(0)
 
   let [fontsLoaded] = useFonts({
     Kanit_400Regular, Kanit_700Bold
@@ -24,14 +44,6 @@ export default function Home() {
   if (!fontsLoaded) {
     return null;
   }
-
-  _renderItem = ({item, index}) => {
-    return (
-        <View>
-            <Text>{ item.title }</Text>
-        </View>
-    );
-}
 
   return (
     <View style={{padding: 20}}>
@@ -61,12 +73,16 @@ export default function Home() {
             </View> */}
             <Carousel
                 loop
-                width={width}
+                width={width - 40}
                 height={width / 2}
-                autoPlay={true}
-                data={[...new Array(6).keys()]}
-                scrollAnimationDuration={1000}
-                onSnapToItem={(index) => console.log('current index:', index)}
+                autoPlay={false}
+                mode='parallax'
+                modeConfig={{
+                  parallaxScrollingScale: 0.8,
+                  parallaxScrollingOffset: 100,
+                }}
+                data={PROJ_DATA}
+                onSnapToItem={(index) => {changeProject(PROJ_DATA[index]); changeProgressValue(index)}}
                 renderItem={({ index }) => (
                     <View
                         style={{
@@ -75,12 +91,17 @@ export default function Home() {
                             justifyContent: 'center',
                         }}
                     >
-                        <Text style={{ textAlign: 'center', fontSize: 30 }}>
-                            {index}
+                        <Text style={[styles.header, {textAlign: "center"}]}>
+                            {PROJ_DATA[index]?.name}
                         </Text>
                     </View>
                 )}
             />
+            <View style={{flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "space-around", padding: 20}}>
+              {PROJ_DATA.map((val, index) => {
+                return (index === progressValue) ? (<View key={index} style={[styles.pagination, {backgroundColor: XOverTheme.base_orange}]}></View>) : (<View key={index} style={[styles.pagination, {backgroundColor: "transparent"}]}></View>)
+              })}
+            </View>
             <Image style={{width: "auto", height: 40}} source={require('./../assets/X-Over-Drawer.png')} />
             <View style={styles.shadow} >
               <View style={styles.headerWrapper}>
@@ -104,9 +125,10 @@ export default function Home() {
   );
 }
 
+
 const styles = StyleSheet.create({
   project_prev: {textAlign: "center", borderStyle: "solid", borderColor: "black", borderWidth: 5, height: 150, margin: 10},
-  bubbleWrapper: {flex: 1},
+  bubbleWrapper: {marginBottom: 30},
   bubble: {width: "auto", height: 70},
   blurred: { flex: 2 },
   middle: {flex: 3},
@@ -124,5 +146,10 @@ const styles = StyleSheet.create({
     top: -5,
     left: -5
   },
-  shadow: {backgroundColor: "black", width: 145}
+  shadow: {backgroundColor: "black", width: 145},
+  pagination: {
+    width: 10,
+    height: 10,
+    borderRadius: 10
+  }
 });
