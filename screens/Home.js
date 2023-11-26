@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Dimensions, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, ImageBackground, Pressable } from 'react-native';
 
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import XOverTheme from '../assets/XOverTheme';
@@ -7,6 +7,8 @@ import { useState } from 'react';
 import { useFonts, Kanit_400Regular, Kanit_700Bold } from "@expo-google-fonts/kanit";
 
 import { BlurView } from 'expo-blur';
+
+import XOverHeader from '../components/XOverHeader';
 
 import Animated, {
   Extrapolate,
@@ -30,7 +32,7 @@ const PROJ_DATA = [
 ]
 
 
-export default function Home() {
+export default function Home({navigation}) {
 
   const width = Dimensions.get('window').width;
 
@@ -84,11 +86,13 @@ export default function Home() {
                 data={PROJ_DATA}
                 onSnapToItem={(index) => {changeProject(PROJ_DATA[index]); changeProgressValue(index)}}
                 renderItem={({ index }) => (
+                  <Pressable 
+                    style={({pressed}) => [{flex: 1,marginHorizontal: "25%", width: "50%", backgroundColor: pressed ? XOverTheme.base_orange : "transparent"}]}
+                    onPress={() => navigation.jumpTo('Projects', {project: PROJ_DATA[index]})}
+                    >
                     <View
                         style={{
                             flex: 1,
-                            marginHorizontal: "25%",
-                            width: "50%",
                             borderWidth: 1,
                             justifyContent: 'center',
                             alignItems: "center"
@@ -98,6 +102,7 @@ export default function Home() {
                             {PROJ_DATA[index]?.name}
                         </Text>
                     </View>
+                  </Pressable>
                 )}
             />
             <View style={{flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "space-around", padding: 20}}>
@@ -106,11 +111,7 @@ export default function Home() {
               })}
             </View>
             <Image style={{width: "auto", height: 40}} source={require('./../assets/X-Over-Drawer.png')} />
-            <View style={styles.shadow} >
-              <View style={styles.headerWrapper}>
-                <Text style={styles.header}>Updates: </Text>
-              </View>
-            </View>
+            <XOverHeader text={"Updates: "} />
             <View style={{height: 1000, marginTop: 20}}>
               <FlatList
                 data={currProject.updates}
