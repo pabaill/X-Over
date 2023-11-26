@@ -53,7 +53,8 @@ export default function App() {
         <Login />
         ) :
           (
-            <Tab.Navigator 
+            <Tab.Navigator
+            backBehavior='history'
             screenOptions={{
               tabBarActiveTintColor: theme.base_orange,
               tabBarInactiveTintColor: "#ffffff", 

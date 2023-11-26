@@ -115,9 +115,10 @@ export default function Home() {
               <FlatList
                 data={currProject.updates}
                 renderItem={({item, index}) => (
-                <View>
-                  <ImageBackground style={styles.bubble} source={require("./../assets/X-Over-Bubble.png")}>
-                    <Text style={{marginLeft: 40, color: "white", fontFamily: "Kanit_400Regular"}}>{item.text}</Text>
+                <View style={{flex: 1, flexDirection: "row"}}>
+                  <Image key={item.name + " profile" + index} style={{flex: 1, height: "100%", width: "auto"}} source={require("./../assets/default_profile.png")} />
+                  <ImageBackground key={item.text + " bubble" + index} style={[styles.bubble, {flex: 4}]} source={require("./../assets/X-Over-Bubble.png")}>
+                    <Text style={{marginLeft: 40, marginTop: 5, color: "white", fontFamily: "Kanit_400Regular"}}>{item.text}</Text>
                   </ImageBackground>
                 </View>
                 )}
