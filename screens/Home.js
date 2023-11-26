@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, ImageBackground } from 'react-native';
 
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import XOverTheme from '../assets/XOverTheme';
@@ -15,16 +15,17 @@ import Animated, {
   useSharedValue,
 } from "react-native-reanimated";
 import Carousel from 'react-native-reanimated-carousel';
+import { FlatList, ScrollView } from 'react-native-gesture-handler';
 
 const PROJ_DATA = [
   {name: "iPhone 25", updates: [{
     name: "Bill", text: "Updated Meeting Notes for 11/11", link: "LINK_TO_MEETING_NOTES"
   }]},
   {name: "Google Pixel 12", updates: [{
-    name: "John", text: "Updated Meeting Notes for 11/11", link: "LINK_TO_MEETING_NOTES"
+    name: "John", text: "Updated Meeting Notes for 11/12", link: "LINK_TO_MEETING_NOTES"
   }]},
   {name: "Microsoft Surface XL 14", updates: [{
-    name: "Alice", text: "Updated Meeting Notes for 11/11", link: "LINK_TO_MEETING_NOTES"
+    name: "Alice", text: "Updated Meeting Notes for 11/13", link: "LINK_TO_MEETING_NOTES"
   }]}
 ]
 
@@ -72,14 +73,13 @@ export default function Home() {
               </BlurView>
             </View> */}
             <Carousel
-                loop
                 width={width - 40}
                 height={width / 2}
                 autoPlay={false}
                 mode='parallax'
                 modeConfig={{
                   parallaxScrollingScale: 0.8,
-                  parallaxScrollingOffset: 100,
+                  parallaxScrollingOffset: 200,
                 }}
                 data={PROJ_DATA}
                 onSnapToItem={(index) => {changeProject(PROJ_DATA[index]); changeProgressValue(index)}}
@@ -87,8 +87,11 @@ export default function Home() {
                     <View
                         style={{
                             flex: 1,
+                            marginHorizontal: "25%",
+                            width: "50%",
                             borderWidth: 1,
                             justifyContent: 'center',
+                            alignItems: "center"
                         }}
                     >
                         <Text style={[styles.header, {textAlign: "center"}]}>
@@ -108,16 +111,18 @@ export default function Home() {
                 <Text style={styles.header}>Updates: </Text>
               </View>
             </View>
-            <View style={{flexDirection: "column", marginTop: 10, height: 400}}>
-              <View style={styles.bubbleWrapper}>
-                <Image style={styles.bubble} source={require("./../assets/X-Over-Bubble.png")} />
-              </View>
-              <View style={styles.bubbleWrapper}>
-                <Image style={styles.bubble} source={require("./../assets/X-Over-Bubble.png")} />
-              </View>
-              <View style={styles.bubbleWrapper}>
-                <Image style={styles.bubble} source={require("./../assets/X-Over-Bubble.png")} />
-              </View>
+            <View style={{height: 1000, marginTop: 20}}>
+              <FlatList
+                data={currProject.updates}
+                renderItem={({item, index}) => (
+                <View>
+                  <ImageBackground style={styles.bubble} source={require("./../assets/X-Over-Bubble.png")}>
+                    <Text style={{marginLeft: 40, color: "white", fontFamily: "Kanit_400Regular"}}>{item.text}</Text>
+                  </ImageBackground>
+                </View>
+                )}
+                keyExtractor={(item) => {progressValue + item.text + item.link}}
+              />
             </View>
           </View>
         ) : (<></>)}
@@ -150,6 +155,8 @@ const styles = StyleSheet.create({
   pagination: {
     width: 10,
     height: 10,
-    borderRadius: 10
+    borderRadius: 10,
+    borderColor: XOverTheme.bg_blue,
+    borderWidth: 1
   }
 });
