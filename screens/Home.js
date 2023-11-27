@@ -19,17 +19,7 @@ import Animated, {
 import Carousel from 'react-native-reanimated-carousel';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 
-const PROJ_DATA = [
-  {name: "iPhone 25", updates: [{
-    name: "Bill", text: "Updated Meeting Notes for 11/11", link: "LINK_TO_MEETING_NOTES"
-  }]},
-  {name: "Google Pixel 12", updates: [{
-    name: "John", text: "Updated Meeting Notes for 11/12", link: "LINK_TO_MEETING_NOTES"
-  }]},
-  {name: "Microsoft Surface XL 14", updates: [{
-    name: "Alice", text: "Updated Meeting Notes for 11/13", link: "LINK_TO_MEETING_NOTES"
-  }]}
-]
+import PROJ_DATA from './../assets/mock_data';
 
 
 export default function Home({navigation}) {
@@ -89,6 +79,7 @@ export default function Home({navigation}) {
                   <Pressable 
                     style={({pressed}) => [{flex: 1,marginHorizontal: "25%", width: "50%", backgroundColor: pressed ? XOverTheme.base_orange : "transparent"}]}
                     onPress={() => navigation.jumpTo('Projects', {project: PROJ_DATA[index]})}
+                    key={PROJ_DATA[index].name + index}
                     >
                     <View
                         style={{
