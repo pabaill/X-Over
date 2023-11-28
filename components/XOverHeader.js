@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { useFonts, Kanit_400Regular, Kanit_700Bold } from "@expo-google-fonts/kanit";
 import XOverTheme from "../assets/XOverTheme";
 
-export default function XOverHeader({text, wide}) {
+export default function XOverHeader({text, wide, containerStyles, textStyles}) {
     let [fontsLoaded] = useFonts({
         Kanit_400Regular, Kanit_700Bold
       });
@@ -11,9 +11,9 @@ export default function XOverHeader({text, wide}) {
       if (!fontsLoaded) {
         return null;
       }
-    return (<View style={[styles.shadow, {width: wide ? "100%" : "auto"}]} >
+    return (<View style={[styles.shadow, {width: wide ? "100%" : "auto"}, containerStyles]} >
                 <View style={styles.headerWrapper}>
-                <Text numberOfLines={2} style={styles.header}>{text}</Text>
+                <Text numberOfLines={2} style={[styles.header, textStyles]}>{text}</Text>
                 </View>
             </View>)
 }

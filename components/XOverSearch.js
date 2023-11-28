@@ -30,6 +30,7 @@ export default function XOverSearch ({clicked, searchPhrase, setSearchPhrase, se
         <TextInput
           style={styles.input}
           placeholder="Search"
+          placeholderTextColor="white"
           value={searchPhrase}
           onChangeText={setSearchPhrase}
           onFocus={() => {
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: "row",
     width: "95%",
-    backgroundColor: "#d9dbda",
+    backgroundColor: XOverTheme.bg_blue,
     borderRadius: 15,
     alignItems: "center",
   },
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: "row",
     width: "95%",
-    backgroundColor: "#d9dbda",
+    backgroundColor: XOverTheme.bg_blue,
     borderRadius: 15,
     alignItems: "center",
     justifyContent: "space-evenly",
@@ -81,5 +82,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 10,
     width: "90%",
+    color: "white"
   },
 });

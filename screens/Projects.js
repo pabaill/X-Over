@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View, Image } from 'react-native';
+import { Pressable, StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import { useEffect, useState } from 'react';
 import { useFonts } from 'expo-font';
 import { Kanit_700Bold, Kanit_400Regular } from '@expo-google-fonts/kanit';
@@ -59,8 +59,19 @@ export default function Projects({navigation, route}) {
           </View>
         </View>
       <Image style={{width: "auto", height: 40, marginTop: 20}} source={require('./../assets/X-Over-Drawer.png')} />
-      <View style={{flex: 3}}>
-        <Text>Placeholder Placeholder Placeholder</Text>
+      <View style={{flex: 4}}>
+      <View style={{height: "25%"}}>
+        <XOverHeader textStyles={styles.subheaders} wide={false} text={"Team"} />
+      </View>
+      <View style={{height: "25%"}}>
+        <XOverHeader textStyles={styles.subheaders} wide={false} text={"Description"} />
+      </View>
+      <View style={{height: "25%"}}>
+        <XOverHeader textStyles={styles.subheaders} wide={false} text={"Recent Updates"} />
+      </View>
+      <View styles={{height: "25%", flex: 1, alignItems: "center", justifyContent: "center"}}>
+        <XOverButton containerStyles={{alignSelf: "center"}} buttonStyles={{alignSelf: "center"}} text={"View Project Resources"} pressFunc={() => {console.log("view resources")}} />
+      </View>
       </View>
       </View>
     </View>
@@ -79,16 +90,16 @@ export default function Projects({navigation, route}) {
           }}
         />
         {selectedIndex === 0 ? (
-          <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
+          <ScrollView contentContainerStyle={{flex: 1, alignItems: "center", justifyContent: "center"}}>
             <XOverSearch clicked={searchClicked} setClicked={setClicked} searchPhrase={searchPhrase} setSearchPhrase={setSearchPhrase} />
             <View style={{flex: 3}}>
               <XOverHeader wide={true} text={"For You"} />
               <XOverCarousel source={"Projects"} navigation={navigation} changeProgressValue={changeProgressValue} changeProject={changeProject} progressValue={progressValue} />
             </View>
             <View style={{flex: 2, alignItems: "center", justifyContent: "center"}}>
-              <XOverButton pressFunc={() => {console.log("Create X-Over")}} text={"Create Your X-Over"} extraStyles={{width: "auto"}} />
+              <XOverButton pressFunc={() => {console.log("Create X-Over")}} text={"Create Your X-Over"} buttonStyles={{width: "auto"}} />
             </View>
-          </View>
+          </ScrollView>
         ) : (
           <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
             <Text>Project List</Text>
@@ -102,5 +113,8 @@ const styles = StyleSheet.create({
   header: {
     fontFamily: "Kanit_700Bold",
     fontSize: 24
+  },
+  subheaders: {
+    fontSize: 20
   }
 })
