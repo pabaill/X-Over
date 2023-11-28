@@ -1,13 +1,18 @@
-import { Pressable, StyleSheet, Text, View, FlatList, Image, ImageBackground } from 'react-native';
-import { useEffect } from 'react';
+import { Pressable, StyleSheet, Text, View, Image } from 'react-native';
+import { useEffect, useState } from 'react';
 import { useFonts } from 'expo-font';
 import { Kanit_700Bold } from '@expo-google-fonts/kanit';
 import { CommonActions } from '@react-navigation/native';
 import XOverHeader from '../components/XOverHeader';
 import XOverButton from '../components/XOverButton';
 import PROJ_DATA from './../assets/mock_data';
+import XOverCarousel from '../components/XOverCarousel';
+import XOverSearch from '../components/XOverSearch';
 
 export default function Projects({navigation, route}) {
+
+  const [currProject, changeProject] = useState(PROJ_DATA[0])
+  const [progressValue, changeProgressValue] = useState(0)
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('tabPress', (e) => {
@@ -56,24 +61,13 @@ export default function Projects({navigation, route}) {
   ) : (
     // List of available Projects
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center", marginTop: 50 }}>
-      <FlatList
-        data={PROJ_DATA}
-        renderItem={({item, index}) => (
-          <View
-          style={{
-              flex: 1,
-              borderWidth: 1,
-              justifyContent: 'center',
-              alignItems: "center"
-          }}
-      >
-          <Text style={[styles.header, {textAlign: "center"}]}>
-              {item.name}
-          </Text>
+      <XOverSearch />
+      <View style={{flex: 1}}>
+        <XOverCarousel navigation={navigation} changeProgressValue={changeProgressValue} changeProject={changeProject} progressValue={progressValue} />
       </View>
-        )}
-        keyExtractor={(item) => {item.name}}
-      />
+      <View style={{flex: 4}}>
+
+      </View>
     </View>
   );
 }
