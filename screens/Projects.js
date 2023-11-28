@@ -1,18 +1,21 @@
 import { Pressable, StyleSheet, Text, View, Image } from 'react-native';
 import { useEffect, useState } from 'react';
 import { useFonts } from 'expo-font';
-import { Kanit_700Bold } from '@expo-google-fonts/kanit';
+import { Kanit_700Bold, Kanit_400Regular } from '@expo-google-fonts/kanit';
 import { CommonActions } from '@react-navigation/native';
+import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import XOverHeader from '../components/XOverHeader';
 import XOverButton from '../components/XOverButton';
 import PROJ_DATA from './../assets/mock_data';
 import XOverCarousel from '../components/XOverCarousel';
 import XOverSearch from '../components/XOverSearch';
+import XOverTheme from '../assets/XOverTheme';
 
 export default function Projects({navigation, route}) {
 
   const [currProject, changeProject] = useState(PROJ_DATA[0]);
   const [progressValue, changeProgressValue] = useState(0);
+  const [selectedIndex, changeIndex] = useState(0)
 
   const [searchClicked, setClicked] = useState(false);
   const [searchPhrase, setSearchPhrase] = useState("");
@@ -25,7 +28,7 @@ export default function Projects({navigation, route}) {
     }, [navigation]);
 
     let [fontsLoaded] = useFonts({
-      Kanit_700Bold
+      Kanit_700Bold, Kanit_400Regular
     });
   
     if (!fontsLoaded) {
@@ -63,14 +66,34 @@ export default function Projects({navigation, route}) {
     </View>
   ) : (
     // List of available Projects
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center", marginTop: 50 }}>
-      <XOverSearch clicked={searchClicked} setClicked={setClicked} searchPhrase={searchPhrase} setSearchPhrase={setSearchPhrase} />
-      <View style={{flex: 1}}>
-        <XOverCarousel source={"Projects"} navigation={navigation} changeProgressValue={changeProgressValue} changeProject={changeProject} progressValue={progressValue} />
-      </View>
-      <View style={{flex: 4}}>
-
-      </View>
+    <View style={{ padding: 20,  flex: 1, alignItems: "center", justifyContent: "center"}}>
+      <SegmentedControl
+          style={{marginTop: 40, width: "80%", marginLeft: "10%", marginRight: "10%"}}
+          values={['All', 'My Projects']}
+          selectedIndex={selectedIndex}
+          backgroundColor={XOverTheme.bg_blue}
+          tintColor={XOverTheme.base_orange}
+          fontStyle={{fontFamily: "Kanit_400Regular"}}
+          onChange={(event) => {
+            changeIndex(event.nativeEvent.selectedSegmentIndex);
+          }}
+        />
+        {selectedIndex === 0 ? (
+          <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
+            <XOverSearch clicked={searchClicked} setClicked={setClicked} searchPhrase={searchPhrase} setSearchPhrase={setSearchPhrase} />
+            <View style={{flex: 3}}>
+              <XOverHeader wide={true} text={"For You"} />
+              <XOverCarousel source={"Projects"} navigation={navigation} changeProgressValue={changeProgressValue} changeProject={changeProject} progressValue={progressValue} />
+            </View>
+            <View style={{flex: 2, alignItems: "center", justifyContent: "center"}}>
+              <XOverButton pressFunc={() => {console.log("Create X-Over")}} text={"Create Your X-Over"} extraStyles={{width: "auto"}} />
+            </View>
+          </View>
+        ) : (
+          <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
+            <Text>Project List</Text>
+          </View>
+        )}
     </View>
   );
 }

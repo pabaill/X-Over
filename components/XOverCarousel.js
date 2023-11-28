@@ -56,10 +56,12 @@ export default function XOverCarousel({navigation, changeProgressValue, changePr
                   </Pressable>
                 )}
             />
-        <View style={{flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "space-around", padding: 20}}>
-              {PROJ_DATA.map((val, index) => {
-                return (index === progressValue) ? (<View key={index} style={[styles.pagination, {backgroundColor: XOverTheme.base_orange}]}></View>) : (<View key={index} style={[styles.pagination, {backgroundColor: "transparent"}]}></View>)
-              })}
+        <View>
+          <View style={{flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "space-around", padding: 20}}>
+                {PROJ_DATA.map((val, index) => {
+                  return (index === progressValue) ? (<View key={index} style={[styles.pagination, {backgroundColor: XOverTheme.base_orange}]}></View>) : (<View key={index} style={[styles.pagination, {backgroundColor: "transparent"}]}></View>)
+                })}
+          </View>
         </View>
         </View>
     )
