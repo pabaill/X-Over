@@ -26,9 +26,9 @@ export default function Projects({navigation, route}) {
 
   return route?.params?.project ? (
     // Page for Single Project
-    <View style={{flex: 1, marginTop: 40, marginHorizontal: 20, padding: 20 }}>
+    <View style={{flex: 1, marginTop: 20, marginHorizontal: 10, padding: 20 }}>
       <XOverButton text={"Back"} pressFunc={() => {navigation.dispatch(CommonActions.setParams({ project: null })); navigation.dispatch(CommonActions.goBack())}} />
-      <View style={{marginTop: 20, flex: 1}}>
+      <View style={{flex: 1, marginTop: 20}}>
         <View style={{flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
           <View
               style={{
@@ -47,7 +47,7 @@ export default function Projects({navigation, route}) {
             <XOverHeader wide={true} text={route.params.project.name} />
           </View>
         </View>
-      <View style={{flex: 2}}>
+      <View style={{flex: 3}}>
         <Text>Placeholder Placeholder Placeholder</Text>
       </View>
       </View>

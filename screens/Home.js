@@ -20,6 +20,7 @@ import Carousel from 'react-native-reanimated-carousel';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 
 import PROJ_DATA from './../assets/mock_data';
+import XOverCarousel from '../components/XOverCarousel';
 
 
 export default function Home({navigation}) {
@@ -53,18 +54,8 @@ export default function Home({navigation}) {
         />
         {selectedIndex === 0 ? (
           <View>
-            {/* <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-around", marginTop: 20}}>
-              <BlurView intensity={1} tint='dark' style={[styles.blurred, styles.project_prev]}>
-                <Text style={{textAlign: "center"}}>Left</Text>
-              </BlurView>
-              <View style={[styles.middle, styles.project_prev]}>
-                <Text style={{textAlign: "center"}}>Middle</Text>
-              </View>
-              <BlurView intensity={1} tint='dark' style={[styles.blurred, styles.project_prev]}>
-                <Text style={{textAlign: "center"}}>Right</Text>
-              </BlurView>
-            </View> */}
-            <Carousel
+            <XOverCarousel navigation={navigation} />
+            {/* <Carousel
                 width={width - 40}
                 height={width / 2}
                 autoPlay={false}
@@ -95,7 +86,7 @@ export default function Home({navigation}) {
                     </View>
                   </Pressable>
                 )}
-            />
+            /> */}
             <View style={{flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "space-around", padding: 20}}>
               {PROJ_DATA.map((val, index) => {
                 return (index === progressValue) ? (<View key={index} style={[styles.pagination, {backgroundColor: XOverTheme.base_orange}]}></View>) : (<View key={index} style={[styles.pagination, {backgroundColor: "transparent"}]}></View>)
