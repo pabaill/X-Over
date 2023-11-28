@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { useFonts, Kanit_400Regular, Kanit_700Bold } from "@expo-google-fonts/kanit";
 import XOverTheme from "../assets/XOverTheme";
 
-export default function XOverHeader({text}) {
+export default function XOverHeader({text, wide}) {
     let [fontsLoaded] = useFonts({
         Kanit_400Regular, Kanit_700Bold
       });
@@ -11,9 +11,9 @@ export default function XOverHeader({text}) {
       if (!fontsLoaded) {
         return null;
       }
-    return (<View style={styles.shadow} >
+    return (<View style={[styles.shadow, {width: wide ? "100%" : "auto"}]} >
                 <View style={styles.headerWrapper}>
-                <Text style={styles.header}>{text}</Text>
+                <Text numberOfLines={2} style={styles.header}>{text}</Text>
                 </View>
             </View>)
 }
@@ -21,17 +21,18 @@ export default function XOverHeader({text}) {
 const styles = StyleSheet.create({
     header: {
       fontFamily: "Kanit_700Bold", 
-      fontSize: 30
+      fontSize: 30,
+      textAlign: "center"
     },
     headerWrapper: {
       borderColor: "black", 
       borderWidth: 3, 
       backgroundColor: XOverTheme.base_orange,
-      width: "120%",
+      maxWidth: "100%",
       marginLeft: 0, 
       padding: 5,
       top: -5,
       left: 5
     },
-    shadow: {backgroundColor: "black", width: "auto", alignSelf: "flex-start"},
+    shadow: { backgroundColor: "black", width: "auto", alignSelf: "flex-start"},
   });

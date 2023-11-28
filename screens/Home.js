@@ -107,7 +107,7 @@ export default function Home({navigation}) {
               <FlatList
                 data={currProject.updates}
                 renderItem={({item, index}) => (
-                <View style={{flex: 1, flexDirection: "row"}}>
+                <View key={index + item.text + item.link} style={{flex: 1, flexDirection: "row"}}>
                   <Image key={item.name + " profile" + index} style={{flex: 1, height: "100%", width: "auto"}} source={require("./../assets/default_profile.png")} />
                   <ImageBackground key={item.text + " bubble" + index} style={[styles.bubble, {flex: 4}]} source={require("./../assets/X-Over-Bubble.png")}>
                     <Text style={{marginLeft: 40, marginTop: 5, color: "white", fontFamily: "Kanit_400Regular"}}>{item.text}</Text>

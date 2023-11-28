@@ -26,10 +26,30 @@ export default function Projects({navigation, route}) {
 
   return route?.params?.project ? (
     // Page for Single Project
-    <View style={{flex: 1, marginTop: 40, marginLeft: 20 }}>
+    <View style={{flex: 1, marginTop: 40, marginHorizontal: 20, padding: 20 }}>
       <XOverButton text={"Back"} pressFunc={() => {navigation.dispatch(CommonActions.setParams({ project: null })); navigation.dispatch(CommonActions.goBack())}} />
-      <View style={{marginTop: 40}}>
-        <XOverHeader text={route.params.project.name} />
+      <View style={{marginTop: 20, flex: 1}}>
+        <View style={{flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+          <View
+              style={{
+                  borderWidth: 1,
+                  justifyContent: 'center',
+                  alignItems: "center",
+                  height: 150,
+                  width: 100
+              }}
+          >
+              <Text style={[styles.header, {textAlign: "center"}]}>
+                  {route.params.project.name}
+              </Text>
+          </View>
+          <View style={{flex: 2, marginLeft: 20}}>
+            <XOverHeader wide={true} text={route.params.project.name} />
+          </View>
+        </View>
+      <View style={{flex: 2}}>
+        <Text>Placeholder Placeholder Placeholder</Text>
+      </View>
       </View>
     </View>
   ) : (
