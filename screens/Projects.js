@@ -65,6 +65,7 @@ export default function Projects({navigation, route}) {
       </View>
       <View style={{height: "25%"}}>
         <XOverHeader textStyles={styles.subheaders} wide={false} text={"Description"} />
+        <Text>{route.params.project.description}</Text>
       </View>
       <View style={{height: "25%"}}>
         <XOverHeader textStyles={styles.subheaders} wide={false} text={"Recent Updates"} />
