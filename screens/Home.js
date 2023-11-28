@@ -54,7 +54,7 @@ export default function Home({navigation}) {
         />
         {selectedIndex === 0 ? (
           <View>
-            <XOverCarousel navigation={navigation} />
+            <XOverCarousel navigation={navigation} changeProgressValue={changeProgressValue} changeProject={changeProject} progressValue={progressValue}/>
             {/* <Carousel
                 width={width - 40}
                 height={width / 2}
@@ -87,11 +87,6 @@ export default function Home({navigation}) {
                   </Pressable>
                 )}
             /> */}
-            <View style={{flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "space-around", padding: 20}}>
-              {PROJ_DATA.map((val, index) => {
-                return (index === progressValue) ? (<View key={index} style={[styles.pagination, {backgroundColor: XOverTheme.base_orange}]}></View>) : (<View key={index} style={[styles.pagination, {backgroundColor: "transparent"}]}></View>)
-              })}
-            </View>
             <Image style={{width: "auto", height: 40}} source={require('./../assets/X-Over-Drawer.png')} />
             <XOverHeader text={"Updates: "} />
             <View style={{height: 1000, marginTop: 20}}>
@@ -136,11 +131,4 @@ const styles = StyleSheet.create({
     left: -5
   },
   shadow: {backgroundColor: "black", width: 145},
-  pagination: {
-    width: 10,
-    height: 10,
-    borderRadius: 10,
-    borderColor: XOverTheme.bg_blue,
-    borderWidth: 1
-  }
 });

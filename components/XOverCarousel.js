@@ -8,13 +8,11 @@ import { Dimensions } from 'react-native';
 import { useFonts } from 'expo-font';
 import { Kanit_700Bold } from '@expo-google-fonts/kanit';
 
-export default function XOverCarousel({navigation}) {
+export default function XOverCarousel({navigation, changeProgressValue, changeProject, progressValue}) {
 
     const width = Dimensions.get('window').width;
 
     const [selectedIndex, changeIndex] = useState(0);
-    const [currProject, changeProject] = useState(PROJ_DATA[0])
-    const [progressValue, changeProgressValue] = useState(0)
 
     let [fontsLoaded] = useFonts({
         Kanit_700Bold
@@ -25,6 +23,7 @@ export default function XOverCarousel({navigation}) {
     }
 
     return (
+        <View>
         <Carousel
                 width={width - 40}
                 height={width / 2}
@@ -57,6 +56,12 @@ export default function XOverCarousel({navigation}) {
                   </Pressable>
                 )}
             />
+        <View style={{flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "space-around", padding: 20}}>
+              {PROJ_DATA.map((val, index) => {
+                return (index === progressValue) ? (<View key={index} style={[styles.pagination, {backgroundColor: XOverTheme.base_orange}]}></View>) : (<View key={index} style={[styles.pagination, {backgroundColor: "transparent"}]}></View>)
+              })}
+        </View>
+        </View>
     )
 }
 
@@ -65,4 +70,11 @@ const styles = StyleSheet.create({
         fontFamily: "Kanit_700Bold", 
         fontSize: 30
       },
+      pagination: {
+        width: 10,
+        height: 10,
+        borderRadius: 10,
+        borderColor: XOverTheme.bg_blue,
+        borderWidth: 1
+      }
 })
