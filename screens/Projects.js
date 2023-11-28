@@ -47,6 +47,7 @@ export default function Projects({navigation, route}) {
             <XOverHeader wide={true} text={route.params.project.name} />
           </View>
         </View>
+      <Image style={{width: "auto", height: 40, marginTop: 20}} source={require('./../assets/X-Over-Drawer.png')} />
       <View style={{flex: 3}}>
         <Text>Placeholder Placeholder Placeholder</Text>
       </View>
