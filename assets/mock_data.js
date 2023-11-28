@@ -6,7 +6,7 @@ export default PROJ_DATA = [
     }],
     members: [{name: "Bill", email: "bill@stanford.edu", image: "assets/default_profile.png"}, {name: "Ted", email: "ted@stanford.edu", image: "assets/default_profile.png"}]
   },
-    {name: "Google Pixel 12", description: "Apple iPhone 25 Team - working towards developing a unique smartphone experience. Currently in alpha testing phase.", updates: [{
+    {name: "Google Pixel 12", description: "Google Pixel 12 Team - working towards developing a unique smartphone experience. Currently in alpha testing phase.", updates: [{
       name: "John", text: "Updated Meeting Notes for 11/12", link: "LINK_TO_MEETING_NOTES", time: new Date("2023-11-27T11:44:00")
     }],
     members: [{name: "John", email: "john@stanford.edu", image: "assets/default_profile.png"}, {name: "Mary", email: "mary@stanford.edu", image: "assets/default_profile.png"}]

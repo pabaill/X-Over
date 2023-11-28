@@ -40,7 +40,7 @@ export default function Projects({navigation, route}) {
     <View style={{flex: 1, marginTop: 20, marginHorizontal: 10, padding: 20 }}>
       <XOverButton text={"Back"} pressFunc={() => {navigation.dispatch(CommonActions.setParams({ project: null })); route?.params?.source === "Projects" ? navigation.navigate("Projects") : navigation.dispatch(CommonActions.goBack())}} />
       <View style={{flex: 1, marginTop: 20}}>
-        <View style={{flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+        <View style={{height: 150, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
           <View
               style={{
                   borderWidth: 1,
@@ -58,22 +58,23 @@ export default function Projects({navigation, route}) {
             <XOverHeader wide={true} text={route.params.project.name} />
           </View>
         </View>
-      <Image style={{width: "auto", height: 40, marginTop: 20}} source={require('./../assets/X-Over-Drawer.png')} />
-      <View style={{flex: 4}}>
-      <View style={{height: "25%"}}>
-        <XOverHeader textStyles={styles.subheaders} wide={false} text={"Team"} />
-      </View>
-      <View style={{height: "25%"}}>
-        <XOverHeader textStyles={styles.subheaders} wide={false} text={"Description"} />
-        <Text>{route.params.project.description}</Text>
-      </View>
-      <View style={{height: "25%"}}>
-        <XOverHeader textStyles={styles.subheaders} wide={false} text={"Recent Updates"} />
-      </View>
-      <View styles={{height: "25%", flex: 1, alignItems: "center", justifyContent: "center"}}>
-        <XOverButton containerStyles={{alignSelf: "center"}} buttonStyles={{alignSelf: "center"}} text={"View Project Resources"} pressFunc={() => {console.log("view resources")}} />
-      </View>
-      </View>
+        <Image style={{width: "auto", height: 40}} source={require('./../assets/X-Over-Drawer.png')} />
+        <ScrollView style={{flex: 4, marginTop: 10, height: "100%"}}>
+          <View style={styles.projElem}>
+            <XOverHeader textStyles={styles.subheaders} wide={false} text={"Team"} />
+          </View>
+          <View style={styles.projElem}>
+            <XOverHeader textStyles={styles.subheaders} wide={false} text={"Description"} />
+            <Text style={styles.bodyText}>{route.params.project.description}</Text>
+          </View>
+          <View style={styles.projElem}>
+            <XOverHeader textStyles={styles.subheaders} wide={false} text={"Recent Updates"} />
+            <Text style={styles.bodyText}>{route.params.project.description}</Text>
+          </View>
+          <View styles={[styles.projElem, {alignItems: "center", justifyContent: "center"}]}>
+            <XOverButton containerStyles={{alignSelf: "center"}} buttonStyles={{alignSelf: "center"}} text={"View Project Resources"} pressFunc={() => {console.log("view resources")}} />
+          </View>
+        </ScrollView>
       </View>
     </View>
   ) : (
@@ -117,5 +118,10 @@ const styles = StyleSheet.create({
   },
   subheaders: {
     fontSize: 20
-  }
+  },
+  bodyText: {
+    fontFamily: "Kanit_400Regular",
+    fontSize: 16
+  },
+  projElem: {flex: 1, marginTop: 20}
 })
