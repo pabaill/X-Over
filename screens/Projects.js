@@ -11,8 +11,11 @@ import XOverSearch from '../components/XOverSearch';
 
 export default function Projects({navigation, route}) {
 
-  const [currProject, changeProject] = useState(PROJ_DATA[0])
-  const [progressValue, changeProgressValue] = useState(0)
+  const [currProject, changeProject] = useState(PROJ_DATA[0]);
+  const [progressValue, changeProgressValue] = useState(0);
+
+  const [searchClicked, setClicked] = useState(false);
+  const [searchPhrase, setSearchPhrase] = useState("");
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('tabPress', (e) => {
@@ -32,7 +35,7 @@ export default function Projects({navigation, route}) {
   return route?.params?.project ? (
     // Page for Single Project
     <View style={{flex: 1, marginTop: 20, marginHorizontal: 10, padding: 20 }}>
-      <XOverButton text={"Back"} pressFunc={() => {navigation.dispatch(CommonActions.setParams({ project: null })); navigation.dispatch(CommonActions.goBack())}} />
+      <XOverButton text={"Back"} pressFunc={() => {navigation.dispatch(CommonActions.setParams({ project: null })); route?.params?.source === "Projects" ? navigation.navigate("Projects") : navigation.dispatch(CommonActions.goBack())}} />
       <View style={{flex: 1, marginTop: 20}}>
         <View style={{flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
           <View
@@ -61,9 +64,9 @@ export default function Projects({navigation, route}) {
   ) : (
     // List of available Projects
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center", marginTop: 50 }}>
-      <XOverSearch />
+      <XOverSearch clicked={searchClicked} setClicked={setClicked} searchPhrase={searchPhrase} setSearchPhrase={setSearchPhrase} />
       <View style={{flex: 1}}>
-        <XOverCarousel navigation={navigation} changeProgressValue={changeProgressValue} changeProject={changeProject} progressValue={progressValue} />
+        <XOverCarousel source={"Projects"} navigation={navigation} changeProgressValue={changeProgressValue} changeProject={changeProject} progressValue={progressValue} />
       </View>
       <View style={{flex: 4}}>
 

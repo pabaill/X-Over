@@ -8,7 +8,7 @@ import { Dimensions } from 'react-native';
 import { useFonts } from 'expo-font';
 import { Kanit_700Bold } from '@expo-google-fonts/kanit';
 
-export default function XOverCarousel({navigation, changeProgressValue, changeProject, progressValue}) {
+export default function XOverCarousel({navigation, changeProgressValue, changeProject, progressValue, source}) {
 
     const width = Dimensions.get('window').width;
 
@@ -38,7 +38,7 @@ export default function XOverCarousel({navigation, changeProgressValue, changePr
                 renderItem={({ index }) => (
                   <Pressable 
                     style={({pressed}) => [{flex: 1, marginHorizontal: "25%", width: "50%", backgroundColor: pressed ? XOverTheme.base_orange : "transparent"}]}
-                    onPress={() => navigation.jumpTo('Projects', {project: PROJ_DATA[index]})}
+                    onPress={() => navigation.jumpTo('Projects', {project: PROJ_DATA[index], source: source})}
                     key={PROJ_DATA[index].name + index}
                     >
                     <View

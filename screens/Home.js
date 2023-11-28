@@ -54,7 +54,7 @@ export default function Home({navigation}) {
         />
         {selectedIndex === 0 ? (
           <View>
-            <XOverCarousel navigation={navigation} changeProgressValue={changeProgressValue} changeProject={changeProject} progressValue={progressValue}/>
+            <XOverCarousel source={"Home"} navigation={navigation} changeProgressValue={changeProgressValue} changeProject={changeProject} progressValue={progressValue}/>
             {/* <Carousel
                 width={width - 40}
                 height={width / 2}
