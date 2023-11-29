@@ -54,10 +54,26 @@ export default function Projects({navigation, route}) {
         setModal(!isModalOpen);
       }}
       >
-        <View style={{flex: 1, width: "100%", height: "100%", padding: 20, alignItems: "center", justifyContent: "center", backgroundColor: XOverTheme.bg_blue + "d0"}}>
-          <View style={{backgroundColor: "white", borderRadius: 5, padding: 20}}>
+        <View style={{flex: 1, width: "100%", height: "100%", padding: 10, alignItems: "center", justifyContent: "center", backgroundColor: XOverTheme.bg_blue + "d0"}}>
+          <View style={{ backgroundColor: "white", borderRadius: 25, padding: 20, alignItems: "flex-start"}}>
             <XOverButton text={"Back"} pressFunc={() => {setModal(false)}} />
+            <XOverHeader containerStyles={{marginTop: 20}} text={"Project Resources"} />
             <XOverSearch clicked={modalSearchClicked} searchPhrase={modalSearchPhrase} setClicked={setModalClicked} setSearchPhrase={setModalSearchPhrase} />
+            <View style={{flex: 1, width: "100%", flexDirection: "row", alignItems: "flex-start", justifyContent: "space-between"}}>
+                <Text style={{width: "50%"}}>File Name</Text>
+                <Text style={{width: "50%"}}>Last Modified</Text>
+            </View>
+            <FlatList 
+            data={route.params.project.resources}
+            contentContainerStyle={{flexDirection: "column", alignItems: "flex-start", flex: 1}} 
+            renderItem={({item, index}) => item.filename.toLowerCase().includes(modalSearchPhrase.toLowerCase()) ? (
+              <View style={{flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "space-between", backgroundColor: "gray", width: "90%", maxHeight: 80, marginTop: 20, borderRadius: 25, padding: 10}}>
+                <Text style={{width: "30%"}}>{item.filename}</Text>
+                <Text style={{width: "30%"}}>{`${item.lastMod.toLocaleTimeString()} ${item.lastMod.toLocaleDateString()} (${item.author})`}</Text>
+                <XOverButton containerStyles={{width: "25%"}} text={"View"} pressFunc={() => {console.log("pressed!")}} />
+              </View>
+            ) : (<></>)}
+            />
           </View>
         </View>
       </Modal>
