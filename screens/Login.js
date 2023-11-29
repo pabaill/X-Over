@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TextInput } from "react-native";
+import { ImageBackground, TextInput } from "react-native";
 import { View, Pressable, Text, SafeAreaView, Image, ScrollView } from "react-native";
 import { StyleSheet } from "react-native-web";
 
@@ -9,6 +9,7 @@ import {auth} from './../firebase';
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
 
 import theme from "./../assets/XOverTheme";
+import XOverTheme from "./../assets/XOverTheme";
 
 const errorToReadable = {
     "Firebase: Error (auth/email-already-in-use).": "Sorry, that email is already in use. Please log in using that email or create a new account with a different email.",
@@ -47,20 +48,24 @@ export default function Login() {
       }
 
     return (
-      <SafeAreaView style={{ marginTop: 100, flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ScrollView  > 
+    <SafeAreaView style={{flex: 1}}>
+    <ImageBackground style={{flex: 1, position: "absolute", width: "100%", height: "100%"}} source={require('./../assets/login_background.png')}>
+      <SafeAreaView style={{ marginVertical: 100, marginHorizontal: 10, flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: XOverTheme.bg_blue + "dd", minHeight: "80%" }}>
+        <ScrollView style={{flex: 1}}  > 
         <Text style={styles.titleText}>Welcome to</Text>
         <Image alt="X-Over" source={require('./../assets/X-Over-Logo.png')} />
         <View style={{ flex: 1, justifyContent: 'space-around', alignItems: 'center' }}>
             <TextInput style={styles.input} placeholder="Email" value={email} onChangeText={s => setEmail(s)} />
             <TextInput secureTextEntry={true} style={styles.input} placeholder="Password" value={password} onChangeText={s => setPassword(s)} />
         </View>
-        <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center', marginTop: 50}}>
+        <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center', marginTop: 20}}>
             <Pressable style={[styles.pressable, styles.shadowProp]} onPress={handleLogIn}><Text style={styles.baseText}>Log In</Text></Pressable>
             <Pressable style={[styles.pressable, styles.shadowProp]} onPress={handleSignUp} ><Text style={styles.baseText}>Sign Up</Text></Pressable>
         </View>
         </ScrollView>
       </SafeAreaView>
+    </ImageBackground>
+    </SafeAreaView>
     );
   }
 
@@ -82,7 +87,10 @@ const styles = StyleSheet.create({
         width: 300,
         height: 50,
         margin: 10,
-        padding: 10
+        padding: 10,
+        backgroundColor: "white",
+        borderRadius: 15,
+        fontSize: 20
     },
     titleText: {
         fontFamily: "Kanit_400Regular",

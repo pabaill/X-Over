@@ -9,6 +9,7 @@ import theme from './assets/XOverTheme';
 import { FontAwesome } from '@expo/vector-icons'; 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const Tab = createBottomTabNavigator();
 
@@ -46,57 +47,60 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      {(user === null) ? (
-      <Login />
-      ) :
-        (
-          <Tab.Navigator 
-          screenOptions={{
-            tabBarActiveTintColor: theme.base_orange,
-            tabBarInactiveTintColor: "#ffffff", 
-            tabBarActiveBackgroundColor: theme.bg_blue, 
-            tabBarInactiveBackgroundColor: theme.bg_blue,
-            header: ({ navigation, route, options, layout }) => {
-              // const title = getHeaderTitle(options, route.name);
-            
-              return (<></>)
-            },
-            headerStyle: {
-              height: 80,
-            }
-            }}>
-            <Tab.Screen name="Home" component={Home} tabBarLabelStyle={{fontFamily: "Kanit_400Regular"}} options={{
-                tabBarLabel: "Home",
-                tabBarIcon: ({ color, size }) => (
-                  <FontAwesome name="home" color={color} size={size} />
-                ),
-              }} 
-            />
-            <Tab.Screen name="Projects" component={Projects} tabBarLabelStyle={{fontFamily: "Kanit_400Regular"}} options={{
-                tabBarLabel: "Projects",
-                tabBarIcon: ({ color, size }) => (
-                  <FontAwesome name="search" color={color} size={size} />
-                ),
-              }} 
-            />
-            <Tab.Screen name="Friends" component={Friends} tabBarLabelStyle={{fontFamily: "Kanit_400Regular"}} options={{
-                tabBarLabel: "Friends",
-                tabBarIcon: ({ color, size }) => (
-                  <FontAwesome name="users" color={color} size={size} />
-                ),
-              }}
-            />
-            <Tab.Screen name="Profile" component={Profile} tabBarLabelStyle={{fontFamily: "Kanit_400Regular"}} options={{
-                tabBarLabel: "Profile",
-                tabBarIcon: ({ color, size }) => (
-                  <FontAwesome name="user" color={color} size={size} />
-                ),
-              }}
-            />
-          </Tab.Navigator>
-      )}
-    </NavigationContainer>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <NavigationContainer>
+        {(user === null) ? (
+        <Login />
+        ) :
+          (
+            <Tab.Navigator
+            backBehavior='history'
+            screenOptions={{
+              tabBarActiveTintColor: theme.base_orange,
+              tabBarInactiveTintColor: "#ffffff", 
+              tabBarActiveBackgroundColor: theme.bg_blue, 
+              tabBarInactiveBackgroundColor: theme.bg_blue,
+              header: ({ navigation, route, options, layout }) => {
+                // const title = getHeaderTitle(options, route.name);
+              
+                return (<></>)
+              },
+              headerStyle: {
+                height: 80,
+              }
+              }}>
+              <Tab.Screen name="Home" component={Home} tabBarLabelStyle={{fontFamily: "Kanit_400Regular"}} options={{
+                  tabBarLabel: "Home",
+                  tabBarIcon: ({ color, size }) => (
+                    <FontAwesome name="home" color={color} size={size} />
+                  ),
+                }} 
+              />
+              <Tab.Screen name="Projects" component={Projects} tabBarLabelStyle={{fontFamily: "Kanit_400Regular"}} options={{
+                  tabBarLabel: "Projects",
+                  tabBarIcon: ({ color, size }) => (
+                    <FontAwesome name="search" color={color} size={size} />
+                  ),
+                }} 
+              />
+              <Tab.Screen name="Friends" component={Friends} tabBarLabelStyle={{fontFamily: "Kanit_400Regular"}} options={{
+                  tabBarLabel: "Friends",
+                  tabBarIcon: ({ color, size }) => (
+                    <FontAwesome name="users" color={color} size={size} />
+                  ),
+                }}
+              />
+              <Tab.Screen name="Profile" component={Profile} tabBarLabelStyle={{fontFamily: "Kanit_400Regular"}} options={{
+                  tabBarLabel: "Profile",
+                  tabBarIcon: ({ color, size }) => (
+                    <FontAwesome name="user" color={color} size={size} />
+                  ),
+                }}
+              />
+            </Tab.Navigator>
+        )}
+      </NavigationContainer>
+    </GestureHandlerRootView>
   );
 }
 
