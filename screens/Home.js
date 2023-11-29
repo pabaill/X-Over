@@ -66,7 +66,7 @@ export default function Home({navigation}) {
                   <ImageBackground key={item.text + " bubble" + index} style={[styles.bubble, {flex: 4}]} source={require("./../assets/X-Over-Bubble.png")}>
                     <Text style={{position: "absolute", color: "white", fontFamily: "Kanit_400Regular", textAlign: "right", right: 20, top: 0}}>{item.time.toLocaleTimeString('en-US')}</Text>
                     <Text style={{marginLeft: 40, marginTop: 5, color: "white", fontFamily: "Kanit_400Regular", fontSize: 18}}>{item.name}</Text>
-                    <Text style={{marginLeft: 40, color: "white", paddingLeft: 20, fontFamily: "Kanit_400Regular"}}>{item.text}</Text>
+                    <Text numberOfLines={1} style={{marginLeft: 40, color: "white", paddingLeft: 20, fontFamily: "Kanit_400Regular"}}>{item.text}</Text>
                     <Text style={{marginLeft: 40, color: "white", paddingLeft: 20, fontFamily: "Kanit_400Regular"}}>{item.link}</Text>
                   </ImageBackground>
                 </View>

@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View, Image, ScrollView, Modal } from 'react-native';
+import { Pressable, StyleSheet, Text, View, Image, ScrollView, Modal, ImageBackground } from 'react-native';
 import { useEffect, useState } from 'react';
 import { useFonts } from 'expo-font';
 import { Kanit_700Bold, Kanit_400Regular } from '@expo-google-fonts/kanit';
@@ -67,7 +67,7 @@ export default function Projects({navigation, route}) {
             data={route.params.project.resources}
             contentContainerStyle={{flexDirection: "column", alignItems: "flex-start", flex: 1}} 
             renderItem={({item, index}) => item.filename.toLowerCase().includes(modalSearchPhrase.toLowerCase()) ? (
-              <View style={{flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "space-between", backgroundColor: "gray", width: "90%", maxHeight: 80, marginTop: 20, borderRadius: 25, padding: 10}}>
+              <View style={{flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "space-between", backgroundColor: "#C0C0C0", width: "90%", maxHeight: 80, marginTop: 20, borderRadius: 25, padding: 10}}>
                 <Text style={{width: "30%"}}>{item.filename}</Text>
                 <Text style={{width: "30%"}}>{`${item.lastMod.toLocaleTimeString()} ${item.lastMod.toLocaleDateString()} (${item.author})`}</Text>
                 <XOverButton containerStyles={{width: "25%"}} text={"View"} pressFunc={() => {console.log("pressed!")}} />
@@ -116,7 +116,15 @@ export default function Projects({navigation, route}) {
           </View>
           <View style={styles.projElem}>
             <XOverHeader textStyles={styles.subheaders} wide={false} text={"Recent Updates"} />
-            <Text style={styles.bodyText}>{route.params.project.description}</Text>
+            <View key={route.params.project.updates[0].text + route.params.project.updates[0].link} style={{flex: 1, flexDirection: "row", height: "auto", marginTop: 20}}>
+              <Image key={route.params.project.updates[0].name + " profile"} style={{flex: 1, height: "90%", width: "auto"}} source={require("./../assets/default_profile.png")} />
+              <ImageBackground key={route.params.project.updates[0].text + " bubble"} style={[styles.bubble, {flex: 4}]} source={require("./../assets/X-Over-Bubble.png")}>
+                <Text style={{position: "absolute", color: "white", fontFamily: "Kanit_400Regular", textAlign: "right", right: 20, top: 0}}>{route.params.project.updates[0].time.toLocaleTimeString('en-US')}</Text>
+                <Text style={{marginLeft: 40, marginTop: 5, color: "white", fontFamily: "Kanit_400Regular", fontSize: 18}}>{route.params.project.updates[0].name}</Text>
+                <Text numberOfLines={1} style={{marginLeft: 40, color: "white", paddingLeft: 20, fontFamily: "Kanit_400Regular", width: "80%"}}>{route.params.project.updates[0].text}</Text>
+                <Text style={{marginLeft: 40, color: "white", paddingLeft: 20, fontFamily: "Kanit_400Regular"}}>{route.params.project.updates[0].link}</Text>
+              </ImageBackground>
+            </View>
           </View>
           <View styles={[styles.projElem, {alignItems: "center", justifyContent: "center"}]}>
             <XOverButton containerStyles={{alignSelf: "center", marginTop: 20}} buttonStyles={{alignSelf: "center"}} text={"View Project Resources"} pressFunc={() => {setModal(true)}} />
@@ -170,5 +178,6 @@ const styles = StyleSheet.create({
     fontFamily: "Kanit_400Regular",
     fontSize: 16
   },
-  projElem: {flex: 1, marginTop: 20}
+  projElem: {flex: 1, marginTop: 20},
+  bubble: {width: "auto", height: "auto", minHeight: 80},
 })
