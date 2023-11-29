@@ -23,9 +23,9 @@ export default function Projects({navigation, route}) {
   const [searchPhrase, setSearchPhrase] = useState("");
 
   const [modalSearchClicked, setModalClicked] = useState(false);
-  const [modalSearchPhrase, setModalSearchPhrase] = useState("");
+  const [modalSearchPhrase, setModalSearchPhrase] = useState(route?.params?.openFile ? route?.params?.openFile : "");
 
-  const [isModalOpen, setModal] = useState(false);
+  const [isModalOpen, setModal] = useState(route?.params?.openFile ? true : false);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('tabPress', (e) => {
@@ -116,13 +116,13 @@ export default function Projects({navigation, route}) {
           </View>
           <View style={styles.projElem}>
             <XOverHeader textStyles={styles.subheaders} wide={false} text={"Recent Updates"} />
-            <View key={route.params.project.updates[0].text + route.params.project.updates[0].link} style={{flex: 1, flexDirection: "row", height: "auto", marginTop: 20}}>
+            <View key={route.params.project.updates[0].text + route.params.project.updates[0].link.text} style={{flex: 1, flexDirection: "row", height: "auto", marginTop: 20}}>
               <Image key={route.params.project.updates[0].name + " profile"} style={{flex: 1, height: "80%", width: "auto", resizeMode: "contain"}} source={require("./../assets/default_profile.png")} />
               <ImageBackground key={route.params.project.updates[0].text + " bubble"} style={[styles.bubble, {flex: 4}]} source={require("./../assets/X-Over-Bubble.png")}>
                 <Text style={{position: "absolute", color: "white", fontFamily: "Kanit_400Regular", textAlign: "right", right: 20, top: 0}}>{route.params.project.updates[0].time.toLocaleTimeString('en-US')}</Text>
                 <Text style={{marginLeft: 40, marginTop: 5, color: "white", fontFamily: "Kanit_400Regular", fontSize: 18}}>{route.params.project.updates[0].name}</Text>
                 <Text numberOfLines={1} style={{marginLeft: 40, color: "white", paddingLeft: 20, fontFamily: "Kanit_400Regular", width: "80%"}}>{route.params.project.updates[0].text}</Text>
-                <Text style={{marginLeft: 40, color: "white", paddingLeft: 20, fontFamily: "Kanit_400Regular"}}>{route.params.project.updates[0].link}</Text>
+                <Text onPress={() => {navigation.jumpTo('Projects', {project: route.params.project, source: "Projects", openFile: route.params.project.updates[0].link.filename})}} style={{marginLeft: 40, color: "white", paddingLeft: 20, fontFamily: "Kanit_400Regular"}}>{route.params.project.updates[0].link.text}</Text>
               </ImageBackground>
             </View>
           </View>
