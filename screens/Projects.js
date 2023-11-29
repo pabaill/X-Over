@@ -59,17 +59,17 @@ export default function Projects({navigation, route}) {
             <XOverButton text={"Back"} pressFunc={() => {setModal(false)}} />
             <XOverHeader containerStyles={{marginTop: 20}} text={"Project Resources"} />
             <XOverSearch clicked={modalSearchClicked} searchPhrase={modalSearchPhrase} setClicked={setModalClicked} setSearchPhrase={setModalSearchPhrase} />
-            <View style={{flex: 1, width: "100%", flexDirection: "row", alignItems: "flex-start", justifyContent: "space-between"}}>
-                <Text style={{width: "50%"}}>File Name</Text>
-                <Text style={{width: "50%"}}>Last Modified</Text>
-            </View>
             <FlatList 
             data={route.params.project.resources}
-            contentContainerStyle={{flexDirection: "column", alignItems: "flex-start", flex: 1}} 
+            ListHeaderComponent={(<View style={{ width: "100%", flexDirection: "row", paddingHorizontal: 10}}>
+            <Text style={{fontFamily: "Kanit_400Regular", width: "30%"}}>File Name</Text>
+            <Text style={{fontFamily: "Kanit_400Regular", width: "30%"}}>Last Modified</Text>
+        </View>)}
+            contentContainerStyle={{flexDirection: "column", alignItems: "flex-start", flex: 3}} 
             renderItem={({item, index}) => item.filename.toLowerCase().includes(modalSearchPhrase.toLowerCase()) ? (
               <View style={{flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "space-between", backgroundColor: "#C0C0C0", width: "90%", maxHeight: 80, marginTop: 20, borderRadius: 25, padding: 10}}>
-                <Text style={{width: "30%"}}>{item.filename}</Text>
-                <Text style={{width: "30%"}}>{`${item.lastMod.toLocaleTimeString()} ${item.lastMod.toLocaleDateString()} (${item.author})`}</Text>
+                <Text style={{fontFamily: "Kanit_400Regular", width: "30%"}}>{item.filename}</Text>
+                <Text style={{fontFamily: "Kanit_400Regular", width: "30%"}}>{`${item.lastMod.toLocaleTimeString()} ${item.lastMod.toLocaleDateString()} (${item.author})`}</Text>
                 <XOverButton containerStyles={{width: "25%"}} text={"View"} pressFunc={() => {console.log("pressed!")}} />
               </View>
             ) : (<></>)}
@@ -117,7 +117,7 @@ export default function Projects({navigation, route}) {
           <View style={styles.projElem}>
             <XOverHeader textStyles={styles.subheaders} wide={false} text={"Recent Updates"} />
             <View key={route.params.project.updates[0].text + route.params.project.updates[0].link} style={{flex: 1, flexDirection: "row", height: "auto", marginTop: 20}}>
-              <Image key={route.params.project.updates[0].name + " profile"} style={{flex: 1, height: "90%", width: "auto"}} source={require("./../assets/default_profile.png")} />
+              <Image key={route.params.project.updates[0].name + " profile"} style={{flex: 1, height: "80%", width: "auto", resizeMode: "contain"}} source={require("./../assets/default_profile.png")} />
               <ImageBackground key={route.params.project.updates[0].text + " bubble"} style={[styles.bubble, {flex: 4}]} source={require("./../assets/X-Over-Bubble.png")}>
                 <Text style={{position: "absolute", color: "white", fontFamily: "Kanit_400Regular", textAlign: "right", right: 20, top: 0}}>{route.params.project.updates[0].time.toLocaleTimeString('en-US')}</Text>
                 <Text style={{marginLeft: 40, marginTop: 5, color: "white", fontFamily: "Kanit_400Regular", fontSize: 18}}>{route.params.project.updates[0].name}</Text>
