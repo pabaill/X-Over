@@ -55,38 +55,6 @@ export default function Home({navigation}) {
         {selectedIndex === 0 ? (
           <View>
             <XOverCarousel source={"Home"} navigation={navigation} changeProgressValue={changeProgressValue} changeProject={changeProject} progressValue={progressValue}/>
-            {/* <Carousel
-                width={width - 40}
-                height={width / 2}
-                autoPlay={false}
-                mode='parallax'
-                modeConfig={{
-                  parallaxScrollingScale: 0.8,
-                  parallaxScrollingOffset: 200,
-                }}
-                data={PROJ_DATA}
-                onSnapToItem={(index) => {changeProject(PROJ_DATA[index]); changeProgressValue(index)}}
-                renderItem={({ index }) => (
-                  <Pressable 
-                    style={({pressed}) => [{flex: 1,marginHorizontal: "25%", width: "50%", backgroundColor: pressed ? XOverTheme.base_orange : "transparent"}]}
-                    onPress={() => navigation.jumpTo('Projects', {project: PROJ_DATA[index]})}
-                    key={PROJ_DATA[index].name + index}
-                    >
-                    <View
-                        style={{
-                            flex: 1,
-                            borderWidth: 1,
-                            justifyContent: 'center',
-                            alignItems: "center"
-                        }}
-                    >
-                        <Text style={[styles.header, {textAlign: "center"}]}>
-                            {PROJ_DATA[index]?.name}
-                        </Text>
-                    </View>
-                  </Pressable>
-                )}
-            /> */}
             <Image style={{width: "auto", height: 40, marginBottom: 20}} source={require('./../assets/X-Over-Drawer.png')} />
             <XOverHeader text={"Updates: "} />
             <View style={{height: "auto"}}>

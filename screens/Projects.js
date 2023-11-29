@@ -10,6 +10,8 @@ import PROJ_DATA from './../assets/mock_data';
 import XOverCarousel from '../components/XOverCarousel';
 import XOverSearch from '../components/XOverSearch';
 import XOverTheme from '../assets/XOverTheme';
+import { FlatList } from 'react-native-gesture-handler';
+import XOverProfileChip from '../components/XOverProfileChip';
 
 export default function Projects({navigation, route}) {
 
@@ -62,6 +64,14 @@ export default function Projects({navigation, route}) {
         <ScrollView style={{flex: 4, marginTop: 10, height: "100%"}}>
           <View style={styles.projElem}>
             <XOverHeader textStyles={styles.subheaders} wide={false} text={"Team"} />
+            <FlatList
+              contentContainerStyle={{height: 80, width: "100%", flex: 1, alignItems: "center", alignSelf: "center", marginTop: 10}}
+              horizontal={true}
+              data={route.params.project.members} 
+              renderItem={({item, index}) => (
+                <XOverProfileChip person={item} key={item.name + index} />
+              )}
+            />
           </View>
           <View style={styles.projElem}>
             <XOverHeader textStyles={styles.subheaders} wide={false} text={"Description"} />
@@ -72,7 +82,7 @@ export default function Projects({navigation, route}) {
             <Text style={styles.bodyText}>{route.params.project.description}</Text>
           </View>
           <View styles={[styles.projElem, {alignItems: "center", justifyContent: "center"}]}>
-            <XOverButton containerStyles={{alignSelf: "center"}} buttonStyles={{alignSelf: "center"}} text={"View Project Resources"} pressFunc={() => {console.log("view resources")}} />
+            <XOverButton containerStyles={{alignSelf: "center", marginTop: 20}} buttonStyles={{alignSelf: "center"}} text={"View Project Resources"} pressFunc={() => {console.log("view resources")}} />
           </View>
         </ScrollView>
       </View>
