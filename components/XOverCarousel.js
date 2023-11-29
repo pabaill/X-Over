@@ -1,6 +1,6 @@
 import Carousel from 'react-native-reanimated-carousel';
 import { useState } from 'react';
-import { Pressable, View, Text } from 'react-native';
+import { Pressable, View, Text, Image } from 'react-native';
 import PROJ_DATA from './../assets/mock_data';
 import XOverTheme from '../assets/XOverTheme';
 import { StyleSheet } from 'react-native';
@@ -41,7 +41,7 @@ export default function XOverCarousel({navigation, changeProgressValue, changePr
                     onPress={() => navigation.jumpTo('Projects', {project: PROJ_DATA[index], source: source})}
                     key={PROJ_DATA[index].name + index}
                     >
-                    <View
+                    {/* <View
                         style={{
                             flex: 1,
                             borderWidth: 1,
@@ -52,7 +52,8 @@ export default function XOverCarousel({navigation, changeProgressValue, changePr
                         <Text style={[styles.header, {textAlign: "center"}]}>
                             {PROJ_DATA[index]?.name}
                         </Text>
-                    </View>
+                    </View> */}
+                    <Image style={{flex: 1, height: "100%", width: "auto", borderWidth: 3, borderColor: "black"}} source={PROJ_DATA[index].thumb} />
                   </Pressable>
                 )}
             />

@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View, Image, ScrollView } from 'react-native';
+import { Pressable, StyleSheet, Text, View, Image, ScrollView, Modal } from 'react-native';
 import { useEffect, useState } from 'react';
 import { useFonts } from 'expo-font';
 import { Kanit_700Bold, Kanit_400Regular } from '@expo-google-fonts/kanit';
@@ -22,6 +22,11 @@ export default function Projects({navigation, route}) {
   const [searchClicked, setClicked] = useState(false);
   const [searchPhrase, setSearchPhrase] = useState("");
 
+  const [modalSearchClicked, setModalClicked] = useState(false);
+  const [modalSearchPhrase, setModalSearchPhrase] = useState("");
+
+  const [isModalOpen, setModal] = useState(false);
+
   useEffect(() => {
     const unsubscribe = navigation.addListener('tabPress', (e) => {
       navigation.dispatch(CommonActions.setParams({project: null}));
@@ -41,6 +46,21 @@ export default function Projects({navigation, route}) {
     // Page for Single Project
     <View style={{flex: 1, marginTop: 20, marginHorizontal: 10, padding: 20 }}>
       <XOverButton text={"Back"} pressFunc={() => {navigation.dispatch(CommonActions.setParams({ project: null })); route?.params?.source === "Projects" ? navigation.navigate("Projects") : navigation.dispatch(CommonActions.goBack())}} />
+      <Modal
+      animationType='fade'
+      transparent={true}
+      visible={isModalOpen}
+      onRequestClose={() => {
+        setModal(!isModalOpen);
+      }}
+      >
+        <View style={{flex: 1, width: "100%", height: "100%", padding: 20, alignItems: "center", justifyContent: "center", backgroundColor: XOverTheme.bg_blue + "d0"}}>
+          <View style={{backgroundColor: "white", borderRadius: 5, padding: 20}}>
+            <XOverButton text={"Back"} pressFunc={() => {setModal(false)}} />
+            <XOverSearch clicked={modalSearchClicked} searchPhrase={modalSearchPhrase} setClicked={setModalClicked} setSearchPhrase={setModalSearchPhrase} />
+          </View>
+        </View>
+      </Modal>
       <View style={{flex: 1, marginTop: 20}}>
         <View style={{height: 150, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
           <View
@@ -52,9 +72,10 @@ export default function Projects({navigation, route}) {
                   width: 100
               }}
           >
-              <Text style={[styles.header, {textAlign: "center"}]}>
+              {/* <Text style={[styles.header, {textAlign: "center"}]}>
                   {route.params.project.name}
-              </Text>
+              </Text> */}
+              <Image style={{flex: 1, height: "100%", width: "100%", borderWidth: 3, borderColor: "black"}} source={route.params.project.thumb} />
           </View>
           <View style={{flex: 2, marginLeft: 20}}>
             <XOverHeader wide={true} text={route.params.project.name} />
@@ -82,7 +103,7 @@ export default function Projects({navigation, route}) {
             <Text style={styles.bodyText}>{route.params.project.description}</Text>
           </View>
           <View styles={[styles.projElem, {alignItems: "center", justifyContent: "center"}]}>
-            <XOverButton containerStyles={{alignSelf: "center", marginTop: 20}} buttonStyles={{alignSelf: "center"}} text={"View Project Resources"} pressFunc={() => {console.log("view resources")}} />
+            <XOverButton containerStyles={{alignSelf: "center", marginTop: 20}} buttonStyles={{alignSelf: "center"}} text={"View Project Resources"} pressFunc={() => {setModal(true)}} />
           </View>
         </ScrollView>
       </View>
