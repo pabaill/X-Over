@@ -31,7 +31,7 @@ export default function XOverCarousel({navigation, changeProgressValue, changePr
                 mode='parallax'
                 modeConfig={{
                   parallaxScrollingScale: 0.8,
-                  parallaxScrollingOffset: 200,
+                  parallaxScrollingOffset: 250,
                 }}
                 data={PROJ_DATA}
                 onSnapToItem={(index) => {changeProject(PROJ_DATA[index]); changeProgressValue(index)}}
@@ -74,9 +74,9 @@ const styles = StyleSheet.create({
         fontSize: 30
       },
       pagination: {
-        width: 10,
-        height: 10,
-        borderRadius: 10,
+        width: 15,
+        height: 15,
+        borderRadius: 15,
         borderColor: XOverTheme.bg_blue,
         borderWidth: 1
       }
