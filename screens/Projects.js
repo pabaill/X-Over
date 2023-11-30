@@ -17,9 +17,7 @@ import XOverProfileChip from '../components/XOverProfileChip';
 
 const DROPDOWN_ITEMS = [{label: "All", value: "All"}, {label: 'Notes', value: 'Notes'}, {label: 'Reports', value: 'Reports'}, {label: 'Images', value: 'Images'}, {label: 'Videos', value: 'Videos'}]
 
-
 export default function Projects({navigation, route}) {
-
   const [currProject, changeProject] = useState(PROJ_DATA[0]);
   const [progressValue, changeProgressValue] = useState(0);
   const [selectedIndex, changeIndex] = useState(0)
@@ -55,6 +53,18 @@ export default function Projects({navigation, route}) {
     if (!fontsLoaded) {
       return null;
     }
+
+  const getTags = () => {
+    let union = []
+    PROJ_DATA.forEach((project) => {
+      project.tags.forEach((tag) => {
+        if (!union.includes(tag)) {
+          union.push(tag);
+        }
+      })
+    })
+    return union.sort();
+  };
 
   return route?.params?.project ? (
     // Page for Single Project
@@ -207,12 +217,24 @@ export default function Projects({navigation, route}) {
             <XOverSearch clicked={searchClicked} setClicked={setClicked} searchPhrase={searchPhrase} setSearchPhrase={setSearchPhrase} />
             {searchClicked ? (
               <ScrollView style={{flex: 3}}>
+                {/* Search autocomplete */}
                 <FlatList
-                  data={PROJ_DATA.filter((project) => project.name.toLowerCase().includes(searchPhrase.toLowerCase()) || project.tags.filter((tag) => tag.toLowerCase().includes(searchPhrase.toLowerCase())))}
+                  data={PROJ_DATA.filter((project) => project.name.toLowerCase().includes(searchPhrase.toLowerCase()) || project.tags.filter((tag) => tag.toLowerCase().includes(searchPhrase.toLowerCase())).length > 0)}
                   renderItem={({item, index}) => (
-                    <Text>{item.name}</Text>
+                    <View style={styles.searchResultContainer}>
+                      <Text style={styles.searchResult}>{item.name}</Text>
+                    </View>
                   )}
                   keyExtractor={(item) => {item.name + item.thumb}}
+                />
+                <FlatList
+                  data={getTags()}
+                  renderItem={({item, index}) => item.toLowerCase().includes(searchPhrase.toLowerCase()) ? (
+                    <View style={styles.searchResultContainer}>
+                        <Text style={styles.searchResult}>{item}</Text>
+                    </View>
+                  ) : (<></>)}
+                  keyExtractor={(item) => {item}}
                 />
               </ScrollView> 
             ) : (
@@ -259,5 +281,17 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     alignItems: "center",
     justifyContent: "space-evenly"
+  },
+  searchResult: {
+    fontFamily: "Kanit_400Regular",
+    fontSize: 18
+  },
+  searchResultContainer: {
+    width: "90%",
+    marginHorizontal: "5%",
+    borderTopWidth: 1,
+    borderColor: "black",
+    height: "auto",
+    paddingVertical: 10
   }
 })
