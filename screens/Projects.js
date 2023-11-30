@@ -14,6 +14,7 @@ import XOverCarousel from '../components/XOverCarousel';
 import XOverSearch from '../components/XOverSearch';
 import XOverTheme from '../assets/XOverTheme';
 import XOverProfileChip from '../components/XOverProfileChip';
+import XOverProjectList from '../components/XOverProjectList';
 
 const DROPDOWN_ITEMS = [{label: "All", value: "All"}, {label: 'Notes', value: 'Notes'}, {label: 'Reports', value: 'Reports'}, {label: 'Images', value: 'Images'}, {label: 'Videos', value: 'Videos'}]
 
@@ -27,6 +28,7 @@ export default function Projects({navigation, route}) {
 
   const [modalSearchClicked, setModalClicked] = useState(false);
   const [modalSearchPhrase, setModalSearchPhrase] = useState(route?.params?.openFile ? route?.params?.openFile : "");
+  const [showProjectList, setShowProjectList] = useState(false);
 
   const [isModalOpen, setModal] = useState(route?.params?.openFile ? true : false);
   const [selectVal, setSelectVal] = useState("All");
@@ -65,6 +67,15 @@ export default function Projects({navigation, route}) {
     })
     return union.sort();
   };
+
+  const completeSearchFn = (phrase) => {
+    setSearchPhrase(phrase);
+    setShowProjectList(true);
+  }
+
+  const getRelevantProjects = () => {
+    return PROJ_DATA.filter((project) => project.name.toLowerCase().includes(searchPhrase.toLowerCase()) || project.tags.filter((tag) => tag.toLowerCase().includes(searchPhrase.toLowerCase())).length > 0);
+  }
 
   return route?.params?.project ? (
     // Page for Single Project
@@ -214,28 +225,38 @@ export default function Projects({navigation, route}) {
         />
         {selectedIndex === 0 ? (
           <ScrollView contentContainerStyle={{flex: 1 }}>
-            <XOverSearch clicked={searchClicked} setClicked={setClicked} searchPhrase={searchPhrase} setSearchPhrase={setSearchPhrase} />
+            <XOverSearch setShowProjectList={setShowProjectList} clicked={searchClicked} setClicked={setClicked} searchPhrase={searchPhrase} setSearchPhrase={setSearchPhrase} />
             {searchClicked ? (
               <ScrollView style={{flex: 3}}>
                 {/* Search autocomplete */}
-                <FlatList
-                  data={PROJ_DATA.filter((project) => project.name.toLowerCase().includes(searchPhrase.toLowerCase()) || project.tags.filter((tag) => tag.toLowerCase().includes(searchPhrase.toLowerCase())).length > 0)}
-                  renderItem={({item, index}) => (
-                    <View style={styles.searchResultContainer}>
-                      <Text style={styles.searchResult}>{item.name}</Text>
+                <View>
+                  {!showProjectList ? (
+                    <View>
+                      <FlatList
+                        data={getRelevantProjects()}
+                        renderItem={({item, index}) => (
+                          <Pressable onPress={() => {completeSearchFn(item.name)}} style={styles.searchResultContainer}>
+                            <Text style={styles.searchResult}>{item.name}</Text>
+                          </Pressable>
+                        )}
+                        keyExtractor={(item) => {item.name + item.thumb}}
+                      />
+                      <FlatList
+                        data={getTags()}
+                        renderItem={({item, index}) => item.toLowerCase().includes(searchPhrase.toLowerCase()) ? (
+                          <Pressable onPress={() => {completeSearchFn(item)}} style={styles.searchResultContainer}>
+                              <Text style={styles.searchResult}>{item}</Text>
+                          </Pressable>
+                        ) : (<></>)}
+                        keyExtractor={(item) => {item}}
+                      />
+                    </View>
+                  ) : (
+                    <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
+                      <XOverProjectList navigation={navigation} projectList={getRelevantProjects()} />
                     </View>
                   )}
-                  keyExtractor={(item) => {item.name + item.thumb}}
-                />
-                <FlatList
-                  data={getTags()}
-                  renderItem={({item, index}) => item.toLowerCase().includes(searchPhrase.toLowerCase()) ? (
-                    <View style={styles.searchResultContainer}>
-                        <Text style={styles.searchResult}>{item}</Text>
-                    </View>
-                  ) : (<></>)}
-                  keyExtractor={(item) => {item}}
-                />
+                </View>
               </ScrollView> 
             ) : (
             <View style={{flex: 3, alignItems: "center" }}>
