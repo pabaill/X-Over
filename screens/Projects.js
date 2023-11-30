@@ -33,6 +33,11 @@ export default function Projects({navigation, route}) {
   const [isSelectOpen, setSelectOpen] = useState(false);
 
   useEffect(() => {
+    setModal(route?.params?.openFile ? true : false);
+    setModalSearchPhrase(route?.params?.openFile ? route?.params?.openFile : "");
+  }, [route])
+
+  useEffect(() => {
     const unsubscribe = navigation.addListener('tabPress', (e) => {
       navigation.dispatch(CommonActions.setParams({project: null}));
     });
@@ -50,7 +55,7 @@ export default function Projects({navigation, route}) {
   return route?.params?.project ? (
     // Page for Single Project
     <View style={{flex: 1, marginTop: 20, marginHorizontal: 10, padding: 20 }}>
-      <XOverButton text={"Back"} pressFunc={() => {navigation.dispatch(CommonActions.setParams({ project: null })); route?.params?.source === "Projects" ? navigation.navigate("Projects") : navigation.dispatch(CommonActions.goBack())}} />
+      <XOverButton text={"Back"} pressFunc={() => {navigation.dispatch(CommonActions.setParams({ project: null, openFile: null })); route?.params?.source === "Projects" ? navigation.navigate("Projects") : navigation.dispatch(CommonActions.goBack())}} />
       <Modal
       animationType='fade'
       transparent={true}
@@ -137,7 +142,7 @@ export default function Projects({navigation, route}) {
                 <Text style={{position: "absolute", color: "white", fontFamily: "Kanit_400Regular", textAlign: "right", right: 20, top: 0}}>{route.params.project.updates[0].time.toLocaleTimeString('en-US')}</Text>
                 <Text style={{marginLeft: 40, marginTop: 5, color: "white", fontFamily: "Kanit_400Regular", fontSize: 18}}>{route.params.project.updates[0].name}</Text>
                 <Text numberOfLines={1} style={{marginLeft: 40, color: "white", paddingLeft: 20, fontFamily: "Kanit_400Regular", width: "80%"}}>{route.params.project.updates[0].text}</Text>
-                <Text onPress={() => {navigation.jumpTo('Projects', {project: route.params.project, source: "Projects", openFile: route.params.project.updates[0].link.filename})}} style={{marginLeft: 40, color: "white", paddingLeft: 20, fontFamily: "Kanit_400Regular"}}>{route.params.project.updates[0].link.text}</Text>
+                <Text onPress={() => {navigation.jumpTo('Projects', {project: route.params.project, source: "Projects", openFile: route.params.project.updates[0].link.filename})}} style={{marginLeft: 40, color: "white", paddingLeft: 20, fontFamily: "Kanit_400Regular", textDecorationLine: 'underline', fontWeight: 'bold'}}>{route.params.project.updates[0].link.text}</Text>
               </ImageBackground>
             </View>
           </View>
