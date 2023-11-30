@@ -8,6 +8,8 @@ import { useFonts, Kanit_400Regular } from "@expo-google-fonts/kanit";
 import {auth} from './../firebase';
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
 
+import XOverButton from "../components/XOverButton";
+
 import theme from "./../assets/XOverTheme";
 import XOverTheme from "./../assets/XOverTheme";
 
@@ -59,8 +61,10 @@ export default function Login() {
             <TextInput secureTextEntry={true} style={styles.input} placeholder="Password" value={password} onChangeText={s => setPassword(s)} />
         </View>
         <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center', marginTop: 20}}>
-            <Pressable style={[styles.pressable, styles.shadowProp]} onPress={handleLogIn}><Text style={styles.baseText}>Log In</Text></Pressable>
-            <Pressable style={[styles.pressable, styles.shadowProp]} onPress={handleSignUp} ><Text style={styles.baseText}>Sign Up</Text></Pressable>
+            <XOverButton containerStyles={{marginHorizontal: "10%", width: "60%", marginVertical: 40}} text={"Login"} pressFunc={handleLogIn} />
+            <XOverButton containerStyles={{marginHorizontal: "10%", width: "60%"}} text={"Sign Up"} pressFunc={handleSignUp} />
+            {/* <Pressable style={[styles.pressable, styles.shadowProp]} onPress={handleLogIn}><Text style={styles.baseText}>Log In</Text></Pressable>
+            <Pressable style={[styles.pressable, styles.shadowProp]} onPress={handleSignUp} ><Text style={styles.baseText}>Sign Up</Text></Pressable> */}
         </View>
         </ScrollView>
       </SafeAreaView>

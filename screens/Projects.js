@@ -146,9 +146,6 @@ export default function Projects({navigation, route}) {
                   width: 100
               }}
           >
-              {/* <Text style={[styles.header, {textAlign: "center"}]}>
-                  {route.params.project.name}
-              </Text> */}
               <Text numberOfLines={1} style={[styles.header, {flex: 1, height: 30, width: "100%", paddingHorizontal: 5, fontSize: 14, position: "absolute", zIndex: 1, backgroundColor: XOverTheme.base_yellow, borderColor: "black", borderTopWidth: 3, borderRightWidth: 3, borderLeftWidth: 3}]}>{route.params.project.name}</Text>
               <Image style={{flex: 1, height: "100%", width: "100%", borderWidth: 3, borderColor: "black"}} source={route.params.project.thumb} />
           </View>
@@ -208,10 +205,14 @@ export default function Projects({navigation, route}) {
         {selectedIndex === 0 ? (
           <ScrollView contentContainerStyle={{flex: 1, alignItems: "center", justifyContent: "center"}}>
             <XOverSearch clicked={searchClicked} setClicked={setClicked} searchPhrase={searchPhrase} setSearchPhrase={setSearchPhrase} />
+            {searchClicked ? (
+              <Text>Search Results</Text>
+            ) : (
             <View style={{flex: 3}}>
               <XOverHeader wide={true} text={"For You"} />
               <XOverCarousel source={"Projects"} navigation={navigation} changeProgressValue={changeProgressValue} changeProject={changeProject} progressValue={progressValue} />
             </View>
+            )}
             <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
               <XOverButton pressFunc={() => {console.log("Create X-Over")}} text={"Create Your X-Over"} buttonStyles={{width: "auto"}} />
             </View>

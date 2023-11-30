@@ -21,7 +21,8 @@ export default function XOverButton({text, pressFunc, containerStyles, buttonSty
 const styles = StyleSheet.create({
     buttonText: {
       fontFamily: "Kanit_400Regular",
-      fontSize: 24
+      fontSize: 24,
+      textAlign: "center"
     },
     button: {
       borderColor: "black", 
