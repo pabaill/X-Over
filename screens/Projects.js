@@ -1,17 +1,20 @@
 import { Pressable, StyleSheet, Text, View, Image, ScrollView, Modal, ImageBackground } from 'react-native';
 import { useEffect, useState } from 'react';
 import { useFonts } from 'expo-font';
+import { FlatList } from 'react-native-gesture-handler';
 import { Kanit_700Bold, Kanit_400Regular } from '@expo-google-fonts/kanit';
 import { CommonActions } from '@react-navigation/native';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
+import DropDownPicker from 'react-native-dropdown-picker';
 import XOverHeader from '../components/XOverHeader';
 import XOverButton from '../components/XOverButton';
 import PROJ_DATA from './../assets/mock_data';
 import XOverCarousel from '../components/XOverCarousel';
 import XOverSearch from '../components/XOverSearch';
 import XOverTheme from '../assets/XOverTheme';
-import { FlatList } from 'react-native-gesture-handler';
 import XOverProfileChip from '../components/XOverProfileChip';
+
+const DROPDOWN_ITEMS = [{label: "All", value: "All"}, {label: 'Notes', value: 'Notes'}, {label: 'Reports', value: 'Reports'}, {label: 'Images', value: 'Images'}, {label: 'Videos', value: 'Videos'}]
 
 export default function Projects({navigation, route}) {
 
@@ -26,6 +29,8 @@ export default function Projects({navigation, route}) {
   const [modalSearchPhrase, setModalSearchPhrase] = useState(route?.params?.openFile ? route?.params?.openFile : "");
 
   const [isModalOpen, setModal] = useState(route?.params?.openFile ? true : false);
+  const [selectVal, setSelectVal] = useState("All");
+  const [isSelectOpen, setSelectOpen] = useState(false);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('tabPress', (e) => {
@@ -54,11 +59,21 @@ export default function Projects({navigation, route}) {
         setModal(!isModalOpen);
       }}
       >
+        {/* Project Resource Modal Window */}
         <View style={{flex: 1, width: "100%", height: "100%", padding: 10, alignItems: "center", justifyContent: "center", backgroundColor: XOverTheme.bg_blue + "d0"}}>
-          <View style={{ backgroundColor: "white", borderRadius: 25, padding: 20, alignItems: "flex-start"}}>
+          <View style={{ backgroundColor: "white", borderRadius: 25, padding: 10, alignItems: "flex-start"}}>
             <XOverButton text={"Back"} pressFunc={() => {setModal(false)}} />
             <XOverHeader containerStyles={{marginTop: 20}} text={"Project Resources"} />
             <XOverSearch clicked={modalSearchClicked} searchPhrase={modalSearchPhrase} setClicked={setModalClicked} setSearchPhrase={setModalSearchPhrase} />
+            <DropDownPicker 
+              containerStyle={{width: "90%", marginHorizontal: "5%", marginBottom: 10}}
+              labelStyle={{fontFamily: "Kanit_400Regular"}}
+              open={isSelectOpen} 
+              setOpen={setSelectOpen} 
+              items={DROPDOWN_ITEMS} 
+              setValue={setSelectVal}
+              value={selectVal}
+            />
             <FlatList 
             data={route.params.project.resources}
             ListHeaderComponent={(<View style={{ width: "100%", flexDirection: "row", paddingHorizontal: 10}}>
@@ -66,8 +81,8 @@ export default function Projects({navigation, route}) {
             <Text style={{fontFamily: "Kanit_400Regular", width: "30%"}}>Last Modified</Text>
         </View>)}
             contentContainerStyle={{flexDirection: "column", alignItems: "flex-start", flex: 3}} 
-            renderItem={({item, index}) => item.filename.toLowerCase().includes(modalSearchPhrase.toLowerCase()) ? (
-              <View style={{flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "space-between", backgroundColor: "#C0C0C0", width: "90%", maxHeight: 80, marginTop: 20, borderRadius: 25, padding: 10}}>
+            renderItem={({item, index}) => item.filename.toLowerCase().includes(modalSearchPhrase.toLowerCase()) && (selectVal === "All" || item.category === selectVal) ? (
+              <View style={{flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "space-between", backgroundColor: "#C0C0C0", width: "90%", marginHorizontal: "2%", maxHeight: 80, marginTop: 20, borderRadius: 25, padding: 10}}>
                 <Text style={{fontFamily: "Kanit_400Regular", width: "30%"}}>{item.filename}</Text>
                 <Text style={{fontFamily: "Kanit_400Regular", width: "30%"}}>{`${item.lastMod.toLocaleTimeString()} ${item.lastMod.toLocaleDateString()} (${item.author})`}</Text>
                 <XOverButton containerStyles={{width: "25%"}} text={"View"} pressFunc={() => {console.log("pressed!")}} />

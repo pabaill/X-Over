@@ -54,11 +54,11 @@ export default function XOverSearch ({clicked, searchPhrase, setSearchPhrase, se
 // styles
 const styles = StyleSheet.create({
   container: {
-    margin: 15,
+    margin: "5%",
     justifyContent: "flex-start",
     alignItems: "center",
     flexDirection: "row",
-    width: "90%",
+    width: "95%",
   },
   searchBar__unclicked: {
     padding: 10,

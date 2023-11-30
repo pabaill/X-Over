@@ -7,8 +7,8 @@ export default PROJ_DATA = [
     members: [{name: "Bill", role: "Lead", email: "bill@stanford.edu", image: "assets/default_profile.png"}, {name: "Ted", role: "Engineer", email: "ted@stanford.edu", image: "assets/default_profile.png"}],
     thumb: require('./../assets/sample_project_thumbs/apple.png'),
     resources: [
-      {filename: "Meeting Notes (11/11)", author: "Bill", lastMod: new Date("2023-11-27T14:25:00")},
-      {filename: "Budget Report", author: "Ted", lastMod: new Date("2023-11-27T09:25:00")},
+      {filename: "Meeting Notes (11/11)", author: "Bill", lastMod: new Date("2023-11-27T14:25:00"), category: "Notes"},
+      {filename: "Budget Report", author: "Ted", lastMod: new Date("2023-11-27T09:25:00"), category: "Reports"},
     ]
   },
     {name: "Google Pixel 12", description: "Google Pixel 12 Team - working towards developing a unique smartphone experience. Currently in alpha testing phase.", updates: [{
@@ -17,8 +17,8 @@ export default PROJ_DATA = [
     members: [{name: "John", role: "Lead", email: "john@stanford.edu", image: "assets/default_profile.png"}, {name: "Mary", role: "Engineer", email: "mary@stanford.edu", image: "assets/default_profile.png"}],
     thumb: require('./../assets/sample_project_thumbs/google.png'),
     resources: [
-      {filename: "Meeting Notes (11/12)", author: "John", lastMod: new Date("2023-11-27T11:44:00")},
-      {filename: "Work Plan (Week 12)", author: "Mary", lastMod: new Date("2023-11-27T11:44:00")}
+      {filename: "Meeting Notes (11/12)", author: "John", lastMod: new Date("2023-11-27T11:44:00"), category: "Notes"},
+      {filename: "Work Plan (Week 12)", author: "Mary", lastMod: new Date("2023-11-27T11:44:00"), category: "Reports"}
     ]
   },
     {name: "Microsoft Surface XL 14", description: "Microsoft Surface XL 14 Team - working towards developing a unique laptop experience. Currently in beta testing phase.", updates: [{
@@ -27,8 +27,8 @@ export default PROJ_DATA = [
     members: [{name: "Alice", role: "Lead", email: "alice@stanford.edu", image: "assets/default_profile.png"}, {name: "Jimmy", role: "Designer", email: "jimmy@stanford.edu", image: "assets/default_profile.png"}],
     thumb: require('./../assets/sample_project_thumbs/microsoft.png'),
     resources: [
-      {filename: "Meeting Notes (11/13)", author: "Alice", lastMod: new Date("2023-11-27T13:12:00")},
-      {filename: "Quarterly Report (Q2)", author: "Jimmy", lastMod: new Date("2023-10-19T11:34:00")}
+      {filename: "Meeting Notes (11/13)", author: "Alice", lastMod: new Date("2023-11-27T13:12:00"), category: "Notes"},
+      {filename: "Quarterly Report (Q2)", author: "Jimmy", lastMod: new Date("2023-10-19T11:34:00"), category: "Reports"}
     ]
   }
 ];
