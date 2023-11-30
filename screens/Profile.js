@@ -1,28 +1,29 @@
 import { StyleSheet, Text, View } from 'react-native';
+import XOverTheme from '../assets/XOverTheme';
 
 export default function Profile() {
   return (
     <View style={{height: '100%'}}>
       <View
-        sytle={{
-          height: '15%',
-          backgroundColor: 'powderblue',
+        style={{
+          height: '10%',
+          width: '100%',
+          backgroundColor: XOverTheme.bg_blue,
         }}
       />
       <View
         style={{
-          width: '66%',
-          height: '35%',
-          backgroundColor: 'skyblue',
+          height: '4%',
+          width: '100%',
         }}
       />
       <View
         style={{
-          width: '33',
-          height: '50%',
-          backgroundColor: 'steelblue',
+          height: '19%',
+          width: '100%',
+          backgroundColor: XOverTheme.bg_blue,
         }}
       />
     </View>
-  )
-}
+  );
+};
