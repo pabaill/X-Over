@@ -82,17 +82,22 @@ export default function Projects({navigation, route}) {
             >
               <View style={{flex: 1, width: "100%", height: "100%", padding: 10, alignItems: "center", justifyContent: "center", backgroundColor: XOverTheme.bg_blue + "d0"}}>
                 <View style={{ flex: 1, alignItems: "flex-start", justifyContent: "space-between", backgroundColor: "white", width: "80%", height: "40%", marginVertical: "30%", borderRadius: 25, padding: 20}}>
+                  <XOverButton text={"Back"} pressFunc={() => {setAddFileModal(false)}} />
                   <XOverHeader text={"Add A File"} />
                   <TextInput placeholderTextColor={"white"} style={styles.input} placeholder='Resource Name' />
-                  <DropDownPicker 
-                    containerStyle={{width: "50%", marginHorizontal: "5%", marginBottom: 10}}
-                    labelStyle={{fontFamily: "Kanit_400Regular"}}
-                    open={isSelectOpen} 
-                    setOpen={setSelectOpen} 
-                    items={DROPDOWN_ITEMS} 
-                    setValue={setSelectVal}
-                    value={selectVal}
-                  />
+                  <TextInput placeholderTextColor={"white"} style={styles.input} placeholder='Link to Resource' />
+                  <View>
+                    <Text style={{fontFamily: "Kanit_400Regular"}}>Select Tag</Text>
+                    <DropDownPicker 
+                      containerStyle={{width: "50%", marginHorizontal: "5%", marginBottom: 10}}
+                      labelStyle={{fontFamily: "Kanit_400Regular"}}
+                      open={isSelectOpen} 
+                      setOpen={setSelectOpen} 
+                      items={DROPDOWN_ITEMS} 
+                      setValue={setSelectVal}
+                      value={selectVal}
+                    />
+                  </View>
                   <XOverButton containerStyles={{marginLeft: "60%"}} text={"Upload"} pressFunc={() => {setAddFileModal(!addFileModalOpen)}} />
                 </View>
               </View>
@@ -206,7 +211,7 @@ export default function Projects({navigation, route}) {
               <XOverHeader wide={true} text={"For You"} />
               <XOverCarousel source={"Projects"} navigation={navigation} changeProgressValue={changeProgressValue} changeProject={changeProject} progressValue={progressValue} />
             </View>
-            <View style={{flex: 2, alignItems: "center", justifyContent: "center"}}>
+            <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
               <XOverButton pressFunc={() => {console.log("Create X-Over")}} text={"Create Your X-Over"} buttonStyles={{width: "auto"}} />
             </View>
           </ScrollView>
