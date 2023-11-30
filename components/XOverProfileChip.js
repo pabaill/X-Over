@@ -14,10 +14,13 @@ export default function XOverProfileChip({person}) {
       }
 
     return (
-        <View style={{height: "55%", width: 65, marginHorizontal: 20, resizeMode: "contain"}}>
-            <Image style={{height: "100%", width: "auto", resizeMode: "contain"}} source={require('./../assets/default_profile.png')} />
-            <Text style={styles.name}>{person.name}</Text>
-            <Text style={styles.role}>{person.role}</Text>
+        <View style={{height: 65, width: 65, marginHorizontal: 20, resizeMode: "contain"}}>
+            <Image style={{flex: 1, height: "60%", width: "auto", resizeMode: "contain"}} source={require('./../assets/default_profile.png')} />
+            <View style={{height: "40%", flex: 1}}>
+                <Text style={styles.name}>{person.name}</Text>
+                <Text style={styles.role}>{person.pronouns}</Text>
+                <Text style={styles.role}>{person.role}</Text>
+            </View>
         </View>
     )
 }
@@ -26,11 +29,13 @@ const styles = StyleSheet.create({
     name: {
         fontFamily: "Kanit_400Regular",
         fontSize: 14,
-        textAlign: "center"
+        textAlign: "center",
+        lineHeight: 16
     },
     role: {
         fontFamily: "Kanit_400Regular",
         fontSize: 10,
-        textAlign: "center"
+        textAlign: "center",
+        lineHeight: 12
     }
 })
