@@ -155,8 +155,8 @@ export default function Projects({navigation, route}) {
             <XOverHeader wide={true} text={route.params.project.name} />
           </View>
         </View>
-        <Image style={{width: "auto", height: 40}} source={require('./../assets/X-Over-Drawer.png')} />
-        <ScrollView style={{flex: 4, marginTop: 10, height: "100%"}}>
+        <Image style={{width: "auto", height: 30}} source={require('./../assets/X-Over-Drawer.png')} />
+        <ScrollView style={{flex: 4, height: "100%"}}>
           <View style={styles.projElem}>
             <XOverHeader textStyles={styles.subheaders} wide={false} text={"Team"} />
             <FlatList
