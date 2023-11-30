@@ -86,10 +86,10 @@ export default function Projects({navigation, route}) {
                   <XOverHeader text={"Add A File"} />
                   <TextInput placeholderTextColor={"white"} style={styles.input} placeholder='Resource Name' />
                   <TextInput placeholderTextColor={"white"} style={styles.input} placeholder='Link to Resource' />
-                  <View>
+                  <View style={{paddingLeft: 10}}>
                     <Text style={{fontFamily: "Kanit_400Regular"}}>Select Tag</Text>
                     <DropDownPicker 
-                      containerStyle={{width: "50%", marginHorizontal: "5%", marginBottom: 10}}
+                      containerStyle={{width: "100%", marginBottom: 10}}
                       labelStyle={{fontFamily: "Kanit_400Regular"}}
                       open={isSelectOpen} 
                       setOpen={setSelectOpen} 
