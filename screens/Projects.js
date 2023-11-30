@@ -1,17 +1,20 @@
 import { Pressable, StyleSheet, Text, View, Image, ScrollView, Modal, ImageBackground } from 'react-native';
 import { useEffect, useState } from 'react';
 import { useFonts } from 'expo-font';
+import { FlatList } from 'react-native-gesture-handler';
 import { Kanit_700Bold, Kanit_400Regular } from '@expo-google-fonts/kanit';
 import { CommonActions } from '@react-navigation/native';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
+import DropDownPicker from 'react-native-dropdown-picker';
 import XOverHeader from '../components/XOverHeader';
 import XOverButton from '../components/XOverButton';
 import PROJ_DATA from './../assets/mock_data';
 import XOverCarousel from '../components/XOverCarousel';
 import XOverSearch from '../components/XOverSearch';
 import XOverTheme from '../assets/XOverTheme';
-import { FlatList } from 'react-native-gesture-handler';
 import XOverProfileChip from '../components/XOverProfileChip';
+
+const DROPDOWN_ITEMS = [{label: "All", value: "All"}, {label: 'Notes', value: 'Notes'}, {label: 'Reports', value: 'Reports'}, {label: 'Images', value: 'Images'}, {label: 'Videos', value: 'Videos'}]
 
 export default function Projects({navigation, route}) {
 
@@ -23,9 +26,16 @@ export default function Projects({navigation, route}) {
   const [searchPhrase, setSearchPhrase] = useState("");
 
   const [modalSearchClicked, setModalClicked] = useState(false);
-  const [modalSearchPhrase, setModalSearchPhrase] = useState("");
+  const [modalSearchPhrase, setModalSearchPhrase] = useState(route?.params?.openFile ? route?.params?.openFile : "");
 
-  const [isModalOpen, setModal] = useState(false);
+  const [isModalOpen, setModal] = useState(route?.params?.openFile ? true : false);
+  const [selectVal, setSelectVal] = useState("All");
+  const [isSelectOpen, setSelectOpen] = useState(false);
+
+  useEffect(() => {
+    setModal(route?.params?.openFile ? true : false);
+    setModalSearchPhrase(route?.params?.openFile ? route?.params?.openFile : "");
+  }, [route])
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('tabPress', (e) => {
@@ -45,7 +55,7 @@ export default function Projects({navigation, route}) {
   return route?.params?.project ? (
     // Page for Single Project
     <View style={{flex: 1, marginTop: 20, marginHorizontal: 10, padding: 20 }}>
-      <XOverButton text={"Back"} pressFunc={() => {navigation.dispatch(CommonActions.setParams({ project: null })); route?.params?.source === "Projects" ? navigation.navigate("Projects") : navigation.dispatch(CommonActions.goBack())}} />
+      <XOverButton text={"Back"} pressFunc={() => {navigation.dispatch(CommonActions.setParams({ project: null, openFile: null })); route?.params?.source === "Projects" ? navigation.navigate("Projects") : navigation.dispatch(CommonActions.goBack())}} />
       <Modal
       animationType='fade'
       transparent={true}
@@ -54,22 +64,32 @@ export default function Projects({navigation, route}) {
         setModal(!isModalOpen);
       }}
       >
+        {/* Project Resource Modal Window */}
         <View style={{flex: 1, width: "100%", height: "100%", padding: 10, alignItems: "center", justifyContent: "center", backgroundColor: XOverTheme.bg_blue + "d0"}}>
-          <View style={{ backgroundColor: "white", borderRadius: 25, padding: 20, alignItems: "flex-start"}}>
+          <View style={{ backgroundColor: "white", borderRadius: 25, padding: 10, alignItems: "flex-start"}}>
             <XOverButton text={"Back"} pressFunc={() => {setModal(false)}} />
             <XOverHeader containerStyles={{marginTop: 20}} text={"Project Resources"} />
             <XOverSearch clicked={modalSearchClicked} searchPhrase={modalSearchPhrase} setClicked={setModalClicked} setSearchPhrase={setModalSearchPhrase} />
-            <View style={{flex: 1, width: "100%", flexDirection: "row", alignItems: "flex-start", justifyContent: "space-between"}}>
-                <Text style={{width: "50%"}}>File Name</Text>
-                <Text style={{width: "50%"}}>Last Modified</Text>
-            </View>
+            <DropDownPicker 
+              containerStyle={{width: "90%", marginHorizontal: "5%", marginBottom: 10}}
+              labelStyle={{fontFamily: "Kanit_400Regular"}}
+              open={isSelectOpen} 
+              setOpen={setSelectOpen} 
+              items={DROPDOWN_ITEMS} 
+              setValue={setSelectVal}
+              value={selectVal}
+            />
             <FlatList 
             data={route.params.project.resources}
-            contentContainerStyle={{flexDirection: "column", alignItems: "flex-start", flex: 1}} 
-            renderItem={({item, index}) => item.filename.toLowerCase().includes(modalSearchPhrase.toLowerCase()) ? (
-              <View style={{flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "space-between", backgroundColor: "#C0C0C0", width: "90%", maxHeight: 80, marginTop: 20, borderRadius: 25, padding: 10}}>
-                <Text style={{width: "30%"}}>{item.filename}</Text>
-                <Text style={{width: "30%"}}>{`${item.lastMod.toLocaleTimeString()} ${item.lastMod.toLocaleDateString()} (${item.author})`}</Text>
+            ListHeaderComponent={(<View style={{ width: "100%", flexDirection: "row", paddingHorizontal: 10}}>
+            <Text style={{fontFamily: "Kanit_400Regular", width: "30%"}}>File Name</Text>
+            <Text style={{fontFamily: "Kanit_400Regular", width: "30%"}}>Last Modified</Text>
+        </View>)}
+            contentContainerStyle={{flexDirection: "column", alignItems: "flex-start", flex: 3}} 
+            renderItem={({item, index}) => item.filename.toLowerCase().includes(modalSearchPhrase.toLowerCase()) && (selectVal === "All" || item.category === selectVal) ? (
+              <View style={{flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "space-between", backgroundColor: "#C0C0C0", width: "90%", marginHorizontal: "2%", maxHeight: 80, marginTop: 20, borderRadius: 25, padding: 10}}>
+                <Text style={{fontFamily: "Kanit_400Regular", width: "30%"}}>{item.filename}</Text>
+                <Text style={{fontFamily: "Kanit_400Regular", width: "30%"}}>{`${item.lastMod.toLocaleTimeString()} ${item.lastMod.toLocaleDateString()} (${item.author})`}</Text>
                 <XOverButton containerStyles={{width: "25%"}} text={"View"} pressFunc={() => {console.log("pressed!")}} />
               </View>
             ) : (<></>)}
@@ -116,13 +136,13 @@ export default function Projects({navigation, route}) {
           </View>
           <View style={styles.projElem}>
             <XOverHeader textStyles={styles.subheaders} wide={false} text={"Recent Updates"} />
-            <View key={route.params.project.updates[0].text + route.params.project.updates[0].link} style={{flex: 1, flexDirection: "row", height: "auto", marginTop: 20}}>
-              <Image key={route.params.project.updates[0].name + " profile"} style={{flex: 1, height: "90%", width: "auto"}} source={require("./../assets/default_profile.png")} />
+            <View key={route.params.project.updates[0].text + route.params.project.updates[0].link.text} style={{flex: 1, flexDirection: "row", height: "auto", marginTop: 20}}>
+              <Image key={route.params.project.updates[0].name + " profile"} style={{flex: 1, height: "80%", width: "auto", resizeMode: "contain"}} source={require("./../assets/default_profile.png")} />
               <ImageBackground key={route.params.project.updates[0].text + " bubble"} style={[styles.bubble, {flex: 4}]} source={require("./../assets/X-Over-Bubble.png")}>
                 <Text style={{position: "absolute", color: "white", fontFamily: "Kanit_400Regular", textAlign: "right", right: 20, top: 0}}>{route.params.project.updates[0].time.toLocaleTimeString('en-US')}</Text>
                 <Text style={{marginLeft: 40, marginTop: 5, color: "white", fontFamily: "Kanit_400Regular", fontSize: 18}}>{route.params.project.updates[0].name}</Text>
                 <Text numberOfLines={1} style={{marginLeft: 40, color: "white", paddingLeft: 20, fontFamily: "Kanit_400Regular", width: "80%"}}>{route.params.project.updates[0].text}</Text>
-                <Text style={{marginLeft: 40, color: "white", paddingLeft: 20, fontFamily: "Kanit_400Regular"}}>{route.params.project.updates[0].link}</Text>
+                <Text onPress={() => {navigation.jumpTo('Projects', {project: route.params.project, source: "Projects", openFile: route.params.project.updates[0].link.filename})}} style={{marginLeft: 40, color: "white", paddingLeft: 20, fontFamily: "Kanit_400Regular", textDecorationLine: 'underline', fontWeight: 'bold'}}>{route.params.project.updates[0].link.text}</Text>
               </ImageBackground>
             </View>
           </View>

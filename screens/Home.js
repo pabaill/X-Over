@@ -61,17 +61,17 @@ export default function Home({navigation}) {
               <FlatList
                 data={currProject.updates}
                 renderItem={({item, index}) => (
-                <View key={index + item.text + item.link} style={{flex: 1, flexDirection: "row", height: "auto", marginTop: 20}}>
+                <View key={index + item.text + item.link.text} style={{flex: 1, flexDirection: "row", height: "auto", marginTop: 20}}>
                   <Image key={item.name + " profile" + index} style={{flex: 1, height: "90%", width: "auto"}} source={require("./../assets/default_profile.png")} />
                   <ImageBackground key={item.text + " bubble" + index} style={[styles.bubble, {flex: 4}]} source={require("./../assets/X-Over-Bubble.png")}>
                     <Text style={{position: "absolute", color: "white", fontFamily: "Kanit_400Regular", textAlign: "right", right: 20, top: 0}}>{item.time.toLocaleTimeString('en-US')}</Text>
                     <Text style={{marginLeft: 40, marginTop: 5, color: "white", fontFamily: "Kanit_400Regular", fontSize: 18}}>{item.name}</Text>
                     <Text numberOfLines={1} style={{marginLeft: 40, color: "white", paddingLeft: 20, fontFamily: "Kanit_400Regular"}}>{item.text}</Text>
-                    <Text style={{marginLeft: 40, color: "white", paddingLeft: 20, fontFamily: "Kanit_400Regular"}}>{item.link}</Text>
+                    <Text onPress={() => {navigation.jumpTo('Projects', {project: currProject, source: "Home", openFile: item.link.filename})}} style={{marginLeft: 40, color: "white", paddingLeft: 20, fontFamily: "Kanit_400Regular", textDecorationLine: 'underline', fontWeight: 'bold'}}>{item.link.text}</Text>
                   </ImageBackground>
                 </View>
                 )}
-                keyExtractor={(item) => {progressValue + item.text + item.link}}
+                keyExtractor={(item) => {progressValue + item.text + item.link.text}}
               />
             </View>
           </View>

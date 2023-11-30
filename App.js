@@ -19,6 +19,9 @@ import Login from './screens/Login';
 
 import { useFonts, Kanit_400Regular } from "@expo-google-fonts/kanit";
 
+import { LogBox } from 'react-native';
+LogBox.ignoreAllLogs();
+
 
 export default function App() {
 
