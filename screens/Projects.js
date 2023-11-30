@@ -69,7 +69,7 @@ export default function Projects({navigation, route}) {
       }}
       >
         {/* Project Resource Modal Window */}
-        <View style={{flex: 1, width: "100%", height: "100%", padding: 10, alignItems: "center", justifyContent: "center", backgroundColor: XOverTheme.bg_blue + "d0"}}>
+        <View style={{flex: 1, width: "100%", height: "100%", padding: 20, alignItems: "center", justifyContent: "center", backgroundColor: XOverTheme.bg_blue + "d0"}}>
           <View style={{ backgroundColor: "white", borderRadius: 25, padding: 10, alignItems: "flex-start"}}>
             {/* Add File Modal */}
             <Modal
@@ -102,7 +102,7 @@ export default function Projects({navigation, route}) {
                 </View>
               </View>
             </Modal>
-            <XOverButton text={"Back"} pressFunc={() => {setModal(false)}} />
+            <XOverButton text={"Back"} pressFunc={() => {setModal(false); setModalClicked(false); setModalSearchPhrase(""); setSelectVal("All")}} />
             <XOverHeader containerStyles={{marginTop: 20}} text={"Project Resources"} />
             <XOverSearch clicked={modalSearchClicked} searchPhrase={modalSearchPhrase} setClicked={setModalClicked} setSearchPhrase={setModalSearchPhrase} />
             <View style={{display: "flex", flexDirection: "row", width: "90%", marginHorizontal: "5%", marginBottom: 10}}>
@@ -140,8 +140,8 @@ export default function Projects({navigation, route}) {
           <View
               style={{
                   borderWidth: 1,
-                  justifyContent: 'center',
-                  alignItems: "center",
+                  justifyContent: 'flex-start',
+                  alignItems: "flex-start",
                   height: 150,
                   width: 100
               }}
@@ -149,6 +149,7 @@ export default function Projects({navigation, route}) {
               {/* <Text style={[styles.header, {textAlign: "center"}]}>
                   {route.params.project.name}
               </Text> */}
+              <Text numberOfLines={1} style={[styles.header, {flex: 1, height: 30, width: "100%", paddingHorizontal: 5, fontSize: 14, position: "absolute", zIndex: 1, backgroundColor: XOverTheme.base_yellow, borderColor: "black", borderTopWidth: 3, borderRightWidth: 3, borderLeftWidth: 3}]}>{route.params.project.name}</Text>
               <Image style={{flex: 1, height: "100%", width: "100%", borderWidth: 3, borderColor: "black"}} source={route.params.project.thumb} />
           </View>
           <View style={{flex: 2, marginLeft: 20}}>
