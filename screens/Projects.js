@@ -203,19 +203,25 @@ export default function Projects({navigation, route}) {
           }}
         />
         {selectedIndex === 0 ? (
-          <ScrollView contentContainerStyle={{flex: 1, alignItems: "center", justifyContent: "center"}}>
+          <ScrollView contentContainerStyle={{flex: 1 }}>
             <XOverSearch clicked={searchClicked} setClicked={setClicked} searchPhrase={searchPhrase} setSearchPhrase={setSearchPhrase} />
             {searchClicked ? (
-              <Text>Search Results</Text>
+              <ScrollView style={{flex: 3}}>
+                <FlatList
+                  data={PROJ_DATA.filter((project) => project.name.toLowerCase().includes(searchPhrase.toLowerCase()) || project.tags.filter((tag) => tag.toLowerCase().includes(searchPhrase.toLowerCase())))}
+                  renderItem={({item, index}) => (
+                    <Text>{item.name}</Text>
+                  )}
+                  keyExtractor={(item) => {item.name + item.thumb}}
+                />
+              </ScrollView> 
             ) : (
-            <View style={{flex: 3}}>
-              <XOverHeader wide={true} text={"For You"} />
+            <View style={{flex: 3, alignItems: "center" }}>
+              <XOverHeader wide={false} text={"For You"} />
               <XOverCarousel source={"Projects"} navigation={navigation} changeProgressValue={changeProgressValue} changeProject={changeProject} progressValue={progressValue} />
+              <XOverButton containerStyles={{alignSelf: "center", position: "absolute", bottom: 20}} pressFunc={() => {console.log("Create X-Over")}} text={"Create Your X-Over"} buttonStyles={{width: "auto"}} />
             </View>
             )}
-            <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
-              <XOverButton pressFunc={() => {console.log("Create X-Over")}} text={"Create Your X-Over"} buttonStyles={{width: "auto"}} />
-            </View>
           </ScrollView>
         ) : (
           <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
