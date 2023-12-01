@@ -267,8 +267,8 @@ export default function Projects({navigation, route}) {
             )}
           </ScrollView>
         ) : (
-          <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
-            <Text>Project List</Text>
+          <View style={{flex: 1, alignItems: "center", justifyContent: "center", width: "80%"}}>
+            <XOverProjectList navigation={navigation} projectList={PROJ_DATA} />
           </View>
         )}
     </View>
