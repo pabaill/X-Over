@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import XOverTheme from '../assets/XOverTheme';
 import {useState} from 'react';
 
@@ -11,9 +11,7 @@ export default function Profile() {
         <Text style={styles.profileText}>Profile</Text>
         <Text style={styles.settingsText}>Logout</Text>
       </View>
-      <image style={{flex: 16, borderWidth: 1, borderColor: 'white', backgroundColor: XOverTheme.bg_blue}}>
-      source={require("./../assets/default_profile.png")}
-      </image>
+      <Image source={require("./../assets/default_profile.png")} style={{flex: 16, borderWidth: 1, borderColor: 'white', backgroundColor: XOverTheme.bg_blue}} />
       <View style={{flex: 16, backgroundColor: XOverTheme.bg_blue}} />
       <View style={{flex: 67}} />
     </View>
