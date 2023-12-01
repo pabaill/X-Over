@@ -172,6 +172,7 @@ export default function Projects({navigation, route}) {
           </View>
           <View style={{flex: 2, marginLeft: 20}}>
             <XOverHeader wide={true} text={route.params.project.name} />
+            <Text numberOfLines={1} style={{fontSize: 14, fontFamily: "Kanit_400Regular", textAlign: "center", width: "100%"}}>{route.params.project.tags.toString().replace(',', ', ')}</Text>
           </View>
         </View>
         <Image style={{width: "auto", height: 30}} source={require('./../assets/X-Over-Drawer.png')} />
