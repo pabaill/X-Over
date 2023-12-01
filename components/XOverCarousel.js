@@ -23,7 +23,7 @@ export default function XOverCarousel({navigation, changeProgressValue, changePr
     }
 
     return (
-        <View>
+        <View style={{height: "auto", width: "100%"}}>
         <Carousel
                 width={width - 40}
                 height={width / 2}

@@ -5,7 +5,7 @@ import XOverTheme from "../assets/XOverTheme";
 import { useFonts } from "expo-font";
 import { Kanit_400Regular } from "@expo-google-fonts/kanit";
 
-export default function XOverSearch ({clicked, searchPhrase, setSearchPhrase, setClicked}) {
+export default function XOverSearch ({clicked, searchPhrase, setSearchPhrase, setClicked, setShowProjectList}) {
 
     let [fontsLoaded] = useFonts({
         Kanit_400Regular
@@ -35,8 +35,14 @@ export default function XOverSearch ({clicked, searchPhrase, setSearchPhrase, se
           onChangeText={setSearchPhrase}
           onFocus={() => {
             setClicked(true);
+            setShowProjectList(false);
           }}
-          onSubmitEditing={Keyboard.dismiss}
+          onSubmitEditing={() => {
+            if (searchPhrase.length > 0) {
+              setShowProjectList(true);
+            }
+            Keyboard.dismiss();
+          }}
         />
         {/* cross Icon, depending on whether the search bar is clicked or not */}
         {clicked && (
@@ -44,6 +50,7 @@ export default function XOverSearch ({clicked, searchPhrase, setSearchPhrase, se
               Keyboard.dismiss();
               setSearchPhrase("");
               setClicked(false);
+              setShowProjectList(false);
           }}/>
         )}
       </ScrollView>

@@ -21,7 +21,7 @@ export default function XOverHeader({text, wide, containerStyles, textStyles}) {
 const styles = StyleSheet.create({
     header: {
       fontFamily: "Kanit_700Bold", 
-      fontSize: 30,
+      fontSize: 24,
       textAlign: "center"
     },
     headerWrapper: {
