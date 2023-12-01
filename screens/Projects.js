@@ -212,67 +212,69 @@ export default function Projects({navigation, route}) {
     </View>
   ) : (
     // List of available Projects
-    <View style={{ padding: 20,  flex: 1, alignItems: "center", justifyContent: "center"}}>
-      <SegmentedControl
-          style={{marginTop: 40, width: "80%", marginLeft: "10%", marginRight: "10%"}}
-          values={['All', 'My Projects']}
-          selectedIndex={selectedIndex}
-          backgroundColor={XOverTheme.bg_blue}
-          tintColor={XOverTheme.base_orange}
-          fontStyle={{fontFamily: "Kanit_400Regular"}}
-          onChange={(event) => {
-            changeIndex(event.nativeEvent.selectedSegmentIndex);
-          }}
-        />
-        {selectedIndex === 0 ? (
-          <ScrollView contentContainerStyle={{flex: 1 }}>
-            <XOverSearch setShowProjectList={setShowProjectList} clicked={searchClicked} setClicked={setClicked} searchPhrase={searchPhrase} setSearchPhrase={setSearchPhrase} />
-            {searchClicked ? (
-              <ScrollView style={{flex: 3}}>
-                {/* Search autocomplete */}
-                <View>
-                  {!showProjectList ? (
-                    <View>
-                      <FlatList
-                        data={getRelevantProjects()}
-                        renderItem={({item, index}) => (
-                          <Pressable onPress={() => {completeSearchFn(item.name)}} style={styles.searchResultContainer}>
-                            <Text style={styles.searchResult}>{item.name}</Text>
-                          </Pressable>
-                        )}
-                        keyExtractor={(item) => {item.name + item.thumb}}
-                      />
-                      <FlatList
-                        data={getTags()}
-                        renderItem={({item, index}) => item.toLowerCase().includes(searchPhrase.toLowerCase()) ? (
-                          <Pressable onPress={() => {completeSearchFn(item)}} style={styles.searchResultContainer}>
-                              <Text style={styles.searchResult}>{item}</Text>
-                          </Pressable>
-                        ) : (<></>)}
-                        keyExtractor={(item) => {item}}
-                      />
-                    </View>
-                  ) : (
-                    <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
-                      <XOverProjectList navigation={navigation} projectList={getRelevantProjects()} />
-                    </View>
-                  )}
-                </View>
-              </ScrollView> 
-            ) : (
-            <View style={{flex: 3, alignItems: "center" }}>
-              <XOverHeader wide={false} text={"For You"} />
-              <XOverCarousel source={"Projects"} navigation={navigation} changeProgressValue={changeProgressValue} changeProject={changeProject} progressValue={progressValue} />
-              <XOverButton containerStyles={{alignSelf: "center", position: "absolute", bottom: 20}} pressFunc={() => {console.log("Create X-Over")}} text={"Create Your X-Over"} buttonStyles={{width: "auto"}} />
+    <ImageBackground imageStyle={{opacity: .1}} style={{height: "100%"}} source={require('./../assets/comic_dots.jpg')} >
+      <View style={{ padding: 20,  flex: 1, alignItems: "center", justifyContent: "center"}}>
+        <SegmentedControl
+            style={{marginTop: 40, width: "80%", marginLeft: "10%", marginRight: "10%"}}
+            values={['All', 'My Projects']}
+            selectedIndex={selectedIndex}
+            backgroundColor={XOverTheme.bg_blue}
+            tintColor={XOverTheme.base_orange}
+            fontStyle={{fontFamily: "Kanit_400Regular"}}
+            onChange={(event) => {
+              changeIndex(event.nativeEvent.selectedSegmentIndex);
+            }}
+          />
+          {selectedIndex === 0 ? (
+            <ScrollView contentContainerStyle={{flex: 1 }}>
+              <XOverSearch setShowProjectList={setShowProjectList} clicked={searchClicked} setClicked={setClicked} searchPhrase={searchPhrase} setSearchPhrase={setSearchPhrase} />
+              {searchClicked ? (
+                <ScrollView style={{flex: 3}}>
+                  {/* Search autocomplete */}
+                  <View>
+                    {!showProjectList ? (
+                      <View>
+                        <FlatList
+                          data={getRelevantProjects()}
+                          renderItem={({item, index}) => (
+                            <Pressable onPress={() => {completeSearchFn(item.name)}} style={styles.searchResultContainer}>
+                              <Text style={styles.searchResult}>{item.name}</Text>
+                            </Pressable>
+                          )}
+                          keyExtractor={(item) => {item.name + item.thumb}}
+                        />
+                        <FlatList
+                          data={getTags()}
+                          renderItem={({item, index}) => item.toLowerCase().includes(searchPhrase.toLowerCase()) ? (
+                            <Pressable onPress={() => {completeSearchFn(item)}} style={styles.searchResultContainer}>
+                                <Text style={styles.searchResult}>{item}</Text>
+                            </Pressable>
+                          ) : (<></>)}
+                          keyExtractor={(item) => {item}}
+                        />
+                      </View>
+                    ) : (
+                      <View style={{flex: 1, alignItems: "center", justifyContent: "center", width: "90%", marginHorizontal: "5%"}}>
+                        <XOverProjectList navigation={navigation} projectList={getRelevantProjects()} />
+                      </View>
+                    )}
+                  </View>
+                </ScrollView> 
+              ) : (
+              <View style={{flex: 3, alignItems: "center" }}>
+                <XOverHeader wide={false} text={"For You"} />
+                <XOverCarousel source={"Projects"} navigation={navigation} changeProgressValue={changeProgressValue} changeProject={changeProject} progressValue={progressValue} />
+                <XOverButton containerStyles={{alignSelf: "center", position: "absolute", bottom: 20}} pressFunc={() => {console.log("Create X-Over")}} text={"Create Your X-Over"} buttonStyles={{width: "auto"}} />
+              </View>
+              )}
+            </ScrollView>
+          ) : (
+            <View style={{flex: 1, alignItems: "center", justifyContent: "center", width: "80%"}}>
+              <XOverProjectList navigation={navigation} projectList={PROJ_DATA} />
             </View>
-            )}
-          </ScrollView>
-        ) : (
-          <View style={{flex: 1, alignItems: "center", justifyContent: "center", width: "80%"}}>
-            <XOverProjectList navigation={navigation} projectList={PROJ_DATA} />
-          </View>
-        )}
-    </View>
+          )}
+      </View>
+    </ImageBackground>
   );
 }
 
@@ -314,6 +316,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderColor: "black",
     height: "auto",
-    paddingVertical: 10
+    paddingVertical: 10,
+    backgroundColor: "white"
   }
 })

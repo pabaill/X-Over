@@ -3,7 +3,7 @@ import Home from './screens/Home';
 import Projects from './screens/Projects';
 import Friends from './screens/Friends';
 import Profile from './screens/Profile';
-import { StyleSheet, View, Image, Text } from 'react-native';
+import { StyleSheet, View, Image, Text, ImageBackground } from 'react-native';
 import theme from './assets/XOverTheme';
 
 import { FontAwesome } from '@expo/vector-icons'; 
