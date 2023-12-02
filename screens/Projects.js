@@ -4,7 +4,7 @@ import { useFonts } from 'expo-font';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
 import { Kanit_700Bold, Kanit_400Regular } from '@expo-google-fonts/kanit';
 import { CommonActions } from '@react-navigation/native';
-import { useCallback } from 'react';
+import { FontAwesome } from '@expo/vector-icons';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import DropDownPicker from 'react-native-dropdown-picker';
 import XOverHeader from '../components/XOverHeader';
@@ -15,6 +15,7 @@ import XOverSearch from '../components/XOverSearch';
 import XOverTheme from '../assets/XOverTheme';
 import XOverProfileChip from '../components/XOverProfileChip';
 import XOverProjectList from '../components/XOverProjectList';
+import XOverCreate from '../components/XOverCreate';
 
 const DROPDOWN_ITEMS = [{label: "All", value: "All"}, {label: 'Notes', value: 'Notes'}, {label: 'Reports', value: 'Reports'}, {label: 'Images', value: 'Images'}, {label: 'Videos', value: 'Videos'}]
 
@@ -35,6 +36,8 @@ export default function Projects({navigation, route}) {
   const [isSelectOpen, setSelectOpen] = useState(false);
 
   const [addFileModalOpen, setAddFileModal] = useState(false);
+
+  const [createModalOpen, setCreateModal] = useState(false);
 
   useEffect(() => {
     setModal(route?.params?.openFile ? true : false);
@@ -80,7 +83,7 @@ export default function Projects({navigation, route}) {
   return route?.params?.project ? (
     // Page for Single Project
     <View style={{flex: 1, marginTop: 20, marginHorizontal: 10, padding: 20 }}>
-      <XOverButton text={"Back"} pressFunc={() => {navigation.dispatch(CommonActions.setParams({ project: null, openFile: null })); route?.params?.source === "Projects" ? navigation.navigate("Projects") : navigation.dispatch(CommonActions.goBack())}} />
+      <XOverButton icon={(<FontAwesome name="arrow-left" style={{fontSize: 32 }} />)} pressFunc={() => {navigation.dispatch(CommonActions.setParams({ project: null, openFile: null })); route?.params?.source === "Projects" ? navigation.navigate("Projects") : navigation.dispatch(CommonActions.goBack())}} />
       <Modal
       animationType='fade'
       transparent={true}
@@ -103,7 +106,7 @@ export default function Projects({navigation, route}) {
             >
               <View style={{flex: 1, width: "100%", height: "100%", padding: 10, alignItems: "center", justifyContent: "center", backgroundColor: XOverTheme.bg_blue + "d0"}}>
                 <View style={{ flex: 1, alignItems: "flex-start", justifyContent: "space-between", backgroundColor: "white", width: "80%", height: "40%", marginVertical: "30%", borderRadius: 25, padding: 20}}>
-                  <XOverButton text={"Back"} pressFunc={() => {setAddFileModal(false)}} />
+                  <XOverButton icon={(<FontAwesome name="arrow-left" style={{fontSize: 32 }} />)} pressFunc={() => {setAddFileModal(false)}} />
                   <XOverHeader text={"Add A File"} />
                   <TextInput placeholderTextColor={"white"} style={styles.input} placeholder='Resource Name' />
                   <TextInput placeholderTextColor={"white"} style={styles.input} placeholder='Link to Resource' />
@@ -123,7 +126,7 @@ export default function Projects({navigation, route}) {
                 </View>
               </View>
             </Modal>
-            <XOverButton text={"Back"} pressFunc={() => {setModal(false); setModalClicked(false); setModalSearchPhrase(""); setSelectVal("All")}} />
+            <XOverButton icon={(<FontAwesome name="arrow-left" style={{fontSize: 32 }} />)} pressFunc={() => {setModal(false); setModalClicked(false); setModalSearchPhrase(""); setSelectVal("All")}} />
             <XOverHeader containerStyles={{marginTop: 20}} text={"Project Resources"} />
             <XOverSearch clicked={modalSearchClicked} searchPhrase={modalSearchPhrase} setClicked={setModalClicked} setSearchPhrase={setModalSearchPhrase} />
             <View style={{display: "flex", flexDirection: "row", width: "90%", marginHorizontal: "5%", marginBottom: 10}}>
@@ -262,9 +265,19 @@ export default function Projects({navigation, route}) {
                 </ScrollView> 
               ) : (
               <View style={{flex: 3, alignItems: "center" }}>
+                <Modal
+                animationType='fade'
+                transparent={true}
+                visible={createModalOpen}
+                onRequestClose={() => {
+                  setCreateModal(!createModalOpen);
+                }}
+                >
+                  <XOverCreate setCreateModal={setCreateModal} />
+                </Modal>
                 <XOverHeader wide={false} text={"For You"} />
                 <XOverCarousel source={"Projects"} navigation={navigation} changeProgressValue={changeProgressValue} changeProject={changeProject} progressValue={progressValue} />
-                <XOverButton containerStyles={{alignSelf: "center", position: "absolute", bottom: 20}} pressFunc={() => {console.log("Create X-Over")}} text={"Create Your X-Over"} buttonStyles={{width: "auto"}} />
+                <XOverButton containerStyles={{alignSelf: "center", position: "absolute", bottom: 20}} pressFunc={() => {setCreateModal(true)}} text={"Create Your X-Over"} buttonStyles={{width: "auto"}} />
               </View>
               )}
             </ScrollView>

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useFonts, Kanit_400Regular, Kanit_700Bold } from "@expo-google-fonts/kanit";
 import XOverTheme from "../assets/XOverTheme";
 
-export default function XOverButton({text, pressFunc, containerStyles, buttonStyles}) {
+export default function XOverButton({text, icon, pressFunc, containerStyles, buttonStyles}) {
     let [fontsLoaded] = useFonts({
         Kanit_400Regular, Kanit_700Bold
       });
@@ -13,7 +13,8 @@ export default function XOverButton({text, pressFunc, containerStyles, buttonSty
       }
     return (<View style={[styles.shadow, containerStyles]}>
               <Pressable style={({pressed}) => [styles.button, {top: pressed ? 0 : -5, left: pressed ? 0 : 5}, buttonStyles]} onPress={() => pressFunc()}>
-                <Text style={styles.buttonText}>{text}</Text>
+                {text && <Text style={styles.buttonText}>{text}</Text>}
+                {icon}
               </Pressable>
             </View>)
 }
