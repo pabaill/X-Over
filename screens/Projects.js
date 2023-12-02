@@ -313,7 +313,6 @@ const styles = StyleSheet.create({
     color: "white",
     padding: 10,
     flexDirection: "row",
-    width: "95%",
     backgroundColor: XOverTheme.bg_blue,
     borderRadius: 15,
     alignItems: "center",
