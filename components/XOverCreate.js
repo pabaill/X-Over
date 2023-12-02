@@ -99,10 +99,12 @@ export default function XOverCreate({setCreateModal}) {
             </SafeAreaView>
             }
             {pageNum === 1 &&
-            <ScrollView style={{width: "100%", marginHorizontal: "5%", height: "90%", backgroundColor: "white", borderRadius: 15, padding: 10}}>
-                <XOverButton text={"Back"} pressFunc={() => {changePageNum(pageNum - 1)}} />
-                <XOverButton text={"Next"} pressFunc={() => {changePageNum(pageNum + 1)}} />
-            </ScrollView>
+            <SafeAreaView style={{ marginVertical: 40, flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "white", minHeight: "80%", borderRadius: 15, minWidth: "90%" }}>
+                <ScrollView style={{flex: 1}}  >
+                    <XOverButton text={"Back"} pressFunc={() => {changePageNum(pageNum - 1)}} />
+                    <XOverButton text={"Next"} pressFunc={() => {changePageNum(pageNum + 1)}} />
+                </ScrollView>
+            </SafeAreaView>
             }
         </View>
         );
