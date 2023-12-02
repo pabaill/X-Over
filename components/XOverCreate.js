@@ -13,7 +13,9 @@ import XOverHeader from './XOverHeader';
 import XOverProfileChip from "./XOverProfileChip";
 import PROJ_DATA from './../assets/mock_data';
 
-export default function XOverCreate({setCreateModal}) {
+export default function XOverCreate({navigation, setCreateModal, route}) {
+
+    DropDownPicker.setMode("BADGE");
 
     const [pageNum, changePageNum] = useState(0);
 
@@ -78,6 +80,30 @@ export default function XOverCreate({setCreateModal}) {
     return null;
     }
 
+    const finalizeCreation = () => {
+        const newProj = {
+            name: projName,
+            owner: route.params.user,
+            description: projDesc, 
+            thumb: require('./../assets/sample_project_thumbs/google.png'),
+            updates: [{
+                name: "You", text: `Created X-Over "${projName}"`, link: {text: "View Project"}, time: new Date()
+              }],
+            members: projMembers, 
+            visible: isProjPublic, 
+            tags: projTags.map((tag) => {
+                return tag[0] === '#' ? tag : '#' + tag;
+            }),
+            resources: []
+        };
+        console.log(newProj);
+        PROJ_DATA.push(newProj);
+        setCreateModal(false); 
+        navigation.jumpTo("Projects", {
+            project: newProj, source: "Projects"
+        });
+    };
+
     return (
         <View style={{flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: XOverTheme.bg_blue + "d0"}}>
             {pageNum === 0 && 
@@ -141,11 +167,13 @@ export default function XOverCreate({setCreateModal}) {
                             searchable={true}
                             open={tagDropOpen}
                             setOpen={setTagDropOpen}
+                            textStyle={{fontFamily: "Kanit_400Regular"}}
+                            addCustomItem={true}
                             />
                         </View>
                     </View>
                     <View style={{flex: 1, alignSelf: "flex-end", marginRight: 20}}>
-                        <XOverButton text={"Create"} pressFunc={() => {setCreateModal(false)}} />
+                        <XOverButton text={"Create"} pressFunc={finalizeCreation} />
                     </View>                
                 </View>
             </SafeAreaView>
@@ -184,6 +212,7 @@ const styles = StyleSheet.create({
         justifyContent: "center"
       },
     description: {
+        maxWidth: "90%"
     },
     fileBrowseContainer: {
         backgroundColor: XOverTheme.bg_blue,

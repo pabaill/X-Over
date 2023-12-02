@@ -23,7 +23,7 @@ import PROJ_DATA from './../assets/mock_data';
 import XOverCarousel from '../components/XOverCarousel';
 
 
-export default function Home({navigation}) {
+export default function Home({navigation, route}) {
 
   const width = Dimensions.get('window').width;
 
@@ -68,7 +68,7 @@ export default function Home({navigation}) {
                       <Text style={{position: "absolute", color: "white", fontFamily: "Kanit_400Regular", textAlign: "right", right: 20, top: 0}}>{item.time.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}</Text>
                       <Text style={{marginLeft: 40, marginTop: 5, color: "white", fontFamily: "Kanit_400Regular", fontSize: 18}}>{item.name}</Text>
                       <Text numberOfLines={1} style={{marginLeft: 40, color: "white", paddingLeft: 20, fontFamily: "Kanit_400Regular"}}>{item.text}</Text>
-                      <Text onPress={() => {navigation.jumpTo('Projects', {project: currProject, source: "Home", openFile: item.link.filename})}} style={{marginLeft: 40, color: "white", paddingLeft: 20, fontFamily: "Kanit_400Regular", textDecorationLine: 'underline', fontWeight: 'bold'}}>{item.link.text}</Text>
+                      <Text onPress={() => {navigation.jumpTo('Projects', {project: currProject, source: "Home", openFile: item.link.filename, user: route.params.user})}} style={{marginLeft: 40, color: "white", paddingLeft: 20, fontFamily: "Kanit_400Regular", textDecorationLine: 'underline', fontWeight: 'bold'}}>{item.link.text}</Text>
                     </ImageBackground>
                   </View>
                   )}

@@ -72,28 +72,28 @@ export default function App() {
                 height: 80,
               }
               }}>
-              <Tab.Screen name="Home" component={Home} tabBarLabelStyle={{fontFamily: "Kanit_400Regular"}} options={{
+              <Tab.Screen name="Home" initialParams={{user: user}} component={Home} tabBarLabelStyle={{fontFamily: "Kanit_400Regular"}} options={{
                   tabBarLabel: "Home",
                   tabBarIcon: ({ color, size }) => (
                     <FontAwesome name="home" color={color} size={size} />
                   ),
                 }} 
               />
-              <Tab.Screen name="Projects" component={Projects} tabBarLabelStyle={{fontFamily: "Kanit_400Regular"}} options={{
+              <Tab.Screen name="Projects" initialParams={{user: user}} component={Projects} tabBarLabelStyle={{fontFamily: "Kanit_400Regular"}} options={{
                   tabBarLabel: "Projects",
                   tabBarIcon: ({ color, size }) => (
                     <FontAwesome name="search" color={color} size={size} />
                   ),
                 }} 
               />
-              <Tab.Screen name="Friends" component={Friends} tabBarLabelStyle={{fontFamily: "Kanit_400Regular"}} options={{
+              <Tab.Screen name="Friends" initialParams={{user: user}} component={Friends} tabBarLabelStyle={{fontFamily: "Kanit_400Regular"}} options={{
                   tabBarLabel: "Friends",
                   tabBarIcon: ({ color, size }) => (
                     <FontAwesome name="users" color={color} size={size} />
                   ),
                 }}
               />
-              <Tab.Screen name="Profile" component={Profile} tabBarLabelStyle={{fontFamily: "Kanit_400Regular"}} options={{
+              <Tab.Screen name="Profile" initialParams={{user: user}} component={Profile} tabBarLabelStyle={{fontFamily: "Kanit_400Regular"}} options={{
                   tabBarLabel: "Profile",
                   tabBarIcon: ({ color, size }) => (
                     <FontAwesome name="user" color={color} size={size} />
