@@ -26,6 +26,8 @@ export default function XOverCreate({navigation, setCreateModal, route}) {
     const [isProjPublic, setIsProjPublic] = useState(false);
     const [projTags, updateProjTags] = useState([]);
 
+    const [finalProj, updateFinalProj] = useState({});
+
     const [addMemberModalOpen, setAddMemberModal] = useState(false);
     const [tagDropOpen, setTagDropOpen] = useState(false);
 
@@ -117,11 +119,9 @@ export default function XOverCreate({navigation, setCreateModal, route}) {
             resources: []
         };
         console.log(newProj);
+        changePageNum(pageNum + 1);
         PROJ_DATA.push(newProj);
-        setCreateModal(false); 
-        navigation.jumpTo("Projects", {
-            project: newProj, source: "Projects"
-        });
+        updateFinalProj(newProj);
     };
 
     return (
@@ -174,6 +174,7 @@ export default function XOverCreate({navigation, setCreateModal, route}) {
                     <View style={{flex: 1, width: "auto", backgroundColor: XOverTheme.bg_blue + "d0"}} >
                         <SafeAreaView style={{ marginVertical: 40, flex: 1, padding: 10, backgroundColor: "white", height: "60%", borderRadius: 15, minWidth: "90%", width: "90%", marginHorizontal: "5%" }}>
                             <XOverButton containerStyles={{margin: 10}} icon={(<FontAwesome style={{fontSize: 32 }} name="arrow-left" />)} pressFunc={() => {setAddMemberModal(!addMemberModalOpen)}} />
+                            <XOverHeader containerStyles={{marginVertical: 20}} text={"Select Members"} />
                             <DropDownPicker 
                             items={getUsers()}
                             multiple={true}
@@ -233,6 +234,21 @@ export default function XOverCreate({navigation, setCreateModal, route}) {
                 </View>
             </SafeAreaView>
             }
+            {pageNum === 2 && (
+                <SafeAreaView style={{ marginVertical: "40%", flex: 1, padding: 10, backgroundColor: "white", minHeight: "50%", borderRadius: 15, minWidth: "90%", width: "90%" }}>
+                    <View style={{flex: 1, width: "auto", alignSelf: "center", justifyContent: "center", marginTop: "40%"}}>
+                        <Text style={{textAlign: "center", fontFamily: "Kanit_400Regular", fontSize: 24, marginBottom: 60}}>Congrats! You have successfully created the "{projName}" X-Over!</Text>
+                        <View style={{flex: 1, alignSelf: "flex-end", marginRight: 20}}>
+                            <XOverButton text={"Ok"} pressFunc={() => {
+                                setCreateModal(false); 
+                                navigation.jumpTo("Projects", {
+                                    project: finalProj, source: "Projects"
+                                });
+                            }} />
+                        </View>
+                    </View>
+                </SafeAreaView>
+            )}
         </View>
         );
 }
