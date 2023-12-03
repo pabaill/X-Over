@@ -39,5 +39,26 @@ export default PROJ_DATA = [
     tags: ["#software", "#laptop", "#windows"],
     isPublic: true,
     owner: {name: "Alice", role: "Lead", pronouns: "he/him", email: "alice@stanford.edu", image: require("./../assets/default_profile.png")},
+  },
+  {name: "X-Over", description: "X-Over Development Team - creating the best collaborative work app for your organization. Yeah, we use our own app to structure our work. We're committed.", updates: [{
+    name: "Jack", text: "Updated Meeting Notes for 12/1", link: {text: "View File", filename: "Meeting Notes (12/1)"}, time: new Date("2023-12-01T09:25:00")
+  }, {
+    name: "Ted", text: "Updated Project Description", link: {text: "View Project"}, time: new Date("2023-11-28T17:25:00")
+  }],
+  members: [
+    {name: "Phil", role: "Lead", pronouns: "he/him", email: "pabaill@stanford.edu", image: require("./../assets/default_profile.png")}, 
+    {name: "Jack", role: "Software", pronouns: "he/him", email: "morris11@stanford.edu", image: require("./../assets/default_profile.png")},
+    {name: "Akhil", role: "Designer", pronouns: "he/him", email: "akhil98@stanford.edu", image: require("./../assets/default_profile.png")}, 
+    {name: "Sreethu", role: "Designer", pronouns: "he/him", email: "sreethu1@stanford.edu", image: require("./../assets/default_profile.png")},
+    {name: "Jasper", role: "Engagement", pronouns: "he/him", email: "jasper.points@stanford.edu", image: require("./../assets/default_profile.png")}
+  ],
+  thumb: require('./../assets/sample_project_thumbs/xover.jpg'),
+  resources: [
+    {filename: "Meeting Notes (12/1)", author: "Jack", lastMod: new Date("2023-12-01T09:25:00"), category: "Notes", uri: "https://docs.google.com/document/d/1MWf_snBSzjm2NfDOyKKvHROdZFm5iv9-fp_vZ2DrnSc/edit?usp=sharing"},
+    {filename: "Final Project Timeline", author: "Sreethu", lastMod: new Date("2023-11-27T09:25:00"), category: "Reports", uri: "https://docs.google.com/document/d/1MWf_snBSzjm2NfDOyKKvHROdZFm5iv9-fp_vZ2DrnSc/edit?usp=sharing"},
+  ],
+  tags: ["#software", "#mobile", "#ios", "#android", "#teamwork"],
+  isPublic: true,
+  owner: {name: "Phil", role: "Lead", pronouns: "he/him", email: "pabaill@stanford.edu", image: require("./../assets/default_profile.png")},
   }
 ];

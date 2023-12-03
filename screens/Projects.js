@@ -183,11 +183,12 @@ export default function Projects({navigation, route}) {
           <View style={styles.projElem}>
             <XOverHeader textStyles={styles.subheaders} wide={false} text={"Team"} />
             <FlatList
-              contentContainerStyle={{height: 80, width: "100%", flex: 1, alignItems: "center", alignSelf: "center", marginTop: 10}}
+              contentContainerStyle={{height: 80, alignItems: "center", alignSelf: "center", justifyContent: "center", marginTop: 10}}
               horizontal={true}
+              pagingEnabled={true}
               data={route.params.project.members} 
               renderItem={({item, index}) => (
-                <XOverProfileChip person={item} key={item.name + index} />
+                <XOverProfileChip containerStyles={{marginHorizontal: 0}} person={item} key={item.name + index} />
               )}
             />
           </View>
