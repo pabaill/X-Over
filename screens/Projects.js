@@ -264,7 +264,7 @@ export default function Projects({navigation, route}) {
                       </View>
                     ) : (
                       <View style={{flex: 1, alignItems: "center", justifyContent: "center", width: "90%", marginHorizontal: "5%"}}>
-                        <XOverProjectList navigation={navigation} projectList={getRelevantProjects()} />
+                        <XOverProjectList user={route.params.user} navigation={navigation} projectList={getRelevantProjects()} />
                       </View>
                     )}
                   </View>
@@ -289,7 +289,7 @@ export default function Projects({navigation, route}) {
             </ScrollView>
           ) : (
             <View style={{flex: 1, alignItems: "center", justifyContent: "center", width: "80%"}}>
-              <XOverProjectList navigation={navigation} projectList={PROJ_DATA} />
+              <XOverProjectList user={route.params.user} navigation={navigation} projectList={PROJ_DATA.filter((proj) => proj.members.find((m) => m.email === route.params.user.email))} />
             </View>
           )}
       </View>

@@ -5,7 +5,7 @@ import XOverTheme from "../assets/XOverTheme";
 import { Kanit_400Regular } from "@expo-google-fonts/kanit";
 import { useFonts } from "@expo-google-fonts/kanit";
 
-export default function XOverProjectList({navigation, projectList}) {
+export default function XOverProjectList({user, navigation, projectList}) {
 
     let [fontsLoaded] = useFonts({
         Kanit_400Regular
@@ -25,14 +25,14 @@ export default function XOverProjectList({navigation, projectList}) {
                 }} >
                     <Text numberOfLines={1} style={[styles.text, styles.proj_name]}>{item.name}</Text>
                     <Text numberOfLines={2} style={[styles.text, styles.description]}>{item.description}</Text>
-                    <View style={{height: 30, flexDirection: "row", position: "absolute", bottom: 0, right: 20}}>
+                    <View style={{height: 30, flexDirection: "row", position: "absolute", bottom: 0, right: 10}}>
                         <XOverProfileChip containerStyles={styles.profile} noText={true} person={item.members[0]} />
-                        <XOverProfileChip containerStyles={styles.profile} noText={true} person={item.members[1]} />
+                        <XOverProfileChip containerStyles={[styles.profile, item.members.length < 3 ? {marginRight: item.members.length * 20} : {}]} noText={true} person={item.members[1]} />
                         {item.members.length >= 3 && (
                             <Text style={[styles.text, {marginLeft: 35}]}>+{item.members.length - 2} more</Text>
                         )}
                     </View>
-                    <Text style={[styles.text, {position: "absolute", top: 10, right: 30}]}>Joined!</Text>
+                    <Text style={[styles.text, {position: "absolute", top: 10, right: 30}]}>{item.members.find((m) => {m.email === user.email}) && "Joined!"}</Text>
                 </Pressable>
             )}
             />
