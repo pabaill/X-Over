@@ -31,11 +31,16 @@ export default function XOverCreate({navigation, setCreateModal, route}) {
     const [addMemberModalOpen, setAddMemberModal] = useState(false);
     const [tagDropOpen, setTagDropOpen] = useState(false);
 
+    const [isEditingMemberRole, setIsEditingMemberRole] = useState(false);
+    const [currMember, setCurrMember] = useState({});
+
     const getUsers = () => {
         let union = []
         PROJ_DATA.forEach((project) => {
             project.members.forEach((m) => {
             if (!union.some((x) => x.label === m.name && x.value.email === m.email)) {
+                const moddedRole = projMembers.find((e) => e.name + e.image === m.name + m.image);
+                m.role = moddedRole ? moddedRole.role : "Team Member";
                 union.push({label: m.name, value: m, itemKey: m.email});
             }
             })
@@ -174,16 +179,39 @@ export default function XOverCreate({navigation, setCreateModal, route}) {
                     <View style={{flex: 1, width: "auto", backgroundColor: XOverTheme.bg_blue + "d0"}} >
                         <SafeAreaView style={{ marginVertical: 40, flex: 1, padding: 10, backgroundColor: "white", height: "60%", borderRadius: 15, minWidth: "90%", width: "90%", marginHorizontal: "5%" }}>
                             <XOverButton containerStyles={{margin: 10}} icon={(<FontAwesome style={{fontSize: 32 }} name="arrow-left" />)} pressFunc={() => {setAddMemberModal(!addMemberModalOpen)}} />
-                            <XOverHeader containerStyles={{marginVertical: 20}} text={"Select Members"} />
-                            <DropDownPicker 
-                            items={getUsers()}
-                            multiple={true}
-                            value={projMembers}
-                            setValue={updateProjMembers}
-                            searchable={true}
-                            open={tagDropOpen}
-                            setOpen={setTagDropOpen}
-                            textStyle={{fontFamily: "Kanit_400Regular"}}
+                            {!isEditingMemberRole && (<View> 
+                                <XOverHeader containerStyles={{marginVertical: 20}} text={"Select Members"} />
+                                <DropDownPicker 
+                                items={getUsers()}
+                                multiple={true}
+                                value={projMembers}
+                                setValue={updateProjMembers}
+                                searchable={true}
+                                open={tagDropOpen}
+                                setOpen={setTagDropOpen}
+                                textStyle={{fontFamily: "Kanit_400Regular"}}
+                                />
+                            </View>)}
+                            <XOverHeader containerStyles={{marginVertical: 20}} text={"Edit Member Roles"} />
+                            <FlatList
+                            contentContainerStyle={{height: "100%"}}
+                            data={isEditingMemberRole ? [currMember] : projMembers}
+                            pagingEnabled={true}
+                            renderItem={({item, index}) => (
+                                <View style={{marginBottom: 20}}>
+                                    <Text style={{fontFamily: "Kanit_400Regular"}} >Role for {item.name}</Text>
+                                    <TextInput onBlur={() => {setCurrMember({}); setIsEditingMemberRole(false)}} onFocus={() => {setCurrMember(item); setIsEditingMemberRole(true)}} value={item.role} onChangeText={(text) => {
+                                        if (isEditingMemberRole) {
+                                            const pm = [...projMembers]
+                                            const ind = projMembers.indexOf(item);
+                                            console.log(ind)
+                                            pm[ind].role = text;
+                                            updateProjMembers(pm);
+                                        }
+                                        
+                                    }} numberOfLines={1} placeholderTextColor={"white"} style={styles.input} placeholder="Enter a role" /> 
+                                </View>                               
+                            )}
                             />
                         </SafeAreaView>
                     </View>
@@ -202,7 +230,7 @@ export default function XOverCreate({navigation, setCreateModal, route}) {
                         )}
                         ListHeaderComponent={(
                         <Pressable onPress={() => {setAddMemberModal(!addMemberModalOpen)}}>
-                            <XOverProfileChip containerStyles={{marginHorizontal: 0}} isAddBtn={true} person={{name: "Add", pronouns: "", role: ""}} />
+                            <XOverProfileChip containerStyles={{marginHorizontal: 0}} isAddBtn={true} person={{name: "Add/Edit", pronouns: "", role: ""}} />
                         </Pressable>
                         )}
                         />
