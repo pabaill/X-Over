@@ -175,9 +175,12 @@ export default function Projects({navigation, route}) {
           <View style={{flex: 2, marginLeft: 20}}>
             <XOverHeader wide={true} text={route.params.project.name} />
             <Text numberOfLines={1} style={{fontSize: 14, fontFamily: "Kanit_400Regular", textAlign: "center", width: "100%"}}>{route.params.project.tags.toString().replace(',', ', ')}</Text>
+            {route.params.project.members.find((m) => m.email === route.params.user.email) && <View styles={[styles.projElem, {alignItems: "center", justifyContent: "center"}]}>
+            <XOverButton containerStyles={{alignSelf: "center", marginTop: 10}} buttonStyles={{alignSelf: "center"}} text={"View Resources"} pressFunc={() => {setModal(true)}} />
+          </View>}
           </View>
         </View>
-        <Image style={{width: "auto", height: 30}} source={require('./../assets/X-Over-Drawer.png')} />
+        <Image style={{width: "auto", height: 30, marginTop: -20}} source={require('./../assets/X-Over-Drawer.png')} />
         <ScrollView style={{flex: 4, height: "100%"}}>
           <View style={styles.projElem}>
             <XOverHeader textStyles={styles.subheaders} wide={false} text={"Team"} />
@@ -193,11 +196,11 @@ export default function Projects({navigation, route}) {
           </View>
           <View style={styles.projElem}>
             <XOverHeader textStyles={styles.subheaders} wide={false} text={"Description"} />
-            <Text style={styles.bodyText}>{route.params.project.description}</Text>
+            <Text numberOfLines={3} style={styles.bodyText}>{route.params.project.description}</Text>
           </View>
           {route.params.project.members.find((m) => m.email === route.params.user.email) ? (<View style={styles.projElem}>
             <XOverHeader textStyles={styles.subheaders} wide={false} text={"Recent Updates"} />
-            <View key={route.params.project.updates[0].text + route.params.project.updates[0].link.text} style={{flex: 1, flexDirection: "row", height: "auto", marginTop: 20}}>
+            <View key={route.params.project.updates[0].text + route.params.project.updates[0].link.text} style={{flex: 1, flexDirection: "row", height: "auto", marginTop: 10}}>
               <Image key={route.params.project.updates[0].name + " profile"} style={{flex: 1, height: "80%", width: "auto", resizeMode: "contain"}} source={require("./../assets/default_profile.png")} />
               <ImageBackground key={route.params.project.updates[0].text + " bubble"} style={[styles.bubble, {flex: 4}]} source={require("./../assets/X-Over-Bubble.png")}>
                 <Text style={{position: "absolute", fontFamily: "Kanit_400Regular", textAlign: "right", right: 20, top: 0}}>{route.params.project.updates[0].time.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}</Text>
@@ -212,9 +215,6 @@ export default function Projects({navigation, route}) {
               navigation.jumpTo("Projects", {project: route.params.project, source: route.params.source, user: route.params.user})
             }} text={'Join X-Over'} />
           )}
-          {route.params.project.members.find((m) => m.email === route.params.user.email) && <View styles={[styles.projElem, {alignItems: "center", justifyContent: "center"}]}>
-            <XOverButton containerStyles={{alignSelf: "center", marginTop: 20}} buttonStyles={{alignSelf: "center"}} text={"View Project Resources"} pressFunc={() => {setModal(true)}} />
-          </View>}
         </ScrollView>
       </View>
     </View>
@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
     fontFamily: "Kanit_400Regular",
     fontSize: 16
   },
-  projElem: {flex: 1, marginTop: 20},
+  projElem: {flex: 1, marginTop: 15},
   bubble: {width: "auto", height: "auto", minHeight: 80},
   input: {
     fontFamily: "Kanit_400Regular",
