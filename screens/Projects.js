@@ -196,7 +196,7 @@ export default function Projects({navigation, route}) {
             <XOverHeader textStyles={styles.subheaders} wide={false} text={"Description"} />
             <Text style={styles.bodyText}>{route.params.project.description}</Text>
           </View>
-          <View style={styles.projElem}>
+          {route.params.project.members.find((m) => m.email === route.params.user.email) ? (<View style={styles.projElem}>
             <XOverHeader textStyles={styles.subheaders} wide={false} text={"Recent Updates"} />
             <View key={route.params.project.updates[0].text + route.params.project.updates[0].link.text} style={{flex: 1, flexDirection: "row", height: "auto", marginTop: 20}}>
               <Image key={route.params.project.updates[0].name + " profile"} style={{flex: 1, height: "80%", width: "auto", resizeMode: "contain"}} source={require("./../assets/default_profile.png")} />
@@ -207,10 +207,15 @@ export default function Projects({navigation, route}) {
                 <Text onPress={() => {navigation.jumpTo('Projects', {project: route.params.project, user: route.params.user, source: "Projects", openFile: route.params.project.updates[0].link.filename})}} style={{marginLeft: 40, color: "white", paddingLeft: 20, fontFamily: "Kanit_400Regular", textDecorationLine: 'underline', fontWeight: 'bold'}}>{route.params.project.updates[0].link.text}</Text>
               </ImageBackground>
             </View>
-          </View>
-          <View styles={[styles.projElem, {alignItems: "center", justifyContent: "center"}]}>
+          </View>) : (
+            route.params.project.isPublic && <XOverButton containerStyles={{alignSelf: "center", marginTop: 20}} buttonStyles={{alignSelf: "center"}} pressFunc={() => {
+              PROJ_DATA[PROJ_DATA.indexOf(route.params.project)].members.push({name: "(You)", pronouns: "they/them", role: "Team Member", email: route.params.user.email, image: require("./../assets/default_profile.png")});
+              navigation.jumpTo("Projects", {project: route.params.project, source: route.params.source, user: route.params.user})
+            }} text={'Join X-Over'} />
+          )}
+          {route.params.project.members.find((m) => m.email === route.params.user.email) && <View styles={[styles.projElem, {alignItems: "center", justifyContent: "center"}]}>
             <XOverButton containerStyles={{alignSelf: "center", marginTop: 20}} buttonStyles={{alignSelf: "center"}} text={"View Project Resources"} pressFunc={() => {setModal(true)}} />
-          </View>
+          </View>}
         </ScrollView>
       </View>
     </View>

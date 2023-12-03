@@ -55,7 +55,7 @@ export default function Home({navigation, route}) {
           />
           {selectedIndex === 0 ? (
             <View>
-              <XOverCarousel source={"Home"} navigation={navigation} changeProgressValue={changeProgressValue} changeProject={changeProject} progressValue={progressValue}/>
+              <XOverCarousel route={route} memberOnly={true} source={"Home"} navigation={navigation} changeProgressValue={changeProgressValue} changeProject={changeProject} progressValue={progressValue}/>
               <Image style={{width: "auto", height: 40, marginBottom: 20}} source={require('./../assets/X-Over-Drawer.png')} />
               <XOverHeader text={"Updates: "} />
               <View style={{height: "auto"}}>
