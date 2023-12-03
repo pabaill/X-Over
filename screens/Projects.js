@@ -171,7 +171,7 @@ export default function Projects({navigation, route}) {
               }}
           >
               <Text numberOfLines={1} style={[styles.header, {flex: 1, height: 30, width: "100%", paddingHorizontal: 5, fontSize: 14, position: "absolute", zIndex: 1, backgroundColor: XOverTheme.base_yellow, borderColor: "black", borderTopWidth: 3, borderRightWidth: 3, borderLeftWidth: 3}]}>{route.params.project.name}</Text>
-              <Image style={{flex: 1, height: "100%", width: "100%", borderWidth: 3, borderColor: "black"}} source={route.params.project.thumb} />
+              <Image style={{flex: 1, height: "100%", width: "100%", borderWidth: 3, borderColor: "black"}} source={typeof(route.params.project.thumb) === "number" ? route.params.project.thumb : {uri: route.params.project.thumb}} />
           </View>
           <View style={{flex: 2, marginLeft: 20}}>
             <XOverHeader wide={true} text={route.params.project.name} />
@@ -273,7 +273,7 @@ export default function Projects({navigation, route}) {
                   setCreateModal(!createModalOpen);
                 }}
                 >
-                  <XOverCreate setCreateModal={setCreateModal} navigation={navigation} />
+                  <XOverCreate setCreateModal={setCreateModal} navigation={navigation} route={route} />
                 </Modal>
                 <XOverHeader wide={false} text={"For You"} />
                 <XOverCarousel source={"Projects"} navigation={navigation} changeProgressValue={changeProgressValue} changeProject={changeProject} progressValue={progressValue} />
