@@ -237,7 +237,7 @@ export default function XOverCreate({navigation, setCreateModal, route}) {
                         <View style={{marginBottom: 20}}>
                             <View style={{flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
                                 <CheckBox color={isProjPublic ? XOverTheme.base_orange : undefined} value={isProjPublic} onValueChange={setIsProjPublic} />
-                                <Text style={{paddingLeft: 10, fontFamily: "Kanit_400Regular", fontSize: 18}}>Looking For Members</Text>
+                                <Text style={{paddingLeft: 10, fontFamily: "Kanit_400Regular", fontSize: 18}}>Set X-Over Visibility to Public</Text>
                             </View>
                             <Text style={{fontFamily: "Kanit_400Regular", fontSize: 12, textAlign: "center"}}>Check this option if you want this X-Over to be visible to other collaborators</Text>
                         </View>
