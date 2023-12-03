@@ -43,7 +43,7 @@ export default function XOverCarousel({navigation, changeProgressValue, changePr
                       key={PROJ_DATA[index].name + index}
                       >
                       <Text numberOfLines={1} style={[styles.header, {flex: 1, height: 30, width: "100%", paddingHorizontal: 5, fontSize: 14, position: "absolute", zIndex: 1, backgroundColor: XOverTheme.base_yellow, borderColor: "black", borderTopWidth: 3, borderRightWidth: 3, borderLeftWidth: 3}]}>{PROJ_DATA[index].name}</Text>
-                      <Image style={{flex: 1, height: "100%", width: "auto", borderWidth: 3, borderColor: "black"}} source={PROJ_DATA[index].thumb} />
+                      <Image style={{flex: 1, height: "100%", width: "auto", borderWidth: 3, borderColor: "black"}} source={typeof(PROJ_DATA[index].thumb) === "number" ? PROJ_DATA[index].thumb : {uri: PROJ_DATA[index].thumb}} />
                     </Pressable>
                   </View>
                 )}
