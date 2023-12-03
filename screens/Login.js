@@ -98,7 +98,11 @@ const styles = StyleSheet.create({
     },
     titleText: {
         fontFamily: "Kanit_400Regular",
-        fontSize: 40
+        fontSize: 40,
+        color: XOverTheme.base_orange,
+        textShadowColor: 'black',
+        textShadowOffset: {width: -1, height: 1},
+        textShadowRadius: 20
     },
     baseText: {
         fontFamily: "Kanit_400Regular",

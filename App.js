@@ -59,9 +59,9 @@ export default function App() {
             <Tab.Navigator
             backBehavior='history'
             screenOptions={{
-              tabBarActiveTintColor: theme.base_orange,
+              tabBarActiveTintColor: '#000000',
               tabBarInactiveTintColor: "#ffffff", 
-              tabBarActiveBackgroundColor: theme.bg_blue, 
+              tabBarActiveBackgroundColor: theme.base_orange, 
               tabBarInactiveBackgroundColor: theme.bg_blue,
               header: ({ navigation, route, options, layout }) => {
                 // const title = getHeaderTitle(options, route.name);

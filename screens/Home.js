@@ -62,13 +62,13 @@ export default function Home({navigation, route}) {
                 <FlatList
                   data={currProject.updates}
                   renderItem={({item, index}) => (
-                  <View key={index + item.text + item.link.text} style={{flex: 1, flexDirection: "row", height: "auto", marginTop: 20}}>
-                    <Image key={item.name + " profile" + index} style={{flex: 1, height: "90%", width: "auto"}} source={require("./../assets/default_profile.png")} />
-                    <ImageBackground key={item.text + " bubble" + index} style={[styles.bubble, {flex: 4}]} source={require("./../assets/X-Over-Bubble.png")}>
-                      <Text style={{position: "absolute", color: "white", fontFamily: "Kanit_400Regular", textAlign: "right", right: 20, top: 0}}>{item.time.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}</Text>
-                      <Text style={{marginLeft: 40, marginTop: 5, color: "white", fontFamily: "Kanit_400Regular", fontSize: 18}}>{item.name}</Text>
-                      <Text numberOfLines={1} style={{marginLeft: 40, color: "white", paddingLeft: 20, fontFamily: "Kanit_400Regular"}}>{item.text}</Text>
-                      <Text onPress={() => {navigation.jumpTo('Projects', {project: currProject, source: "Home", openFile: item.link.filename, user: route.params.user})}} style={{marginLeft: 40, color: "white", paddingLeft: 20, fontFamily: "Kanit_400Regular", textDecorationLine: 'underline', fontWeight: 'bold'}}>{item.link.text}</Text>
+                  <View key={index + item.text + item.link.text} style={{flex: 1, flexDirection: "row", height: 80, marginTop: 20}}>
+                    <Image key={item.name + " profile" + index} style={{flex: 1, height: "85%", width: "auto", marginRight: 10}} source={require("./../assets/default_profile.png")} />
+                    <ImageBackground key={item.text + " bubble" + index} style={[styles.bubble, {flex: 4 }]} source={require("./../assets/X-Over-Bubble.png")}>
+                      <Text style={{position: "absolute", fontFamily: "Kanit_400Regular", textAlign: "right", right: 20, top: 0}}>{item.time.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}</Text>
+                      <Text style={{marginLeft: 40, marginTop: 5, fontFamily: "Kanit_400Regular", fontSize: 18, lineHeight: 24}}>{item.name}</Text>
+                      <Text numberOfLines={1} style={{marginLeft: 40, paddingLeft: 20, fontFamily: "Kanit_400Regular"}}>{item.text}</Text>
+                      <Text onPress={() => {navigation.jumpTo('Projects', {project: currProject, source: "Home", openFile: item.link.filename, user: route.params.user})}} style={{marginLeft: 40, paddingLeft: 20, fontFamily: "Kanit_400Regular", textDecorationLine: 'underline', fontWeight: 'bold'}}>{item.link.text}</Text>
                     </ImageBackground>
                   </View>
                   )}
@@ -86,7 +86,7 @@ export default function Home({navigation, route}) {
 const styles = StyleSheet.create({
   project_prev: {textAlign: "center", borderStyle: "solid", borderColor: "black", borderWidth: 5, height: 150, margin: 10},
   bubbleWrapper: {marginBottom: 30},
-  bubble: {width: "auto", height: "auto", minHeight: 80},
+  bubble: {width: "auto", height: "auto"},
   blurred: {flex: 2},
   middle: {flex: 3},
   header: {

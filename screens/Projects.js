@@ -163,15 +163,14 @@ export default function Projects({navigation, route}) {
         <View style={{height: 150, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
           <View
               style={{
-                  borderWidth: 1,
                   justifyContent: 'flex-start',
                   alignItems: "flex-start",
                   height: 150,
                   width: 100
               }}
           >
-              <Text numberOfLines={1} style={[styles.header, {flex: 1, height: 30, width: "100%", paddingHorizontal: 5, fontSize: 14, position: "absolute", zIndex: 1, backgroundColor: XOverTheme.base_yellow, borderColor: "black", borderTopWidth: 3, borderRightWidth: 3, borderLeftWidth: 3}]}>{route.params.project.name}</Text>
-              <Image style={{flex: 1, height: "100%", width: "100%", borderWidth: 3, borderColor: "black"}} source={typeof(route.params.project.thumb) === "number" ? route.params.project.thumb : {uri: route.params.project.thumb}} />
+              <Text numberOfLines={1} style={[styles.header, {flex: 1, height: 30, width: "100%", paddingHorizontal: 5, fontSize: 14, position: "absolute", zIndex: 1, backgroundColor: XOverTheme.base_yellow, borderColor: "black", borderTopWidth: 3, borderRightWidth: 3, borderLeftWidth: 3, borderTopLeftRadius: 10, borderTopRightRadius: 10, paddingVertical: 5}]}>{route.params.project.name}</Text>
+              <Image style={{flex: 1, height: "100%", width: "100%", borderWidth: 3, borderColor: "black", borderRadius: 10}} source={typeof(route.params.project.thumb) === "number" ? route.params.project.thumb : {uri: route.params.project.thumb}} />
           </View>
           <View style={{flex: 2, marginLeft: 20}}>
             <XOverHeader wide={true} text={route.params.project.name} />
@@ -201,10 +200,10 @@ export default function Projects({navigation, route}) {
             <View key={route.params.project.updates[0].text + route.params.project.updates[0].link.text} style={{flex: 1, flexDirection: "row", height: "auto", marginTop: 20}}>
               <Image key={route.params.project.updates[0].name + " profile"} style={{flex: 1, height: "80%", width: "auto", resizeMode: "contain"}} source={require("./../assets/default_profile.png")} />
               <ImageBackground key={route.params.project.updates[0].text + " bubble"} style={[styles.bubble, {flex: 4}]} source={require("./../assets/X-Over-Bubble.png")}>
-                <Text style={{position: "absolute", color: "white", fontFamily: "Kanit_400Regular", textAlign: "right", right: 20, top: 0}}>{route.params.project.updates[0].time.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}</Text>
-                <Text style={{marginLeft: 40, marginTop: 5, color: "white", fontFamily: "Kanit_400Regular", fontSize: 18}}>{route.params.project.updates[0].name}</Text>
-                <Text numberOfLines={1} style={{marginLeft: 40, color: "white", paddingLeft: 20, fontFamily: "Kanit_400Regular", width: "80%"}}>{route.params.project.updates[0].text}</Text>
-                <Text onPress={() => {navigation.jumpTo('Projects', {project: route.params.project, user: route.params.user, source: "Projects", openFile: route.params.project.updates[0].link.filename})}} style={{marginLeft: 40, color: "white", paddingLeft: 20, fontFamily: "Kanit_400Regular", textDecorationLine: 'underline', fontWeight: 'bold'}}>{route.params.project.updates[0].link.text}</Text>
+                <Text style={{position: "absolute", fontFamily: "Kanit_400Regular", textAlign: "right", right: 20, top: 0}}>{route.params.project.updates[0].time.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}</Text>
+                <Text style={{marginLeft: 40, marginTop: 5, fontFamily: "Kanit_400Regular", fontSize: 18, lineHeight: 24}}>{route.params.project.updates[0].name}</Text>
+                <Text numberOfLines={1} style={{marginLeft: 40, paddingLeft: 20, fontFamily: "Kanit_400Regular", width: "80%"}}>{route.params.project.updates[0].text}</Text>
+                <Text onPress={() => {navigation.jumpTo('Projects', {project: route.params.project, user: route.params.user, source: "Projects", openFile: route.params.project.updates[0].link.filename})}} style={{marginLeft: 40, paddingLeft: 20, fontFamily: "Kanit_400Regular", textDecorationLine: 'underline', fontWeight: 'bold'}}>{route.params.project.updates[0].link.text}</Text>
               </ImageBackground>
             </View>
           </View>) : (

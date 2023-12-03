@@ -43,8 +43,8 @@ export default function XOverCarousel({navigation, route, changeProgressValue, c
                       onPress={() => navigation.jumpTo('Projects', {project: data[index], source: source})}
                       key={data[index].name + index}
                       >
-                      <Text numberOfLines={1} style={[styles.header, {flex: 1, height: 30, width: "100%", paddingHorizontal: 5, fontSize: 14, position: "absolute", zIndex: 1, backgroundColor: XOverTheme.base_yellow, borderColor: "black", borderTopWidth: 3, borderRightWidth: 3, borderLeftWidth: 3}]}>{data[index].name}</Text>
-                      <Image style={{flex: 1, height: "100%", width: "auto", borderWidth: 3, borderColor: "black"}} source={typeof(data[index].thumb) === "number" ? data[index].thumb : {uri: data[index].thumb}} />
+                      <Text numberOfLines={1} style={[styles.header, {flex: 1, height: 30, width: "100%", paddingHorizontal: 5, fontSize: 14, position: "absolute", zIndex: 1, backgroundColor: XOverTheme.base_yellow, borderColor: "black", borderTopWidth: 3, borderRightWidth: 3, borderLeftWidth: 3, borderTopLeftRadius: 10, borderTopRightRadius: 10, paddingVertical: 5}]}>{data[index].name}</Text>
+                      <Image style={{flex: 1, height: "100%", width: "auto", borderWidth: 3, borderColor: "black", borderRadius: 10}} source={typeof(data[index].thumb) === "number" ? data[index].thumb : {uri: data[index].thumb}} />
                     </Pressable>
                   </View>
                 )}
