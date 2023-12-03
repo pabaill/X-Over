@@ -12,7 +12,6 @@ export default function XOverCarousel({navigation, changeProgressValue, changePr
 
     const width = Dimensions.get('window').width;
 
-    const [selectedIndex, changeIndex] = useState(0);
 
     let [fontsLoaded] = useFonts({
         Kanit_700Bold
@@ -29,6 +28,7 @@ export default function XOverCarousel({navigation, changeProgressValue, changePr
                 height={width / 2}
                 autoPlay={false}
                 mode='parallax'
+                defaultIndex={progressValue}
                 modeConfig={{
                   parallaxScrollingScale: 0.9,
                   parallaxScrollingOffset: 200,
