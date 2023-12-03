@@ -35,10 +35,12 @@ export default function XOverSearch ({clicked, searchPhrase, setSearchPhrase, se
           onChangeText={setSearchPhrase}
           onFocus={() => {
             setClicked(true);
-            setShowProjectList(false);
+            if (setShowProjectList) {
+              setShowProjectList(false);
+            }
           }}
           onSubmitEditing={() => {
-            if (searchPhrase.length > 0) {
+            if (setShowProjectList && searchPhrase.length > 0) {
               setShowProjectList(true);
             }
             Keyboard.dismiss();
@@ -50,7 +52,9 @@ export default function XOverSearch ({clicked, searchPhrase, setSearchPhrase, se
               Keyboard.dismiss();
               setSearchPhrase("");
               setClicked(false);
-              setShowProjectList(false);
+              if (setShowProjectList) {
+                setShowProjectList(false);
+              }
           }}/>
         )}
       </ScrollView>
