@@ -38,7 +38,19 @@ export default function XOverCreate({navigation, setCreateModal, route}) {
             }
             })
         })
-        return union.sort((a, b) => a.label < b.label);
+        return union.sort((a, b) => {
+            const nameA = a.label;
+            const nameB = b.label;
+            if (nameA < nameB) {
+                return -1;
+              }
+              if (nameA > nameB) {
+                return 1;
+              }
+            
+              // names must be equal
+              return 0;
+        });
     };
 
     const selectImage = async () => {
@@ -65,7 +77,19 @@ export default function XOverCreate({navigation, setCreateModal, route}) {
         }
         })
     })
-    return union.sort((a, b) => a.tag < b.tag);
+    return union.sort((a, b) => {
+        const tagA = a.label;
+        const tagB = b.label;
+        if (tagA < tagB) {
+            return -1;
+          }
+          if (tagA > tagB) {
+            return 1;
+          }
+        
+          // names must be equal
+          return 0;
+    });
     };
 
     let [fontsLoaded] = useFonts({
@@ -103,15 +127,16 @@ export default function XOverCreate({navigation, setCreateModal, route}) {
     return (
         <View style={{flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: XOverTheme.bg_blue + "d0"}}>
             {pageNum === 0 && 
-            <SafeAreaView style={{ marginVertical: 40, flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "white", minHeight: "80%", borderRadius: 15, minWidth: "90%" }}>
-                <ScrollView style={{flex: 1, width: "100%", minWidth: "90%"}}  >
+            <SafeAreaView style={{ marginVertical: 40, flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "white", minHeight: "80%", borderRadius: 15, width: "90%" }}>
+                <ScrollView style={{flex: 1, width: "90%"}}  >
                     <XOverButton containerStyles={{margin: 10}} icon={(<FontAwesome style={{fontSize: 32 }} name="arrow-left" />)} pressFunc={() => {setCreateModal(false)}} />
                     <View style={{flex: 1, alignItems: "center", justifyContent: "space-around", height: "100%", width: "100%"}}>
-                        <View style={[styles.infoContainer, {marginTop: 20, marginBottom: 60}]}>
-                            <Text style={styles.infoText}>Create Your X-Over</Text>
+                        <View style={[styles.infoContainer, {marginTop: 20, marginBottom: 40}]}>
+                            <Text style={styles.infoTextHeader}>Create Your X-Over</Text>
+                            <Text style={styles.infoText}>Give your new project a name, describe it for your members, and choose a thumbnail image!</Text>
                         </View>
                         <TextInput value={projName} onChangeText={updateProjName} placeholderTextColor={"white"} style={[styles.input, {marginBottom: 40}]} placeholder="Project Name" />
-                        <TextInput value={projDesc} onChangeText={updateProjDesc} multiline numberOfLines={6} placeholderTextColor={"white"} style={[styles.input, styles.description, {marginBottom: 60}]} placeholder="Description" />
+                        <TextInput value={projDesc} onChangeText={updateProjDesc} multiline numberOfLines={6} placeholderTextColor={"white"} style={[styles.input, {marginBottom: 60}]} placeholder="Description" />
                         <View style={[styles.fileBrowseContainer, {marginBottom: 30}]} >
                             <Pressable style={{flex: 1, alignItems: "center", justifyContent: "center"}} onPress={selectImage}>
                                 {projThumb === null ? (
@@ -129,8 +154,8 @@ export default function XOverCreate({navigation, setCreateModal, route}) {
                             </Pressable>
                         </View>
                     </View>
-                    <View style={{flex: 1, alignSelf: "flex-end", marginRight: 20}}>
-                        <XOverButton text={"Next"} pressFunc={() => {changePageNum(pageNum + 1)}} />
+                    <View style={{flex: 1, alignSelf: "flex-end", marginRight: 20, marginBottom: 20}}>
+                        <XOverButton text={"Next"} disabled={!(projName && projDesc && projThumb)} pressFunc={() => {changePageNum(pageNum + 1)}} />
                     </View>
                 </ScrollView>
             </SafeAreaView>
@@ -217,13 +242,19 @@ const styles = StyleSheet.create({
         backgroundColor: XOverTheme.bg_blue + "a0",
         width: "90%",
         marginHorizontal: "5%",
-        height: "15%",
+        height: "20%",
         justifyContent: "center",
         borderRadius: 50
     },
+    infoTextHeader: {
+        fontFamily: "Kanit_400Regular",
+        fontSize: 24,
+        textAlign: "center",
+        color: "white"
+    },
     infoText: {
         fontFamily: "Kanit_400Regular",
-        fontSize: 18,
+        fontSize: 14,
         textAlign: "center",
         color: "white"
     },
@@ -242,7 +273,7 @@ const styles = StyleSheet.create({
         justifyContent: "center"
       },
     description: {
-        maxWidth: "90%"
+        maxWidth: "85%"
     },
     fileBrowseContainer: {
         backgroundColor: XOverTheme.bg_blue,

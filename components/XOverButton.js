@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useFonts, Kanit_400Regular, Kanit_700Bold } from "@expo-google-fonts/kanit";
 import XOverTheme from "../assets/XOverTheme";
 
-export default function XOverButton({text, icon, pressFunc, containerStyles, buttonStyles}) {
+export default function XOverButton({text, icon, pressFunc, containerStyles, buttonStyles, disabled}) {
     let [fontsLoaded] = useFonts({
         Kanit_400Regular, Kanit_700Bold
       });
@@ -12,7 +12,7 @@ export default function XOverButton({text, icon, pressFunc, containerStyles, but
         return null;
       }
     return (<View style={[styles.shadow, containerStyles]}>
-              <Pressable style={({pressed}) => [styles.button, {top: pressed ? 0 : -5, left: pressed ? 0 : 5}, buttonStyles]} onPress={() => pressFunc()}>
+              <Pressable disabled={disabled} style={({pressed}) => [disabled ? styles.disabled : styles.button, {top: pressed || disabled ? 0 : -5, left: pressed || disabled ? 0 : 5}, buttonStyles]} onPress={() => pressFunc()}>
                 {text && <Text style={styles.buttonText}>{text}</Text>}
                 {icon}
               </Pressable>
@@ -34,6 +34,15 @@ const styles = StyleSheet.create({
       padding: 5,
       top: -5,
       left: 5
+    },
+    disabled: {
+      borderColor: "black", 
+      borderWidth: 3, 
+      backgroundColor: XOverTheme.bg_blue,
+      padding: 5,
+      top: 0,
+      left: 0,
+      marginLeft: 0
     },
     shadow: {backgroundColor: "black", width: "auto", alignSelf: "flex-start"},
   });
