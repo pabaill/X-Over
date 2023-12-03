@@ -22,7 +22,7 @@ export default function XOverCreate({navigation, setCreateModal, route}) {
     const [projName, updateProjName] = useState("");
     const [projDesc, updateProjDesc] = useState("");
     const [projThumb, updateProjThumb] = useState(null);
-    const [projMembers, updateProjMembers] = useState([{name: "(You)", pronouns: "they/them", role: "Team Lead"}]);
+    const [projMembers, updateProjMembers] = useState([{name: "(You)", pronouns: "they/them", role: "Team Lead", image: require('./../assets/default_profile.png')}]);
     const [isProjPublic, setIsProjPublic] = useState(false);
     const [projTags, updateProjTags] = useState([]);
 

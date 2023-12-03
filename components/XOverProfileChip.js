@@ -15,7 +15,7 @@ export default function XOverProfileChip({person, noText, isAddBtn, containerSty
     return (
     <View style={[styles.shadow, containerStyles]}>
         <View style={[{height: 80, width: 80, marginHorizontal: 20, resizeMode: "contain"}, containerStyles]}>
-            <Image style={{flex: 1, height: 80, width: 80, resizeMode: "contain"}} source={isAddBtn ? require('./../assets/add_member.png') : ((typeof(person.image) === 'number') ? person.image : {uri: person.image})} />
+            <Image style={{flex: 1, height: 80, width: 80, resizeMode: "contain"}} source={isAddBtn || !person.image ? require('./../assets/add_member.png') : ((typeof(person.image) === 'number') ? person.image : {uri: person.image})} />
             {!noText && (<View style={{height: "30%", flex: 1, width: "100%"}}>
                 <Text numberOfLines={1} style={styles.name}>{person.name}</Text>
                 <Text numberOfLines={1} style={styles.role}>{person.pronouns}</Text>
