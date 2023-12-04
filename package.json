@@ -17,11 +17,14 @@
     "@react-navigation/bottom-tabs": "^6.5.11",
     "@react-navigation/core": "^6.4.10",
     "@react-navigation/native": "^6.1.9",
+    "eas-cli": "^5.9.1",
     "expo": "~49.0.15",
     "expo-blur": "~12.4.1",
+    "expo-checkbox": "~2.4.0",
     "expo-dev-client": "~2.4.12",
     "expo-document-picker": "~11.5.4",
     "expo-font": "~11.4.0",
+    "expo-image-picker": "~14.3.2",
     "expo-status-bar": "~1.6.0",
     "firebase": "^10.6.0",
     "firebase-admin": "^11.11.0",
@@ -35,9 +38,7 @@
     "react-native-reanimated": "~3.3.0",
     "react-native-reanimated-carousel": "^3.5.1",
     "react-native-web": "~0.19.6",
-    "react-navigation": "^5.0.0",
-    "expo-checkbox": "~2.4.0",
-    "expo-image-picker": "~14.3.2"
+    "react-navigation": "^5.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
