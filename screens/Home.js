@@ -28,7 +28,7 @@ export default function Home({navigation, route}) {
   const width = Dimensions.get('window').width;
 
   const [selectedIndex, changeIndex] = useState(0);
-  const [currProject, changeProject] = useState(PROJ_DATA[0])
+  const [currProject, changeProject] = useState(PROJ_DATA.filter((proj) => proj.members.filter((m) => m.email === route.params.user.email).length > 0)[0])
   const [progressValue, changeProgressValue] = useState(0)
 
   let [fontsLoaded] = useFonts({

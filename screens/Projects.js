@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View, Image, ScrollView, Modal, ImageBackground, Linking } from 'react-native';
+import { Pressable, StyleSheet, Text, View, Image, ScrollView, Modal, ImageBackground, Linking, Keyboard } from 'react-native';
 import { useEffect, useState } from 'react';
 import { useFonts } from 'expo-font';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
@@ -131,8 +131,8 @@ export default function Projects({navigation, route}) {
             }}
             >
               <View style={{flex: 1, width: "100%", height: "100%", padding: 10, alignItems: "center", justifyContent: "center", backgroundColor: XOverTheme.bg_blue + "d0"}}>
-                <View style={{ flex: 1, alignItems: "flex-start", justifyContent: "space-between", backgroundColor: "white", width: "80%", height: "40%", marginVertical: "30%", borderRadius: 25, padding: 20}}>
-                  <XOverButton icon={(<FontAwesome name="arrow-left" style={{fontSize: 32 }} />)} pressFunc={() => {setAddFileModal(false)}} />
+                <ScrollView contentContainerStyle={{alignItems: "flex-start", justifyContent: "space-between", height: "100%"}} style={{ flex: 1, backgroundColor: "white", width: "80%", height: "40%", minHeight: 450, marginVertical: "30%", borderRadius: 25, padding: 20}}>
+                  <XOverButton containerStyles={{marginTop: 20}} icon={(<FontAwesome name="arrow-left" style={{fontSize: 32 }} />)} pressFunc={() => {setAddFileModal(false)}} />
                   <XOverHeader text={"Add A File"} />
                   <TextInput onChangeText={(text) => {setNewResourceName(text)}} placeholderTextColor={"white"} style={styles.input} placeholder='Resource Name' />
                   <Pressable onPress={selectDocument} style={{width: "90%", marginHorizontal: "5%", backgroundColor: XOverTheme.bg_blue, borderRadius: 15, alignItems: "center", justifyContent: "center", padding: 10 }}>
@@ -148,20 +148,21 @@ export default function Projects({navigation, route}) {
                         </View>
                       )}
                   </Pressable>
-                  <View style={{paddingLeft: 10}}>
+                  <View style={{paddingLeft: 10, height: "auto", zIndex: 10}}>
                     <Text style={{fontFamily: "Kanit_400Regular"}}>Select Tag for Resource: </Text>
-                    <DropDownPicker 
-                      containerStyle={{width: "100%", marginBottom: 10}}
+                    <DropDownPicker
+                      containerStyle={{width: "100%", marginBottom: 20 }}
                       labelStyle={{fontFamily: "Kanit_400Regular"}}
                       open={isSelectOpen} 
                       setOpen={setSelectOpen} 
                       items={DROPDOWN_ITEMS} 
                       setValue={setSelectVal}
                       value={selectVal}
+                      dropDownDirection='TOP'
                     />
                   </View>
-                  <XOverButton containerStyles={{marginLeft: "60%"}} text={"Upload"} disabled={!(newResource.name && newResourceName)} pressFunc={() => {uploadProjectResource()}} />
-                </View>
+                  <XOverButton containerStyles={{marginLeft: "60%"}} text={"Upload"} disabled={!newResource.name || !newResourceName} pressFunc={() => {uploadProjectResource()}} />
+                </ScrollView>
               </View>
             </Modal>
             <XOverButton icon={(<FontAwesome name="arrow-left" style={{fontSize: 32 }} />)} pressFunc={() => {setModal(false); setModalClicked(false); setModalSearchPhrase(""); setSelectVal("All")}} />
