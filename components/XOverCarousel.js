@@ -24,6 +24,7 @@ export default function XOverCarousel({navigation, route, changeProgressValue, c
 
     return (
         <View style={{height: "auto", width: "100%"}}>
+          {/* <Image source={require('./../assets/comic_dots_transparent.png')} style={{position: "absolute", top: 5, height: "80%", width: "100%", zIndex: 2}} /> */}
         <Carousel
                 width={width - 40}
                 height={width / 2}
