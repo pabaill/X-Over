@@ -43,7 +43,7 @@ export default PROJ_DATA = [
   {name: "X-Over", description: "X-Over Development Team - creating the best collaborative work app for your organization. Yeah, we use our own app to structure our work. We're committed.", updates: [{
     name: "Jack", text: "Updated Meeting Notes for 12/1", link: {text: "View File", filename: "Meeting Notes (12/1)"}, time: new Date("2023-12-01T09:25:00")
   }, {
-    name: "Ted", text: "Updated Project Description", link: {text: "View Project"}, time: new Date("2023-11-28T17:25:00")
+    name: "Phil", text: "Updated Project Description", link: {text: "View Project"}, time: new Date("2023-11-28T17:25:00")
   }],
   members: [
     {name: "Phil", role: "Lead", pronouns: "he/him", email: "pabaill@stanford.edu", image: require("./../assets/default_profile.png")}, 

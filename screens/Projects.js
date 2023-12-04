@@ -7,6 +7,7 @@ import { CommonActions } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import DropDownPicker from 'react-native-dropdown-picker';
+import * as DocumentPicker from 'expo-document-picker';
 import XOverHeader from '../components/XOverHeader';
 import XOverButton from '../components/XOverButton';
 import PROJ_DATA from './../assets/mock_data';
@@ -36,6 +37,8 @@ export default function Projects({navigation, route}) {
   const [isSelectOpen, setSelectOpen] = useState(false);
 
   const [addFileModalOpen, setAddFileModal] = useState(false);
+  const [newResourceName, setNewResourceName] = useState("");
+  const [newResource, setNewResource] = useState({});
 
   const [createModalOpen, setCreateModal] = useState(false);
 
@@ -80,6 +83,29 @@ export default function Projects({navigation, route}) {
     return PROJ_DATA.filter((project) => project.name.toLowerCase().includes(searchPhrase.toLowerCase()) || project.tags.filter((tag) => tag.toLowerCase().includes(searchPhrase.toLowerCase())).length > 0);
   }
 
+  const selectDocument = async () => {
+    let result = await DocumentPicker.getDocumentAsync();
+
+  console.log(result)
+
+  if (!result.canceled) {
+      setNewResource(result.assets[0]);
+  }
+  }
+
+  const uploadProjectResource = () => {
+    setAddFileModal(false);
+    PROJ_DATA[PROJ_DATA.indexOf(route.params.project)].resources.push({
+      filename: newResource.name,
+      author: route.params.user.displayName,
+      lastMod: new Date(),
+      category: selectVal,
+      uri: newResource.uri
+    });
+    setNewResource({});
+    setModalSearchPhrase("");
+  }
+
   return route?.params?.project ? (
     // Page for Single Project
     <View style={{flex: 1, marginTop: 20, marginHorizontal: 10, padding: 20 }}>
@@ -108,10 +134,22 @@ export default function Projects({navigation, route}) {
                 <View style={{ flex: 1, alignItems: "flex-start", justifyContent: "space-between", backgroundColor: "white", width: "80%", height: "40%", marginVertical: "30%", borderRadius: 25, padding: 20}}>
                   <XOverButton icon={(<FontAwesome name="arrow-left" style={{fontSize: 32 }} />)} pressFunc={() => {setAddFileModal(false)}} />
                   <XOverHeader text={"Add A File"} />
-                  <TextInput placeholderTextColor={"white"} style={styles.input} placeholder='Resource Name' />
-                  <TextInput placeholderTextColor={"white"} style={styles.input} placeholder='Link to Resource' />
+                  <TextInput onChangeText={(text) => {setNewResourceName(text)}} placeholderTextColor={"white"} style={styles.input} placeholder='Resource Name' />
+                  <Pressable onPress={selectDocument} style={{width: "90%", marginHorizontal: "5%", backgroundColor: XOverTheme.bg_blue, borderRadius: 15, alignItems: "center", justifyContent: "center", padding: 10 }}>
+                      {!newResource.name ? (
+                      <View>
+                        <FontAwesome style={{fontSize: 44, color: "white", alignSelf: "center"}} name="book" />
+                        <Text style={{fontFamily: 'Kanit_400Regular', color: "white"}}>Choose A File</Text>
+                      </View>
+                      ) : (
+                        <View>
+                        <FontAwesome style={{fontSize: 44, color: "white", alignSelf: "center"}} name="book" />
+                        <Text style={{fontFamily: 'Kanit_400Regular', color: "white"}}>Selected File: {newResource.name}</Text>
+                        </View>
+                      )}
+                  </Pressable>
                   <View style={{paddingLeft: 10}}>
-                    <Text style={{fontFamily: "Kanit_400Regular"}}>Select Tag</Text>
+                    <Text style={{fontFamily: "Kanit_400Regular"}}>Select Tag for Resource: </Text>
                     <DropDownPicker 
                       containerStyle={{width: "100%", marginBottom: 10}}
                       labelStyle={{fontFamily: "Kanit_400Regular"}}
@@ -122,7 +160,7 @@ export default function Projects({navigation, route}) {
                       value={selectVal}
                     />
                   </View>
-                  <XOverButton containerStyles={{marginLeft: "60%"}} text={"Upload"} pressFunc={() => {setAddFileModal(!addFileModalOpen)}} />
+                  <XOverButton containerStyles={{marginLeft: "60%"}} text={"Upload"} disabled={!(newResource.name && newResourceName)} pressFunc={() => {uploadProjectResource()}} />
                 </View>
               </View>
             </Modal>
