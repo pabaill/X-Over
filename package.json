@@ -21,6 +21,7 @@
     "expo": "~49.0.15",
     "expo-blur": "~12.4.1",
     "expo-checkbox": "~2.4.0",
+    "expo-cli": "^6.3.10",
     "expo-dev-client": "~2.4.12",
     "expo-document-picker": "~11.5.4",
     "expo-font": "~11.4.0",
@@ -38,7 +39,8 @@
     "react-native-reanimated": "~3.3.0",
     "react-native-reanimated-carousel": "^3.5.1",
     "react-native-web": "~0.19.6",
-    "react-navigation": "^5.0.0"
+    "react-navigation": "^5.0.0",
+    "expo-updates": "~0.18.17"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
