@@ -7,6 +7,8 @@ import { useFonts } from "@expo-google-fonts/kanit";
 
 export default function XOverProjectList({user, navigation, projectList}) {
 
+    projectList[2].members.find((m) => m.email === user.email)
+
     let [fontsLoaded] = useFonts({
         Kanit_400Regular
         });
@@ -32,7 +34,7 @@ export default function XOverProjectList({user, navigation, projectList}) {
                             <Text style={[styles.text, {marginLeft: 35}]}>+{item.members.length - 2} more</Text>
                         )}
                     </View>
-                    <Text style={[styles.text, {position: "absolute", top: 10, right: 30}]}>{item.members.find((m) => {m.email === user.email}) && "Joined!"}</Text>
+                    <Text style={[styles.text, {fontSize: 18, position: "absolute", top: 10, right: 10}]}>{item.members.find((m) => m.email === user.email) && "Joined!"}</Text>
                 </Pressable>
             )}
             />

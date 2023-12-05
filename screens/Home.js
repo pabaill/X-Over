@@ -76,7 +76,11 @@ export default function Home({navigation, route}) {
                 />
               </View>
             </View>
-          ) : (<></>)}
+          ) : (
+            <View style={{marginTop: "25%"}}>
+              <Text style={{fontFamily: "Kanit_400Regular", fontSize: 24, textAlign: "center"}}>You don't have any pinned projects.</Text>
+            </View>
+          )}
         </View>
     </ImageBackground>
   );
