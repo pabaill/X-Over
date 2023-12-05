@@ -48,7 +48,7 @@ export default function Home({navigation, route}) {
             selectedIndex={selectedIndex}
             backgroundColor={XOverTheme.bg_blue}
             tintColor={XOverTheme.base_orange}
-            fontStyle={{fontFamily: "Kanit_400Regular"}}
+            fontStyle={{fontFamily: "Kanit_400Regular", color: '#ffff'}}
             onChange={(event) => {
               changeIndex(event.nativeEvent.selectedSegmentIndex);
             }}
