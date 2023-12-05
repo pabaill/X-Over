@@ -1,17 +1,22 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 import XOverTheme from '../assets/XOverTheme';
 //import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 //import { faMugSaucer } from '@fortawesome/free-solid-svg-icons/faMugSaucer'
 import {useState} from 'react';
 
+import { signOut } from 'firebase/auth';
+import {auth} from './../firebase';
+
 export default function Profile() {
   return (
     <View style={{flex: 1}}>
-      <View style={{flex: 7, backgroundColor: XOverTheme.bg_blue}} />
-      <View style={{flex: 10, flexDirection: 'row'}}>
-        <Text style={styles.settingsText}>Logout</Text>
-        <Text style={styles.profileText}>Profile</Text>
-        <Text style={styles.settingsText}></Text>
+      <View style={{flex: 7, backgroundColor: XOverTheme.bg_blue}}>
+        <Pressable style={{position: "absolute", paddingTop: 20, left: 20}} onPress={() => {signOut(auth)}}>
+          <Text style={[styles.settingsText, {}]}>Logout</Text>
+        </Pressable>
+      </View>
+      <View style={{flex: 10, flexDirection: 'row', width: "100%"}}>
+        <Text style={[styles.profileText, {}]}>Profile</Text>
       </View>
       <View style={{flex: 2, backgroundColor: XOverTheme.bg_blue}} />
 
