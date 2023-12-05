@@ -22,7 +22,7 @@ export default function XOverCarousel({navigation, route, changeProgressValue, c
         return null;
     }
 
-    return (
+    return data.length !== 0 ? (
         <View style={{height: "auto", width: "100%"}}>
         <Carousel
                 width={width - 40}
@@ -57,6 +57,10 @@ export default function XOverCarousel({navigation, route, changeProgressValue, c
             </View>
           </View>
         </View>
+    ) : (
+      <View style={{width: "100%", height: "auto"}}>
+        <Text style={[styles.header, {textAlign: "center"}]}>Looks like you haven't joined any projects yet. Find one in the Projects tab!</Text>
+      </View>
     )
 }
 
