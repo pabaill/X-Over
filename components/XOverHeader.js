@@ -11,10 +11,8 @@ export default function XOverHeader({text, wide, containerStyles, textStyles}) {
       if (!fontsLoaded) {
         return null;
       }
-    return (<View style={[styles.shadow, {width: wide ? "100%" : "auto"}, containerStyles]} >
-                <View style={styles.headerWrapper}>
+    return (<View style={[styles.headerWrapper, {width: wide ? "100%" : "auto"}, containerStyles]} >
                 <Text numberOfLines={2} style={[styles.header, textStyles]}>{text}</Text>
-                </View>
             </View>)
 }
 
@@ -24,15 +22,12 @@ const styles = StyleSheet.create({
       fontSize: 24,
       textAlign: "center"
     },
-    headerWrapper: {
+    headerWrapper: { 
+      backgroundColor: XOverTheme.base_orange, 
+      width: "auto", 
+      alignSelf: "flex-start",
       borderColor: "black", 
       borderWidth: 3, 
-      backgroundColor: XOverTheme.base_orange,
-      maxWidth: "100%",
-      marginLeft: 0, 
-      padding: 5,
-      top: -5,
-      left: 5
+      padding: 5
     },
-    shadow: { backgroundColor: "black", width: "auto", alignSelf: "flex-start"},
   });

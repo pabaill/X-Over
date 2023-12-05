@@ -30,6 +30,9 @@ export default function App() {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(u => {
       if (u) {
+        u.displayName = (u.displayName) ? u.displayName : u.email.substring(0, u.email.indexOf('@'));
+        u.pronouns = "unset pronouns";
+        u.image = u.photoURL ? u.photoURL : require("./assets/default_profile.png");
         setUser(u);
       } else {
         setUser(null);
@@ -93,7 +96,7 @@ export default function App() {
                   ),
                 }}
               />
-              <Tab.Screen name="Profile" initialParams={{user: user}} component={Profile} tabBarLabelStyle={{fontFamily: "Kanit_400Regular"}} options={{
+              <Tab.Screen name="Profile" initialParams={{user: user, setUser: setUser}} component={Profile} tabBarLabelStyle={{fontFamily: "Kanit_400Regular"}} options={{
                   tabBarLabel: "Profile",
                   tabBarIcon: ({ color, size }) => (
                     <FontAwesome name="user" color={color} size={size} />

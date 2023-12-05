@@ -65,10 +65,10 @@ export default function Home({navigation, route}) {
                   <View key={index + item.text + item.link.text} style={{flex: 1, flexDirection: "row", height: 80, marginTop: 20}}>
                     <Image key={item.name + " profile" + index} style={{flex: 1, height: "85%", width: "auto", marginRight: 10}} source={require("./../assets/default_profile.png")} />
                     <ImageBackground key={item.text + " bubble" + index} style={[styles.bubble, {flex: 4 }]} source={require("./../assets/X-Over-Bubble.png")}>
-                      <Text style={{position: "absolute", fontFamily: "Kanit_400Regular", textAlign: "right", right: 20, top: 0}}>{item.time.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}</Text>
+                      <Text style={{position: "absolute", fontFamily: "Kanit_400Regular", textAlign: "right", right: 20, top: 5}}>{item.time.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}</Text>
                       <Text style={{marginLeft: 40, marginTop: 5, fontFamily: "Kanit_400Regular", fontSize: 18, lineHeight: 24}}>{item.name}</Text>
-                      <Text numberOfLines={1} style={{marginLeft: 40, paddingLeft: 20, fontFamily: "Kanit_400Regular"}}>{item.text}</Text>
-                      <Text onPress={() => {navigation.jumpTo('Projects', {project: currProject, source: "Home", openFile: item.link.filename, user: route.params.user})}} style={{marginLeft: 40, paddingLeft: 20, fontFamily: "Kanit_400Regular", textDecorationLine: 'underline', fontWeight: 'bold'}}>{item.link.text}</Text>
+                      <Text numberOfLines={1} style={{marginLeft: 40, fontFamily: "Kanit_400Regular"}}>{item.text}</Text>
+                      <Text onPress={() => {navigation.jumpTo('Projects', {project: currProject, source: "Home", openFile: item.link.filename, user: route.params.user})}} style={{marginLeft: 40, fontFamily: "Kanit_400Regular", textDecorationLine: 'underline', fontWeight: 'bold'}}>{item.link.text}</Text>
                     </ImageBackground>
                   </View>
                   )}
