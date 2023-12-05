@@ -219,7 +219,7 @@ export default function Projects({navigation, route}) {
           </View>}
           </View>
         </View>
-        <Image style={{width: "auto", height: 30, marginTop: -20}} source={require('./../assets/X-Over-Drawer.png')} />
+        <Image style={{width: "auto", height: 30, marginTop: -10}} source={require('./../assets/X-Over-Drawer.png')} />
         <ScrollView style={{flex: 4, height: "100%"}}>
           <View style={styles.projElem}>
             <XOverHeader textStyles={styles.subheaders} wide={false} text={"Team"} />
@@ -242,10 +242,10 @@ export default function Projects({navigation, route}) {
             <View key={route.params.project.updates[0].text + route.params.project.updates[0].link.text} style={{flex: 1, flexDirection: "row", height: "auto", marginTop: 10}}>
               <Image key={route.params.project.updates[0].name + " profile"} style={{flex: 1, height: "80%", width: "auto", resizeMode: "contain"}} source={require("./../assets/default_profile.png")} />
               <ImageBackground key={route.params.project.updates[0].text + " bubble"} style={[styles.bubble, {flex: 4}]} source={require("./../assets/X-Over-Bubble.png")}>
-                <Text style={{position: "absolute", fontFamily: "Kanit_400Regular", textAlign: "right", right: 20, top: 0}}>{route.params.project.updates[0].time.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}</Text>
+                <Text style={{position: "absolute", fontFamily: "Kanit_400Regular", textAlign: "right", right: 20, top: 5}}>{route.params.project.updates[0].time.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}</Text>
                 <Text style={{marginLeft: 40, marginTop: 5, fontFamily: "Kanit_400Regular", fontSize: 18, lineHeight: 24}}>{route.params.project.updates[0].name}</Text>
-                <Text numberOfLines={1} style={{marginLeft: 40, paddingLeft: 20, fontFamily: "Kanit_400Regular", width: "80%"}}>{route.params.project.updates[0].text}</Text>
-                <Text onPress={() => {navigation.jumpTo('Projects', {project: route.params.project, user: route.params.user, source: "Projects", openFile: route.params.project.updates[0].link.filename})}} style={{marginLeft: 40, paddingLeft: 20, fontFamily: "Kanit_400Regular", textDecorationLine: 'underline', fontWeight: 'bold'}}>{route.params.project.updates[0].link.text}</Text>
+                <Text numberOfLines={1} style={{marginLeft: 40, fontFamily: "Kanit_400Regular", width: "80%"}}>{route.params.project.updates[0].text}</Text>
+                <Text onPress={() => {navigation.jumpTo('Projects', {project: route.params.project, user: route.params.user, source: "Projects", openFile: route.params.project.updates[0].link.filename})}} style={{marginLeft: 40, fontFamily: "Kanit_400Regular", textDecorationLine: 'underline', fontWeight: 'bold'}}>{route.params.project.updates[0].link.text}</Text>
               </ImageBackground>
             </View>
           </View>) : (
