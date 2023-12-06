@@ -1,11 +1,10 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, ImageBackground} from 'react-native';
 import XOverTheme from '../assets/XOverTheme';
-//import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-//import { faMugSaucer } from '@fortawesome/free-solid-svg-icons/faMugSaucer'
 import {useState} from 'react';
 
 export default function Profile() {
   return (
+    <ImageBackground imageStyle={{opacity: .1}} style={{height: "100%"}} source={require('./../assets/comic_dots.jpg')} >
     <View style={{flex: 1}}>
       <View style={{flex: 7, backgroundColor: XOverTheme.bg_blue}} />
       <View style={{flex: 10, flexDirection: 'row'}}>
@@ -90,6 +89,7 @@ export default function Profile() {
       </View>
       <View style={{flex: 9}} />
     </View>
+    </ImageBackground>
   );
 };
 
