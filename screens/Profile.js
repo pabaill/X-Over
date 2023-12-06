@@ -7,6 +7,7 @@ import { signOut } from 'firebase/auth';
 import {auth} from './../firebase';
 import { TextInput } from 'react-native-gesture-handler';
 import * as ImagePicker from 'expo-image-picker';
+import PROJ_DATA from './../assets/mock_data';
 
 export default function Profile({route, navigation}) {
 
@@ -14,17 +15,24 @@ export default function Profile({route, navigation}) {
   const [newMessage, setNewMessage] = useState(route.params.user.textNumber ? route.params.user.textNumber : route.params.user.phoneNumber);
   const [newEmail, setNewEmail] = useState(route.params.user.email);
 
+  const updateDatabase = (newUser) => {
+    PROJ_DATA.filter((p) => p.members.find((m) => m.email === route.params.user.email)).forEach((p) => {
+      p.members[p.members.indexOf((m) => m.email === newUser.email)] = newUser
+    });
+    route.params.setUser(newUser);
+  }
+
   const updateUserInfo = (info, field) => {
     const newUser = {...route.params.user};
     newUser[field] = info;
-    route.params.setUser(newUser);
+    updateDatabase(newUser);
   }
 
   const selectImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
         allowsEditing: true,
-        aspect: [3, 4],
+        aspect: [1, 1],
         quality: 1,
     });
 
@@ -33,7 +41,7 @@ export default function Profile({route, navigation}) {
     if (!result.canceled) {
         const newUser = {...route.params.user};
         newUser.image = result.assets[0].uri;
-        route.params.setUser(newUser);
+        updateDatabase(newUser);
         navigation.jumpTo('Profile', {user: newUser})
     }
   }

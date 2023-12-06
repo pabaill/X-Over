@@ -15,6 +15,10 @@ import PROJ_DATA from './../assets/mock_data';
 
 export default function XOverCreate({navigation, setCreateModal, route}) {
 
+    const currUser = {...route.params.user};
+    currUser.name = currUser.displayName;
+    currUser.role = "Team Lead";
+
     DropDownPicker.setMode("BADGE");
 
     const [pageNum, changePageNum] = useState(0);
@@ -22,7 +26,7 @@ export default function XOverCreate({navigation, setCreateModal, route}) {
     const [projName, updateProjName] = useState("");
     const [projDesc, updateProjDesc] = useState("");
     const [projThumb, updateProjThumb] = useState(null);
-    const [projMembers, updateProjMembers] = useState([{name: route.params.user.displayName, pronouns: route.params.user.pronouns, role: "Team Lead", image: route.params.user.image}]);
+    const [projMembers, updateProjMembers] = useState([currUser]);
     const [isProjPublic, setIsProjPublic] = useState(false);
     const [projTags, updateProjTags] = useState([]);
 
@@ -114,7 +118,7 @@ export default function XOverCreate({navigation, setCreateModal, route}) {
             description: projDesc, 
             thumb: projThumb,
             updates: [{
-                name: "You", text: `Created X-Over "${projName}"`, link: {text: "View Project"}, time: new Date()
+                name: route.params.user.displayName, image: route.params.user.image, text: `Created X-Over "${projName}"`, link: {text: "View Project"}, time: new Date()
               }],
             members: projMembers, 
             visible: isProjPublic, 
