@@ -7,8 +7,6 @@ import { useFonts } from "@expo-google-fonts/kanit";
 
 export default function XOverProjectList({user, navigation, projectList}) {
 
-    projectList[2].members.find((m) => m.email === user.email)
-
     let [fontsLoaded] = useFonts({
         Kanit_400Regular
         });

@@ -15,7 +15,6 @@ export default function XOverCarousel({navigation, route, changeProgressValue, c
     const data = PROJ_DATA.filter((p) => !memberOnly || p.members.find((m) => m.email === route.params.user.email)).sort((a, b) => a.name.toLowerCase() - b.name.toLowerCase());
 
     useEffect(() => {
-      changeProgressValue(0);
       changeProject(data[0]);
     }, [data])
 
@@ -45,7 +44,7 @@ export default function XOverCarousel({navigation, route, changeProgressValue, c
                   <View style={{flex: 1}}>
                     <Pressable 
                       style={({pressed}) => [{flex: 10, marginHorizontal: "30%", width: "40%", backgroundColor: pressed ? XOverTheme.base_orange : "transparent"}]}
-                      onPress={() => navigation.jumpTo('Projects', {project: data[index], source: source})}
+                      onPress={() => {navigation.jumpTo('Projects', {project: data[index], source: source})}}
                       key={data[index].name + index}
                       >
                       <Text numberOfLines={1} style={[styles.header, {flex: 1, height: 30, width: "100%", paddingHorizontal: 5, fontSize: 14, position: "absolute", zIndex: 1, backgroundColor: XOverTheme.base_yellow, borderColor: "black", borderTopWidth: 3, borderRightWidth: 3, borderLeftWidth: 3, borderTopLeftRadius: 10, borderTopRightRadius: 10, paddingVertical: 5}]}>{data[index].name}</Text>

@@ -7,7 +7,7 @@ import { signOut } from 'firebase/auth';
 import {auth} from './../firebase';
 import { TextInput } from 'react-native-gesture-handler';
 
-export default function Profile({route}) {
+export default function Profile({route, navigation}) {
 
   const [newPhone, setNewPhone] = useState(route.params.user.phoneNumber);
   const [newMessage, setNewMessage] = useState(route.params.user.textNumber ? route.params.user.textNumber : route.params.user.phoneNumber);
@@ -74,9 +74,11 @@ export default function Profile({route}) {
 
       <View style={{flex: 4, flexDirection: 'row'}}>
         <View style={{flex: 2}} />
-        <Text style={{flex: 5, backgroundColor: 'lightgrey', textAlign: 'center', fontSize: 15, color: 'black', fontFamily: "Kanit_400Regular"}}>Pinned Projects</Text>
-        <View style={{flex: 6, backgroundColor: 'lightgrey'}} />
-        <Image style={{flex: 1, height: '100%', width: '10%', backgroundColor: 'lightgrey'}} source={require("./../assets/Icons/go-to-icon.png")} />
+        <Pressable onPress={() => {navigation.jumpTo('Home', {showPinned: true})}}>
+          <Text style={{flex: 5, backgroundColor: 'lightgrey', textAlign: 'center', fontSize: 15, color: 'black', fontFamily: "Kanit_400Regular"}}>Pinned Projects</Text>
+          <View style={{flex: 6, backgroundColor: 'lightgrey'}} />
+          <Image style={{flex: 1, height: '100%', width: '10%', backgroundColor: 'lightgrey'}} source={require("./../assets/Icons/go-to-icon.png")} />
+        </Pressable>
         <View style={{flex: 2}} />
       </View>
       <View style={{flex: 3}} />
