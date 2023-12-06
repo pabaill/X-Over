@@ -5,7 +5,7 @@ import XOverTheme from '../assets/XOverTheme';
 import XOverFriend from '../components/XOverFriend';
 import XOverSearch from '../components/XOverSearch';
 import XOverFriendsInfo from '../assets/XOverFriendsInfo';
-import { FlatList } from 'react-native-gesture-handler';
+import { FlatList, TextInput } from 'react-native-gesture-handler';
 import PROJ_DATA from './../assets/mock_data';
 
 export default function Friends({navigation}) {
@@ -15,8 +15,6 @@ export default function Friends({navigation}) {
   // const getRelevantProjects = () => {
   //   return PROJ_DATA.filter((project) => project.name.toLowerCase().includes(searchPhrase.toLowerCase()) || project.tags.filter((tag) => tag.toLowerCase().includes(searchPhrase.toLowerCase())).length > 0);
   // }
-  const [searchClicked, setClicked] = useState(false);
-  const [showProjectList, setShowProjectList] = useState(false);
   // const completeSearchFn = (phrase) => {
   //   setSearchPhrase(phrase);
   //   setShowProjectList(true);
@@ -30,10 +28,11 @@ export default function Friends({navigation}) {
           m.role = [m.role.toString()];
           union.push(m);
         } else {
-          union[union.findIndex((x) => x.email === m.email )].role.push(m.role);
+          union[union.findIndex((x) => x.email === m.email )].role.push(m.role.toString());
         }
       })
     })
+    console.log(union)
     return union.sort((a, b) => a.name - b.name);
   };
   
@@ -52,7 +51,7 @@ export default function Friends({navigation}) {
               changeIndex(event.nativeEvent.selectedSegmentIndex);
             }}
           />
-      <XOverSearch setShowProjectList={setShowProjectList} clicked={searchClicked} setClicked={setClicked} searchPhrase={searchPhrase} setSearchPhrase={setSearchPhrase} />
+      <TextInput value={searchPhrase} onChangeText={(text) => {setSearchPhrase(text)}} placeholderTextColor={"white"} style={styles.input} placeholder='Search' />
       {selectedIndex === 0 ? (
       <ScrollView style={{padding: 10}}>
         <FlatList
@@ -72,14 +71,12 @@ export default function Friends({navigation}) {
       </ScrollView>
       ) : (
         <ScrollView style={{padding: 10}}>
-        <XOverFriend image={XOverFriendsInfo.person1.image} name={XOverFriendsInfo.person1.name} title={XOverFriendsInfo.person1.title} />
-        <XOverFriend image={XOverFriendsInfo.person2.image} name={XOverFriendsInfo.person2.name} title={XOverFriendsInfo.person2.title} />
-        <XOverFriend image={XOverFriendsInfo.person3.image} name={XOverFriendsInfo.person3.name} title={XOverFriendsInfo.person3.title} />
-        <XOverFriend image={XOverFriendsInfo.person4.image} name={XOverFriendsInfo.person4.name} title={XOverFriendsInfo.person4.title} />
-        <XOverFriend image={XOverFriendsInfo.person5.image} name={XOverFriendsInfo.person5.name} title={XOverFriendsInfo.person5.title} />
-        <XOverFriend image={XOverFriendsInfo.person6.image} name={XOverFriendsInfo.person6.name} title={XOverFriendsInfo.person6.title} />
-        <XOverFriend image={XOverFriendsInfo.person7.image} name={XOverFriendsInfo.person7.name} title={XOverFriendsInfo.person7.title} />
-        <XOverFriend image={XOverFriendsInfo.person8.image} name={XOverFriendsInfo.person8.name} title={XOverFriendsInfo.person8.title} />
+          <FlatList
+            data={getMembers()}
+            renderItem={({item, index}) => (
+              <XOverFriend image={item.image} name={item.name} roles={item.role} />
+            )}
+          />
       </ScrollView>
       )}
     </View>
@@ -114,5 +111,19 @@ const styles = StyleSheet.create({
       bottom: 0,
       right: 0
   },
-  shadow: {backgroundColor: "black", width: "auto", alignSelf: "flex-start"}
+  shadow: {backgroundColor: "black", width: "auto", alignSelf: "flex-start"},
+  input: {
+    fontFamily: "Kanit_400Regular",
+    fontSize: 20,
+    width: "90%",
+    marginHorizontal: "5%",
+    marginTop: 20,
+    color: "white",
+    padding: 10,
+    flexDirection: "row",
+    backgroundColor: XOverTheme.bg_blue,
+    borderRadius: 15,
+    alignItems: "center",
+    justifyContent: "space-evenly"
+  }
 })
