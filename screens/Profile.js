@@ -36,7 +36,7 @@ export default function Profile({route}) {
 
       <View style={{flex: 27, flexDirection: 'row', backgroundColor: XOverTheme.bg_blue}}>
         <View style={{flex: 4}} />
-        <Image style={{flex: 7, height: '100%', width: '10%', backgroundColor: XOverTheme.bg_blue}} source={require("./../assets/default_profile.png")} />
+        <Image style={{flex: 7, height: '100%', width: '10%', backgroundColor: XOverTheme.bg_blue}} source={require("./../assets/ProfilePics/Profile-Pic1.png")} />
         <View style={{flex: 4}} />
       </View>
       <View style={{flex: 2}} />
