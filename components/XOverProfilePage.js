@@ -17,16 +17,16 @@ export default function Profile(image, name, title) {
 
       <View style={{flex: 27, flexDirection: 'row', backgroundColor: XOverTheme.bg_blue}}>
         <View style={{flex: 4}} />
-        <Image style={{flex: 7, height: '100%', width: '10%', backgroundColor: XOverTheme.bg_blue}} source={require("./../assets/default_profile.png")} />
+        <Image style={{flex: 7, height: '100%', width: '10%', backgroundColor: XOverTheme.bg_blue}} source={image} />
         <View style={{flex: 4}} />
       </View>
       <View style={{flex: 2}} />
 
 
       <View style={{flex: 11}}>
-        <Text style={styles.nameText}>Profile Name</Text>
+        <Text style={styles.nameText}>{name}</Text>
         <View style={{flex: 1}}/>
-        <Text style={styles.titleText}>Job Title</Text>
+        <Text style={styles.titleText}>{title}</Text>
       </View>
 
       <View style={{flex: 2}} />

@@ -4,39 +4,10 @@ import { useState } from 'react';
 import XOverTheme from '../assets/XOverTheme';
 import XOverFriend from '../components/XOverFriend';
 import XOverSearch from '../components/XOverSearch';
+import XOverFriendsInfo from '../assets/XOverFriendsInfo';
 
 export default function Friends() {
   const [selectedIndex, changeIndex] = useState(0);
-  const image1 = require('./../assets/default_profile.png');
-  const name1 = 'Steve';
-  const title1 = 'Mechanical Engineer';
-  const image2 = require('./../assets/default_profile.png');
-  const name2 = 'Natasha';
-  const title2 = 'Head of Engineering';
-  const image3 = require('./../assets/default_profile.png');
-  const name3 = 'Tony';
-  const title3 = 'Mechanical Engineer';
-  const image4 = require('./../assets/default_profile.png');
-  const name4 = 'Bruce';
-  const title4 = 'Computer Engineer';
-  const image5 = require('./../assets/default_profile.png');
-  const name5 = 'Kevin';
-  const title5 = 'Mechanical Engineer';
-  const image6 = require('./../assets/default_profile.png');
-  const name6 = 'Olivia';
-  const title6 = 'Computer Engineer';
-  const image7 = require('./../assets/default_profile.png');
-  const name7 = 'Michael';
-  const title7 = 'Chemical Engineer';
-  const image8 = require('./../assets/default_profile.png');
-  const name8 = 'Megan';
-  const title8 = 'Human Relations';
-  const image9 = require('./../assets/default_profile.png');
-  const name9 = 'Jin';
-  const title9 = 'President';
-  const image10 = require('./../assets/default_profile.png');
-  const name10 = 'Miguel';
-  const title10 = 'Head of Marketing';
   
   const [searchPhrase, setSearchPhrase] = useState("");
   const getRelevantProjects = () => {
@@ -65,19 +36,29 @@ export default function Friends() {
             }}
           />
       <XOverSearch setShowProjectList={setShowProjectList} clicked={searchClicked} setClicked={setClicked} searchPhrase={searchPhrase} setSearchPhrase={setSearchPhrase} />
-      <ScrollView style={{padding: 10, flex: 1}}>
-        <XOverFriend style={{flex: 1}} image={image1} name={name1} title={title1} />
-        <View style={{flex: 10}}/>
-        <XOverFriend style={{flex: 1}} image={image2} name={name2} title={title2} />
-        <XOverFriend style={{flex: 1}} image={image3} name={name3} title={title3} />
-        <XOverFriend style={{flex: 1}} image={image4} name={name4} title={title4} />
-        <XOverFriend style={{flex: 1}} image={image5} name={name5} title={title5} />
-        <XOverFriend image={image6} name={name6} title={title6} />
-        <XOverFriend image={image7} name={name7} title={title7} />
-        <XOverFriend image={image8} name={name8} title={title8} />
-        <XOverFriend image={image9} name={name9} title={title9} />
-        <XOverFriend image={image10} name={name10} title={title10} />
+      {selectedIndex === 0 ? (
+      <ScrollView style={{padding: 10}}>
+        <XOverFriend image={XOverFriendsInfo.person9.image} name={XOverFriendsInfo.person9.name} title={XOverFriendsInfo.person9.title} />
+        <XOverFriend image={XOverFriendsInfo.person10.image} name={XOverFriendsInfo.person10.name} title={XOverFriendsInfo.person10.title} />
+        <XOverFriend image={XOverFriendsInfo.person11.image} name={XOverFriendsInfo.person11.name} title={XOverFriendsInfo.person11.title} />
+        <XOverFriend image={XOverFriendsInfo.person12.image} name={XOverFriendsInfo.person12.name} title={XOverFriendsInfo.person12.title} />
+        <XOverFriend image={XOverFriendsInfo.person13.image} name={XOverFriendsInfo.person13.name} title={XOverFriendsInfo.person13.title} />
+        <XOverFriend image={XOverFriendsInfo.person14.image} name={XOverFriendsInfo.person14.name} title={XOverFriendsInfo.person14.title} />
+        <XOverFriend image={XOverFriendsInfo.person15.image} name={XOverFriendsInfo.person15.name} title={XOverFriendsInfo.person15.title} />
+        <XOverFriend image={XOverFriendsInfo.person16.image} name={XOverFriendsInfo.person16.name} title={XOverFriendsInfo.person16.title} />
       </ScrollView>
+      ) : (
+        <ScrollView style={{padding: 10}}>
+        <XOverFriend image={XOverFriendsInfo.person1.image} name={XOverFriendsInfo.person1.name} title={XOverFriendsInfo.person1.title} />
+        <XOverFriend image={XOverFriendsInfo.person2.image} name={XOverFriendsInfo.person2.name} title={XOverFriendsInfo.person2.title} />
+        <XOverFriend image={XOverFriendsInfo.person3.image} name={XOverFriendsInfo.person3.name} title={XOverFriendsInfo.person3.title} />
+        <XOverFriend image={XOverFriendsInfo.person4.image} name={XOverFriendsInfo.person4.name} title={XOverFriendsInfo.person4.title} />
+        <XOverFriend image={XOverFriendsInfo.person5.image} name={XOverFriendsInfo.person5.name} title={XOverFriendsInfo.person5.title} />
+        <XOverFriend image={XOverFriendsInfo.person6.image} name={XOverFriendsInfo.person6.name} title={XOverFriendsInfo.person6.title} />
+        <XOverFriend image={XOverFriendsInfo.person7.image} name={XOverFriendsInfo.person7.name} title={XOverFriendsInfo.person7.title} />
+        <XOverFriend image={XOverFriendsInfo.person8.image} name={XOverFriendsInfo.person8.name} title={XOverFriendsInfo.person8.title} />
+      </ScrollView>
+      )}
     </View>
     </ImageBackground>
   );

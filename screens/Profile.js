@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-import { StyleSheet, Text, View, Image, ImageBackground} from 'react-native';
-=======
-import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
->>>>>>> d8e88c371d5e94285a09adec5a93c6b5567867b2
+
+import { StyleSheet, Text, View, Image, Pressable, ImageBackground} from 'react-native';
 import XOverTheme from '../assets/XOverTheme';
 import {useState} from 'react';
 
