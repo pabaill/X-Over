@@ -42,6 +42,8 @@ export default function Projects({navigation, route}) {
 
   const [createModalOpen, setCreateModal] = useState(false);
 
+  const [memberToShow, setMemberToShow] = useState({});
+
   useEffect(() => {
     setModal(route?.params?.openFile ? true : false);
     setModalSearchPhrase(route?.params?.openFile ? route?.params?.openFile : "");
@@ -110,6 +112,28 @@ export default function Projects({navigation, route}) {
     // Page for Single Project
     <View style={{flex: 1, marginTop: 20, marginHorizontal: 10, padding: 20 }}>
       <XOverButton icon={(<FontAwesome name="arrow-left" style={{fontSize: 32 }} />)} pressFunc={() => {navigation.dispatch(CommonActions.setParams({ project: null, openFile: null, user: route.params.user })); route?.params?.source === "Projects" ? navigation.navigate("Projects") : navigation.dispatch(CommonActions.goBack())}} />
+      <Modal 
+        animationType='fade'
+        transparent={true}
+        visible={memberToShow?.name !== undefined}
+        onRequestClose={() => {
+          setMemberToShow(null);
+        }}
+        >
+          <View style={{flex: 1, width: "100%", height: "100%", padding: 10, alignItems: "center", justifyContent: "center", backgroundColor: XOverTheme.bg_blue + "d0"}}>
+            <ScrollView contentContainerStyle={{alignItems: "flex-start", justifyContent: "flex-start", height: "100%"}} style={{ flex: 1, backgroundColor: "white", width: "90%", marginVertical: "50%", borderRadius: 25, padding: 20}}>
+              <XOverButton containerStyles={{marginTop: 20}} icon={(<FontAwesome name="arrow-left" style={{fontSize: 32 }} />)} pressFunc={() => {setMemberToShow(null)}} />
+                <View style={{width: "100%", height: 80, flexDirection: "row", alignItems: "center", marginTop: 20}}>
+                  <Image style={{height: 80, width: 80}} source={memberToShow?.image} />
+                  <View style={{marginLeft: 20}}>
+                    <Text style={{fontFamily: "Kanit_400Regular", fontSize: 24 }}>{memberToShow?.name}</Text>
+                    <Text numberOfLines={2} style={{fontFamily: "Kanit_400Regular", fontSize: 18, width: "100%" }}>{memberToShow?.role} from {memberToShow?.project}</Text>
+                  </View>
+                </View>
+              <Text style={{fontFamily: "Kanit_400Regular", fontSize: 18, alignSelf: "center", marginTop: "15%"}} >Contact me at my email if you'd like to collaborate: {memberToShow?.email}</Text>
+            </ScrollView>
+          </View>
+        </Modal>
       <Modal
       animationType='fade'
       transparent={true}
@@ -229,7 +253,9 @@ export default function Projects({navigation, route}) {
               pagingEnabled={true}
               data={route.params.project.members} 
               renderItem={({item, index}) => (
-                <XOverProfileChip containerStyles={{marginHorizontal: 0}} person={item} key={item.name + index} />
+                <Pressable onPress={() => {setMemberToShow(item)}} >
+                  <XOverProfileChip containerStyles={{marginHorizontal: 0}} person={item} key={item.name + index} />
+                </Pressable>
               )}
             />
           </View>
