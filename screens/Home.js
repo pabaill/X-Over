@@ -60,7 +60,7 @@ export default function Home({navigation, route}) {
               <XOverHeader text={"Updates: "} />
               <View style={{height: "auto"}}>
                 <FlatList
-                  data={currProject.updates}
+                  data={currProject !== undefined ? currProject.updates : []}
                   renderItem={({item, index}) => (
                   <View key={index + item.text + item.link.text} style={{flex: 1, flexDirection: "row", height: 80, marginTop: 20}}>
                     <Image key={item.name + " profile" + index} style={{flex: 1, height: 80, width: 80}} source={currProject.members.find((m) => m.name === item.name).image} />

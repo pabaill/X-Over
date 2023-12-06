@@ -15,8 +15,8 @@ export default function XOverCarousel({navigation, route, changeProgressValue, c
     const data = PROJ_DATA.filter((p) => !memberOnly || p.members.find((m) => m.email === route.params.user.email)).sort((a, b) => a.name.toLowerCase() - b.name.toLowerCase());
 
     useEffect(() => {
-      changeProject(data[0]);
-    }, [data])
+      changeProject(data[progressValue]);
+    }, [data.length]);
 
     let [fontsLoaded] = useFonts({
         Kanit_700Bold
