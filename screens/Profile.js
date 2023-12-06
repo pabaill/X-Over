@@ -34,6 +34,7 @@ export default function Profile({route, navigation}) {
         const newUser = {...route.params.user};
         newUser.image = result.assets[0].uri;
         route.params.setUser(newUser);
+        navigation.jumpTo('Profile', {user: newUser})
     }
   }
 
@@ -54,7 +55,7 @@ export default function Profile({route, navigation}) {
 
       <View style={{flex: 27, flexDirection: 'row', backgroundColor: XOverTheme.bg_blue}}>
         <Pressable style={{height: "50%", width: "50%", marginHorizontal: "25%", backgroundColor: XOverTheme.bg_blue}} onPress={() => {selectImage()}} >
-          <Image style={{height: 200, width: 200}} source={require("./../assets/ProfilePics/Profile-Pic1.png")} />
+          <Image style={{height: 200, width: 200}} source={typeof(route.params.user.image) === "number" ? route.params.user.image : {uri: route.params.user.image}} />
         </Pressable>
       </View>
       <View style={{flex: 2}} />
