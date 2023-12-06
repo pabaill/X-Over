@@ -6,6 +6,7 @@ import {useState} from 'react';
 import { signOut } from 'firebase/auth';
 import {auth} from './../firebase';
 import { TextInput } from 'react-native-gesture-handler';
+import * as ImagePicker from 'expo-image-picker';
 
 export default function Profile({route, navigation}) {
 
@@ -17,6 +18,23 @@ export default function Profile({route, navigation}) {
     const newUser = {...route.params.user};
     newUser[field] = info;
     route.params.setUser(newUser);
+  }
+
+  const selectImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [3, 4],
+        quality: 1,
+    });
+
+    console.log(result)
+
+    if (!result.canceled) {
+        const newUser = {...route.params.user};
+        newUser.image = result.assets[0].uri;
+        route.params.setUser(newUser);
+    }
   }
 
 
@@ -35,15 +53,15 @@ export default function Profile({route, navigation}) {
 
 
       <View style={{flex: 27, flexDirection: 'row', backgroundColor: XOverTheme.bg_blue}}>
-        <View style={{flex: 4}} />
-        <Image style={{flex: 7, height: '100%', width: '10%', backgroundColor: XOverTheme.bg_blue}} source={require("./../assets/ProfilePics/Profile-Pic1.png")} />
-        <View style={{flex: 4}} />
+        <Pressable style={{height: "50%", width: "50%", marginHorizontal: "25%", backgroundColor: XOverTheme.bg_blue}} onPress={() => {selectImage()}} >
+          <Image style={{height: 200, width: 200}} source={require("./../assets/ProfilePics/Profile-Pic1.png")} />
+        </Pressable>
       </View>
       <View style={{flex: 2}} />
 
 
-      <View style={{flex: 11}}>
-        <Text style={[styles.nameText, {lineHeight: 35}]}>{route.params.user.displayName}</Text>
+      <View style={{flex: 15}}>
+        <Text style={[styles.nameText, {lineHeight: 45, paddingTop: 10}]}>{route.params.user.displayName}</Text>
         <View style={{flex: 1}}/>
         <Text style={styles.titleText}>Job Title</Text>
       </View>
@@ -74,27 +92,28 @@ export default function Profile({route, navigation}) {
 
       <View style={{flex: 4, flexDirection: 'row'}}>
         <View style={{flex: 2}} />
-        <Pressable onPress={() => {navigation.jumpTo('Home', {showPinned: true})}}>
-          <Text style={{flex: 5, backgroundColor: 'lightgrey', textAlign: 'center', fontSize: 15, color: 'black', fontFamily: "Kanit_400Regular"}}>Pinned Projects</Text>
-          <View style={{flex: 6, backgroundColor: 'lightgrey'}} />
-          <Image style={{flex: 1, height: '100%', width: '10%', backgroundColor: 'lightgrey'}} source={require("./../assets/Icons/go-to-icon.png")} />
+        <Pressable style={{flex: 12, flexDirection: "row"}} onPress={() => {navigation.jumpTo('Home', {showPinned: true})}}>
+          <Text style={{flex: 5, paddingLeft: 5, backgroundColor: 'lightgrey', fontSize: 15, color: 'black', fontFamily: "Kanit_400Regular"}}>Pinned Projects</Text>
+          <Image style={{flex: 1, height: '100%', width: '10%', backgroundColor: 'lightgrey', resizeMode: "contain"}} source={require("./../assets/Icons/go-to-icon.png")} />
         </Pressable>
         <View style={{flex: 2}} />
       </View>
       <View style={{flex: 3}} />
       <View style={{flex: 4, flexDirection: 'row'}}>
         <View style={{flex: 2}} />
-        <Text style={{flex: 5, backgroundColor: 'lightgrey', textAlign: 'center', fontSize: 15, color: 'black', fontFamily: "Kanit_400Regular"}}>Ongoing Projects</Text>
-        <View style={{flex: 6, backgroundColor: 'lightgrey'}} />
-        <Image style={{flex: 1, height: '100%', width: '10%', backgroundColor: 'lightgrey'}} source={require("./../assets/Icons/go-to-icon.png")} />
+        <Pressable style={{flex: 12, flexDirection: "row"}} onPress={() => {navigation.jumpTo('Home', {showPinned: true})}}>
+          <Text style={{flex: 5, paddingLeft: 5, backgroundColor: 'lightgrey', fontSize: 15, color: 'black', fontFamily: "Kanit_400Regular"}}>Ongoing Projects</Text>
+          <Image style={{flex: 1, height: '100%', width: '10%', backgroundColor: 'lightgrey', resizeMode: "contain"}} source={require("./../assets/Icons/go-to-icon.png")} />
+        </Pressable>
         <View style={{flex: 2}} />
       </View>
       <View style={{flex: 3}} />
       <View style={{flex: 4, flexDirection: 'row'}}>
         <View style={{flex: 2}} />
-        <Text style={{flex: 5, backgroundColor: 'lightgrey', textAlign: 'center', fontSize: 15, color: 'black', fontFamily: "Kanit_400Regular"}}>Linked Devices</Text>
-        <View style={{flex: 6, backgroundColor: 'lightgrey'}} />
-        <Image style={{flex: 1, height: '100%', width: '10%', backgroundColor: 'lightgrey'}} source={require("./../assets/Icons/go-to-icon.png")} />
+        <Pressable style={{flex: 12, flexDirection: "row"}} onPress={() => {navigation.jumpTo('Home', {showPinned: true})}}>
+          <Text style={{flex: 5, paddingLeft: 5, backgroundColor: 'lightgrey', fontSize: 15, color: 'black', fontFamily: "Kanit_400Regular"}}>Linked Devices</Text>
+          <Image style={{flex: 1, height: '100%', width: '10%', backgroundColor: 'lightgrey', resizeMode: "contain"}} source={require("./../assets/Icons/go-to-icon.png")} />
+        </Pressable>
         <View style={{flex: 2}} />
       </View>
       <View style={{flex: 9}} />
