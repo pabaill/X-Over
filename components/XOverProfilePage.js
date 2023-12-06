@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Image, ImageBackground} from 'react-native';
 import XOverTheme from '../assets/XOverTheme';
 import {useState} from 'react';
 
-export default function Profile(image, name, title) {
+export default function Profile(image, name, title, phone, email) {
   return (
     <ImageBackground imageStyle={{opacity: .1}} style={{height: "100%"}} source={require('./../assets/comic_dots.jpg')} >
     <View style={{flex: 1}}>
@@ -34,7 +34,7 @@ export default function Profile(image, name, title) {
         <View style={{flex: 2.5}} />
         <Image style={{flex: 1, height: '100%', width: '10%'}} source={require("./../assets/Icons/phone-icon.png")} />
         <View style={{flex: .5}} />
-        <Text style={{flex: 6, backgroundColor: XOverTheme.bg_blue, textAlign: 'center', fontSize: 15, color: 'white', fontFamily: "Kanit_400Regular"}}>XXX-XXX-XXXX</Text>
+        <Text style={{flex: 6, backgroundColor: XOverTheme.bg_blue, textAlign: 'center', fontSize: 15, color: 'white', fontFamily: "Kanit_400Regular"}}>{phone}</Text>
         <View style={{flex: 4, backgroundColor: XOverTheme.bg_blue}} />
         <View style={{flex: 2}} />
       </View>
@@ -44,7 +44,7 @@ export default function Profile(image, name, title) {
       <View style={{flex: 2.5}} />
         <Image style={{flex: 1, height: '100%', width: '10%'}} source={require("./../assets/Icons/message-icon.jpeg")} />
         <View style={{flex: .5}} />
-        <Text style={{flex: 6, backgroundColor: XOverTheme.bg_blue, textAlign: 'center', fontSize: 15, color: 'white', fontFamily: "Kanit_400Regular"}}>XXX-XXX-XXXX</Text>
+        <Text style={{flex: 6, backgroundColor: XOverTheme.bg_blue, textAlign: 'center', fontSize: 15, color: 'white', fontFamily: "Kanit_400Regular"}}>{phone}</Text>
         <View style={{flex: 4, backgroundColor: XOverTheme.bg_blue}} />
         <View style={{flex: 2}} />
       </View>
@@ -54,7 +54,7 @@ export default function Profile(image, name, title) {
       <View style={{flex: 2.5}} />
         <Image style={{flex: 1, height: '100%', width: '10%'}} source={require("./../assets/Icons/email-icon.jpeg")} />
         <View style={{flex: .5}} />
-        <Text style={{flex: 7, backgroundColor: XOverTheme.bg_blue, textAlign: 'center', fontSize: 15, color: 'white', fontFamily: "Kanit_400Regular"}}>{name}@email.com</Text>
+        <Text style={{flex: 7, backgroundColor: XOverTheme.bg_blue, textAlign: 'center', fontSize: 15, color: 'white', fontFamily: "Kanit_400Regular"}}>{email}</Text>
         <View style={{flex: 3, backgroundColor: XOverTheme.bg_blue}} />
         <View style={{flex: 2}} />
       </View>
