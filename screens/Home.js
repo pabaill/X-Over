@@ -63,7 +63,7 @@ export default function Home({navigation, route}) {
                   data={currProject.updates}
                   renderItem={({item, index}) => (
                   <View key={index + item.text + item.link.text} style={{flex: 1, flexDirection: "row", height: 80, marginTop: 20}}>
-                    <Image key={item.name + " profile" + index} style={{flex: 1, height: "85%", width: "auto", marginRight: 10}} source={require("./../assets/default_profile.png")} />
+                    <Image key={item.name + " profile" + index} style={{flex: 1, height: 80, width: 80}} source={currProject.members.find((m) => m.name === item.name).image} />
                     <ImageBackground key={item.text + " bubble" + index} style={[styles.bubble, {flex: 4 }]} source={require("./../assets/X-Over-Bubble.png")}>
                       <Text style={{position: "absolute", fontFamily: "Kanit_400Regular", textAlign: "right", right: 20, top: 5}}>{item.time.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}</Text>
                       <Text style={{marginLeft: 40, marginTop: 5, fontFamily: "Kanit_400Regular", fontSize: 18, lineHeight: 24}}>{item.name}</Text>

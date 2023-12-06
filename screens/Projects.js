@@ -240,7 +240,7 @@ export default function Projects({navigation, route}) {
           {route.params.project.members.find((m) => m.email === route.params.user.email) ? (<View style={styles.projElem}>
             <XOverHeader textStyles={styles.subheaders} wide={false} text={"Recent Updates"} />
             <View key={route.params.project.updates[0].text + route.params.project.updates[0].link.text} style={{flex: 1, flexDirection: "row", height: "auto", marginTop: 10}}>
-              <Image key={route.params.project.updates[0].name + " profile"} style={{flex: 1, height: "80%", width: "auto", resizeMode: "contain"}} source={require("./../assets/default_profile.png")} />
+              <Image key={route.params.project.updates[0].name + " profile"} style={{flex: 1, height: "80%", width: "auto", resizeMode: "contain"}} source={route.params.project.members.find((m) => m.name === route.params.project.updates[0].name).image} />
               <ImageBackground key={route.params.project.updates[0].text + " bubble"} style={[styles.bubble, {flex: 4}]} source={require("./../assets/X-Over-Bubble.png")}>
                 <Text style={{position: "absolute", fontFamily: "Kanit_400Regular", textAlign: "right", right: 20, top: 5}}>{route.params.project.updates[0].time.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}</Text>
                 <Text style={{marginLeft: 40, marginTop: 5, fontFamily: "Kanit_400Regular", fontSize: 18, lineHeight: 24}}>{route.params.project.updates[0].name}</Text>
@@ -250,7 +250,7 @@ export default function Projects({navigation, route}) {
             </View>
           </View>) : (
             route.params.project.isPublic && <XOverButton containerStyles={{alignSelf: "center", marginTop: 20}} buttonStyles={{alignSelf: "center"}} pressFunc={() => {
-              PROJ_DATA[PROJ_DATA.indexOf(route.params.project)].members.push({name: "(You)", pronouns: "they/them", role: "Team Member", email: route.params.user.email, image: require("./../assets/default_profile.png")});
+              PROJ_DATA[PROJ_DATA.indexOf(route.params.project)].members.push({name: route.params.user.displayName, pronouns: "they/them", role: "Team Member", email: route.params.user.email, image: route.params.user.image});
               navigation.jumpTo("Projects", {project: route.params.project, source: route.params.source, user: route.params.user})
             }} text={'Join X-Over'} />
           )}

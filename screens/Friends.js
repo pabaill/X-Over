@@ -1,24 +1,41 @@
-import { StyleSheet, Text, View, ImageBackground, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, ScrollView, Pressable } from 'react-native';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import { useState } from 'react';
 import XOverTheme from '../assets/XOverTheme';
 import XOverFriend from '../components/XOverFriend';
 import XOverSearch from '../components/XOverSearch';
 import XOverFriendsInfo from '../assets/XOverFriendsInfo';
+import { FlatList } from 'react-native-gesture-handler';
+import PROJ_DATA from './../assets/mock_data';
 
-export default function Friends() {
+export default function Friends({navigation}) {
   const [selectedIndex, changeIndex] = useState(0);
   
   const [searchPhrase, setSearchPhrase] = useState("");
-  const getRelevantProjects = () => {
-    return PROJ_DATA.filter((project) => project.name.toLowerCase().includes(searchPhrase.toLowerCase()) || project.tags.filter((tag) => tag.toLowerCase().includes(searchPhrase.toLowerCase())).length > 0);
-  }
+  // const getRelevantProjects = () => {
+  //   return PROJ_DATA.filter((project) => project.name.toLowerCase().includes(searchPhrase.toLowerCase()) || project.tags.filter((tag) => tag.toLowerCase().includes(searchPhrase.toLowerCase())).length > 0);
+  // }
   const [searchClicked, setClicked] = useState(false);
   const [showProjectList, setShowProjectList] = useState(false);
-  const completeSearchFn = (phrase) => {
-    setSearchPhrase(phrase);
-    setShowProjectList(true);
-  }
+  // const completeSearchFn = (phrase) => {
+  //   setSearchPhrase(phrase);
+  //   setShowProjectList(true);
+  // }
+
+  const getMembers = () => {
+    let union = []
+    PROJ_DATA.forEach((project) => {
+      project.members.forEach((m) => {
+        if (!union.find((x) => x.email === m.email)) {
+          m.role = [m.role.toString()];
+          union.push(m);
+        } else {
+          union[union.findIndex((x) => x.email === m.email )].role.push(m.role);
+        }
+      })
+    })
+    return union.sort((a, b) => a.name - b.name);
+  };
   
   
   return (
@@ -38,14 +55,20 @@ export default function Friends() {
       <XOverSearch setShowProjectList={setShowProjectList} clicked={searchClicked} setClicked={setClicked} searchPhrase={searchPhrase} setSearchPhrase={setSearchPhrase} />
       {selectedIndex === 0 ? (
       <ScrollView style={{padding: 10}}>
-        <XOverFriend image={XOverFriendsInfo.person9.image} name={XOverFriendsInfo.person9.name} title={XOverFriendsInfo.person9.title} />
+        <FlatList
+          data={getMembers()}
+          renderItem={({item, index}) => (
+            <XOverFriend image={item.image} name={item.name} roles={item.role} />
+          )}
+          />
+        {/* <XOverFriend image={XOverFriendsInfo.person9.image} name={XOverFriendsInfo.person9.name} title={XOverFriendsInfo.person9.title} />
         <XOverFriend image={XOverFriendsInfo.person10.image} name={XOverFriendsInfo.person10.name} title={XOverFriendsInfo.person10.title} />
         <XOverFriend image={XOverFriendsInfo.person11.image} name={XOverFriendsInfo.person11.name} title={XOverFriendsInfo.person11.title} />
         <XOverFriend image={XOverFriendsInfo.person12.image} name={XOverFriendsInfo.person12.name} title={XOverFriendsInfo.person12.title} />
         <XOverFriend image={XOverFriendsInfo.person13.image} name={XOverFriendsInfo.person13.name} title={XOverFriendsInfo.person13.title} />
         <XOverFriend image={XOverFriendsInfo.person14.image} name={XOverFriendsInfo.person14.name} title={XOverFriendsInfo.person14.title} />
         <XOverFriend image={XOverFriendsInfo.person15.image} name={XOverFriendsInfo.person15.name} title={XOverFriendsInfo.person15.title} />
-        <XOverFriend image={XOverFriendsInfo.person16.image} name={XOverFriendsInfo.person16.name} title={XOverFriendsInfo.person16.title} />
+        <XOverFriend image={XOverFriendsInfo.person16.image} name={XOverFriendsInfo.person16.name} title={XOverFriendsInfo.person16.title} /> */}
       </ScrollView>
       ) : (
         <ScrollView style={{padding: 10}}>
@@ -65,3 +88,31 @@ export default function Friends() {
 }
 
 
+const styles = StyleSheet.create({
+  container: {
+    width: "100%",
+    height: 80,
+    marginVertical: 10,
+    borderRadius: 20,
+    padding: 10
+  },
+  text: {
+    fontFamily: "Kanit_400Regular"
+  },
+  proj_name: {
+      fontSize: 18,
+      width: "80%"
+  },
+  description: {
+      fontSize: 12,
+      width: "60%"
+  },
+  profile: {
+      height: 20, 
+      width: 20, 
+      marginHorizontal: 5,
+      bottom: 0,
+      right: 0
+  },
+  shadow: {backgroundColor: "black", width: "auto", alignSelf: "flex-start"}
+})

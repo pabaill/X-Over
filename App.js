@@ -31,7 +31,7 @@ export default function App() {
     const unsubscribe = auth.onAuthStateChanged(u => {
       if (u) {
         u.displayName = (u.displayName) ? u.displayName : u.email.substring(0, u.email.indexOf('@'));
-        u.pronouns = "unset pronouns";
+        u.pronouns = "they/them";
         u.image = u.photoURL ? u.photoURL : require("./assets/default_profile.png");
         setUser(u);
       } else {

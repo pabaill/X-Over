@@ -1,5 +1,5 @@
 import Carousel from 'react-native-reanimated-carousel';
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { Pressable, View, Text, Image } from 'react-native';
 import PROJ_DATA from './../assets/mock_data';
 import XOverTheme from '../assets/XOverTheme';
@@ -12,7 +12,12 @@ export default function XOverCarousel({navigation, route, changeProgressValue, c
 
     const width = Dimensions.get('window').width;
 
-    const data = PROJ_DATA.filter((p) => !memberOnly || p.members.find((m) => m.email === route.params.user.email)).sort((a, b) => a.name.toLowerCase() - b.name.toLowerCase())
+    const data = PROJ_DATA.filter((p) => !memberOnly || p.members.find((m) => m.email === route.params.user.email)).sort((a, b) => a.name.toLowerCase() - b.name.toLowerCase());
+
+    useEffect(() => {
+      changeProgressValue(0);
+      changeProject(data[0]);
+    }, [data])
 
     let [fontsLoaded] = useFonts({
         Kanit_700Bold

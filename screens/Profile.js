@@ -23,9 +23,9 @@ export default function Profile({route}) {
   return (
     <ImageBackground imageStyle={{opacity: .1}} style={{height: "100%"}} source={require('./../assets/comic_dots.jpg')} >
     <View style={{flex: 1}}>
-      <View style={{flex: 7, backgroundColor: XOverTheme.bg_blue}}>
-        <Pressable style={{position: "absolute", paddingTop: 20, left: 20}} onPress={() => {signOut(auth)}}>
-          <Text style={[styles.settingsText, {}]}>Logout</Text>
+      <View style={{flex: 8, backgroundColor: XOverTheme.bg_blue}}>
+        <Pressable hitSlop={20} style={{position: "absolute", paddingTop: 30, left: 20}} onPress={() => {console.log("signout"); signOut(auth)}}>
+          <Text style={styles.settingsText}>Logout</Text>
         </Pressable>
       </View>
       <View style={{flex: 10, flexDirection: 'row', width: "100%"}}>
