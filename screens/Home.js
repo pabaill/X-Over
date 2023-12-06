@@ -47,7 +47,7 @@ export default function Home({navigation, route}) {
             values={['Recent', 'Pinned']}
             selectedIndex={selectedIndex}
             backgroundColor={XOverTheme.bg_blue}
-            tintColor={XOverTheme.base_orange}
+            tintColor={'white'}
             fontStyle={{color: 'white'}}
             activeFontStyle={{color: 'black'}}
             onChange={(event) => {

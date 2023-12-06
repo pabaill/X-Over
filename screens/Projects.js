@@ -292,9 +292,7 @@ export default function Projects({navigation, route}) {
             values={['All', 'My Projects']}
             selectedIndex={selectedIndex}
             backgroundColor={XOverTheme.bg_blue}
-            tintColor={XOverTheme.base_orange}
-            fontStyle={{color: 'white'}}
-            activeFontStyle={{color: 'black'}}
+            tintColor={'white'}
             onChange={(event) => {
               changeIndex(event.nativeEvent.selectedSegmentIndex);
             }}

@@ -73,9 +73,7 @@ export default function Friends({navigation}) {
             values={['Friends', 'Suggestions']}
             selectedIndex={selectedIndex}
             backgroundColor={XOverTheme.bg_blue}
-            tintColor={XOverTheme.base_orange}
-            fontStyle={{color: 'white'}}
-            activeFontStyle={{color: 'black'}}
+            tintColor={'white'}
             onChange={(event) => {
               changeIndex(event.nativeEvent.selectedSegmentIndex);
             }}
