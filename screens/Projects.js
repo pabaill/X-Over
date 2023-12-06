@@ -344,7 +344,7 @@ export default function Projects({navigation, route}) {
                 >
                   <XOverCreate setCreateModal={setCreateModal} navigation={navigation} route={route} />
                 </Modal>
-                <XOverHeader containerStyles={{marginBottom: "20%"}} wide={false} text={"For You"} />
+                <XOverHeader containerStyles={{marginTop: "20%"}} wide={false} text={"For You"} />
                 <XOverCarousel source={"Projects"} navigation={navigation} changeProgressValue={changeProgressValue} changeProject={changeProject} progressValue={progressValue} />
                 <XOverButton containerStyles={{alignSelf: "center", position: "absolute", bottom: 20}} pressFunc={() => {setCreateModal(true)}} text={"Create Your X-Over"} buttonStyles={{width: "auto"}} />
               </View>
